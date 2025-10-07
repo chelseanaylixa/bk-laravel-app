@@ -1,0 +1,77 @@
+/* Container utama */
+.chat-container {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #f0f0f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Kotak chat */
+#chat-box {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+/* Setiap pesan */
+.message {
+    display: flex;
+    margin: 10px 0;
+}
+
+/* Pesan user (kanan, hijau) */
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.user .bubble {
+    background: #dcf8c6;
+    color: #000;
+    border-radius: 15px 15px 0 15px;
+    padding: 10px 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+/* Pesan AI (kiri, putih) */
+.message.ai {
+    justify-content: flex-start;
+}
+
+.message.ai .bubble {
+    background: #fff;
+    color: #000;
+    border-radius: 15px 15px 15px 0;
+    padding: 10px 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Input chat */
+.input-box {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.input-box button {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-left: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
