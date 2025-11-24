@@ -174,20 +174,6 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </form>
-
-                {{-- Pembatas "atau" --}}
-                <div class="divider">
-                    <span>atau</span>
-                </div>
-
-                {{-- Tombol Login dengan Google --}}
-                <div class="d-grid">
-                    <a href="{{ route('login.google') }}" class="btn btn-google">
-                        <i class="fab fa-google me-2"></i> Login dengan Google
-                    </a>
-                </div>
-            </div>
-        </div>
         <div class="login-footer">
             &copy; 2025 Sistem Sekolah. All rights reserved.
         </div>
