@@ -2,23 +2,49 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Kasus;
 
 class Siswa extends Model
 {
-    use HasFactory;
-
+    protected $table = 'siswa';
     protected $fillable = [
-        'nama',
+        'user_id',
+        'nama_lengkap',
         'nis',
-        'kelas',
-        'jurusan',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'alamat',
     ];
 
-    // Relasi ke perkembangan siswa
-    public function perkembangan()
+    /**
+     * Get the user associated with this siswa.
+     */
+    public function user(): BelongsTo
     {
-        return $this->hasMany(PerkembanganSiswa::class, 'siswa_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get all kasus for this siswa.
+     */
+    public function kasus(): HasMany
+    {
+        return $this->hasMany(Kasus::class, 'siswa_id');
+    }
+
+    /**
+     * Get total poin for this siswa.
+     */
+    public function getTotalPoin()
+    {
+        return Kasus::where('siswa_id', $this->id)
+            ->with('pelanggaran')
+            ->get()
+            ->sum(function ($kasus) {
+                return $kasus->pelanggaran->jumlah_poin ?? 0;
+            });
     }
 }

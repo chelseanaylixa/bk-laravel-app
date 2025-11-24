@@ -5,38 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Kasus;
-use App\Models\ArsipKelulusan;
-use App\Models\PerkembanganSiswa;
+
 
 class DashboardController extends Controller
 {
-    /**
-     * Dashboard khusus siswa (menampilkan kasus, perkembangan, arsip).
-     */
-    public function siswaDashboard()
-    {
-        $kasus = Kasus::latest()->get();
-        $perkembangan = PerkembanganSiswa::latest()->get();
-        $arsip = ArsipKelulusan::latest()->get();
-
-        return view('dashboard-siswa', compact('kasus', 'perkembangan', 'arsip'));
-    }
-
-    /**
-     * Dashboard default (untuk admin & guru BK).
-     */
-    public function index()
-    {
-        $arsipKelulusan = [];
-        $user = Auth::user();
-
-        if ($user && in_array($user->role, ['admin', 'guru_bk'])) {
-            $arsipKelulusan = ArsipKelulusan::all();
-        }
-
-        return view('dashboard', compact('arsipKelulusan'));
-    }
-
     /**
      * Menampilkan dashboard sesuai peran pengguna.
      */

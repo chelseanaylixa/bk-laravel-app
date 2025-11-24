@@ -10,9 +10,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 // Tambahkan HasRoles
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Siswa;
+
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'parent_id',
     ];
 
     /**
@@ -44,6 +49,52 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get all kasus for this siswa.
+     */
+    public function kasus(): HasMany
+    {
+        return $this->hasMany(Kasus::class, 'siswa_id');
+    }
+
+    /**
+     * Get the siswa record for this user (if any).
+     */
+    public function siswa(): HasOne
+    {
+        return $this->hasOne(Siswa::class, 'user_id');
+    }
+
+    /**
+     * Get all kasus recorded by this guru.
+     */
+    public function kasusAsGuru(): HasMany
+    {
+        return $this->hasMany(Kasus::class, 'guru_id');
+    }
+
+    /**
+     * Get total poin for this siswa.
+     */
+    public function getTotalPoin()
+    {
+        // If this user has a siswa record, use its helper; otherwise try to sum from kasus relation.
+        if ($this->relationLoaded('siswa') || $this->siswa) {
+            try {
+                return $this->siswa->getTotalPoin();
+            } catch (\Throwable $e) {
+                // fallback to direct sum if something unexpected occurs
+            }
+        }
+
+        // Fallback: try summing a 'poin' column if present on related kasus
+        try {
+            return $this->kasus()->sum('poin');
+        } catch (\Throwable $e) {
+            return 0;
+        }
+    }
 
     /**
      * Cek apakah pengguna memiliki peran tertentu.

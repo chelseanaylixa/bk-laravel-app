@@ -10,13 +10,22 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    // Tampilkan form login
+    /**
+     * Tampilkan form login.
+     *
+     * @return \Illuminate\View\View
+     */
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Proses login
+    /**
+     * Proses login standar dengan email dan password.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -30,13 +39,8 @@ class LoginController extends Controller
             $user = Auth::user();
             $role = $user->role;
 
-            // Admin & Guru BK
-            if (in_array($role, ['admin', 'guru_bk'])) {
-                return redirect()->route('dashboard');
-            }
-
-            // Siswa, Wali, Guru Mapel, Kepala Sekolah
-            if (in_array($role, ['siswa', 'wali_kelas', 'kepala_sekolah', 'wali_murid', 'guru_mapel'])) {
+            // Redirect berdasarkan role pengguna
+            if (in_array($role, ['admin', 'guru_bk', 'siswa', 'wali_kelas', 'kepala_sekolah', 'wali_murid', 'guru_mapel'])) {
                 return redirect()->route('dashboard');
             }
         }
@@ -46,12 +50,21 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    // Login dengan Google
+    /**
+     * Redirect pengguna ke halaman otentikasi Google.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
+    /**
+     * Tangani callback dari Google setelah otentikasi.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function handleGoogleCallback()
     {
         try {
@@ -69,13 +82,73 @@ class LoginController extends Controller
             Auth::login($user, true);
 
             return redirect()->route('dashboard');
+
         } catch (\Exception $e) {
+            // Log the error if necessary
+            // \Log::error('Google login failed: ' . $e->getMessage()); 
+
             return redirect()->route('login')
                 ->with('error', 'Login Google gagal. Silakan coba lagi.');
         }
     }
 
-    // Logout
+    /**
+     * Tampilkan form untuk input kode OTP (Asumsi: ada view 'auth.verify_otp').
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showOtpForm()
+    {
+        // Pastikan pengguna sudah login dan belum terverifikasi
+        if (Auth::check() && !Auth::user()->email_verified_at) {
+            return view('auth.verify_otp');
+        }
+
+        return redirect()->route('dashboard');
+    }
+
+    /**
+     * Proses verifikasi kode OTP.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function verifyOtp(Request $request)
+    {
+        // Memastikan pengguna terautentikasi untuk verifikasi
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $request->validate([
+            'otp' => ['required', 'string', 'digits:6'], // Asumsi OTP 6 digit
+        ]);
+
+        $user = Auth::user();
+
+        // Cek apakah OTP yang dimasukkan benar
+        if ($request->otp === $user->otp) {
+            // Verifikasi berhasil
+            $user->email_verified_at = now();
+            $user->otp = null; // Hapus kode OTP
+            $user->save();
+
+            // Beri notifikasi sukses dan arahkan ke dashboard siswa
+            return redirect()->route('siswa.dashboard')->with('status', 'Akun berhasil diverifikasi!');
+        }
+
+        // OTP tidak cocok
+        return back()->withErrors([
+            'otp' => 'Kode verifikasi tidak valid.',
+        ])->onlyInput('otp');
+    }
+
+    /**
+     * Logout pengguna.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -85,7 +158,11 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
-    // Redirect bawaan (opsional, kalau dipakai)
+    /**
+     * Path redirect default setelah login (opsional).
+     *
+     * @return string
+     */
     protected function redirectPath()
     {
         return route('dashboard');

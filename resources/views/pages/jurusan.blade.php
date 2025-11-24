@@ -345,15 +345,13 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">
-                <h1>Data Kelas</h1>
+                <h1>Data Kelas dan Jurusan</h1>
                 <div class="user-info">
-                    <p>Selamat Datang</p>
                 </div>
             </div>
             
             <!-- Class Information -->
             <div class="card">
-                <h2>Data Kelas dan Jurusan</h2>
                 <div class="class-info">
                     <div class="class-card" onclick="showNotification('Kelas X dipilih')">
                         <h3>Kelas X</h3>

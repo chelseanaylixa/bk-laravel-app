@@ -93,21 +93,17 @@
             color: #777;
             font-size: 14px;
         }
-        .password-container {
-            position: relative;
-        }
-        .password-toggle {
+        /* CSS yang terkait toggle password bisa dihapus karena sudah diatasi Bootstrap, 
+           tapi saya biarkan jika Anda ingin menambahkan styling tambahan pada ikon */
+        .password-toggle { 
             cursor: pointer;
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
             color: #6c757d;
             transition: color 0.3s;
         }
         .password-toggle:hover {
             color: var(--primary-color);
         }
+        /* Bagian CSS lainnya */
         .otp-container {
             display: none;
         }
@@ -137,92 +133,89 @@
             <h2><i class="fas fa-graduation-cap me-2"></i>Sistem Sekolah</h2>
             <p class="mb-0">Masuk ke akun Anda</p>
         </div>
-<div class="login-body">
-    <div id="loginForm">
-        <div class="mb-4 text-center">
-            <h4>Selamat Datang</h4>
-            <p class="text-muted">Silakan masuk dengan akun Anda</p>
+        <div class="login-body">
+            <div id="loginForm">
+                <div class="mb-4 text-center">
+                    <h4>Selamat Datang</h4>
+                    <p class="text-muted">Silakan masuk dengan akun Anda</p>
+                </div>
+
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif  
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    {{-- Input Email --}}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" required autofocus>
+                    </div>
+
+                    {{-- **Input Kata Sandi (Diperbaiki)** --}}
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Kata Sandi</label>
+                        <div class="input-group">
+                            <input id="password" type="password" name="password" class="form-control" autocomplete="current-password" required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" title="Tampilkan/Sembunyikan Kata Sandi">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Tombol Login --}}
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+
+                {{-- Pembatas "atau" --}}
+                <div class="divider">
+                    <span>atau</span>
+                </div>
+
+                {{-- Tombol Login dengan Google --}}
+                <div class="d-grid">
+                    <a href="{{ route('login.google') }}" class="btn btn-google">
+                        <i class="fab fa-google me-2"></i> Login dengan Google
+                    </a>
+                </div>
+            </div>
         </div>
-
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif  
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            {{-- Input Email --}}
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" required autofocus>
-            </div>
-
-{{-- Input Kata Sandi --}}
-<div class="mb-3">
-    <label for="password" class="form-label">Kata Sandi</label>
-    <div class="input-group">
-        <input id="password" type="password" name="password" class="form-control" autocomplete="current-password" required>
-        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-            <i class="fas fa-eye"></i>
-        </button>
-    </div>
-</div>
-            
-            {{-- Pilihan Peran --}}
-            <div class="mb-4">
-                <label for="role" class="form-label">Pilih Peran</label>
-                <select id="role" name="role" class="form-select" required>
-                    <option value="siswa">Siswa</option>
-                    <option value="wali_kelas">Wali Kelas</option>
-                    <option value="wali_murid">Wali Murid</option>
-                    <option value="guru_mapel">Guru Mapel</option>
-                    <option value="kepala_sekolah">Kepala Sekolah</option>
-                    <option value="guru_bk">Guru BK</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-
-            {{-- Tombol Login --}}
-            <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </form>
-
-        {{-- Pembatas "atau" --}}
-        <div class="divider">
-            <span>atau</span>
+        <div class="login-footer">
+            &copy; 2025 Sistem Sekolah. All rights reserved.
         </div>
-
-        {{-- Tombol Login dengan Google --}}
-        <div class="d-grid">
-            <a href="{{ route('login.google') }}" class="btn btn-google">
-                <i class="fab fa-google me-2"></i> Login dengan Google
-            </a>
-        </div>
-    </div>
-</div>
     </div>
     
     <script>
-        // Fungsi untuk menampilkan/menyembunyikan kata sandi
-        function togglePasswordVisibility() {
+        // Memastikan kode dieksekusi setelah semua elemen HTML dimuat
+        document.addEventListener('DOMContentLoaded', function() {
             const passwordInput = document.getElementById('password');
-            const passwordToggle = document.querySelector('.password-toggle');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordToggle.classList.remove('fa-eye');
-                passwordToggle.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                passwordToggle.classList.remove('fa-eye-slash');
-                passwordToggle.classList.add('fa-eye');
+            const toggleButton = document.getElementById('togglePassword');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (passwordInput && toggleButton && toggleIcon) {
+                // Menambahkan event listener ke tombol saat diklik
+                toggleButton.addEventListener('click', function() {
+                    // Logika untuk menampilkan/menyembunyikan kata sandi
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        toggleIcon.classList.remove('fa-eye'); // Hapus ikon mata terbuka
+                        toggleIcon.classList.add('fa-eye-slash'); // Tambah ikon mata tertutup
+                    } else {
+                        passwordInput.type = 'password';
+                        toggleIcon.classList.remove('fa-eye-slash'); // Hapus ikon mata tertutup
+                        toggleIcon.classList.add('fa-eye'); // Tambah ikon mata terbuka
+                    }
+                });
             }
-        }
+        });
     </script>
 </body>
 </html>

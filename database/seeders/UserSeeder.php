@@ -112,5 +112,68 @@ class UserSeeder extends Seeder
         ]);
         $siswa->assignRole($siswaRole);
         $siswa->update(['role' => $siswaRole['name']]);
+
+        // --- Tambahkan semua siswa dari data hardcoded ---
+        $studentsList = [
+            "ACHMAD DEVANI RIZQY PRATAM",
+            "AFRIZAL DANI FERDIANSYAH",
+            "AHMAD ZAKY FAZA",
+            "ANDHI LUKMAN SYAH TIAHION",
+            "BRYAN ANDRIY SHEVCENKO",
+            "CATHERINE ABIGAIL APRILLIA CA",
+            "CHELSEA NAYLIKA AZKA",
+            "DAFFA MAULANA WILAYA",
+            "DENICO TUESDY DESMANA",
+            "DILAN ALAUDIN AMRU",
+            "DIMAS SATRYA IRAWAN",
+            "FADHIL SURYA BUANA",
+            "FAIS FAISHAL HAKIM",
+            "FAREL DWI NUGROHO",
+            "FARDAN HABIBI",
+            "FATCHUR ROCHMAN",
+            "GALANG ARIVIANTO",
+            "HANIFA MAULITA ZAHRA SAFFU",
+            "KENZA EREND PUTRA TAMA",
+            "KHOFIFI AKBAR INDRATAMA",
+            "LUBNA AQUILA SALSABIL",
+            "M. AZRIEL ANHAR",
+            "MARCHELIN EKA FRIANTISA",
+            "MAULANA RIDHO RAMADHAN",
+            "MOCH. DICKY KURNIAWAN",
+            "MOCHAMMAD ALIF RIZKY FADH",
+            "MOCHAMMAD FAJRI HARIANTO",
+            "MOCHAMMAD VALLEN NUR RIZ",
+            "MOH. WIJAYA ANDIKA SAPUTRA",
+            "MUHAMAD FATHUL HADI",
+            "MUHAMMAD FAIRUZ ZAIDAN",
+            "MUHAMMAD IDRIS",
+            "MUHAMMAD MIKAIL KAROMAT",
+            "MUHAMMAD RAFIUDDIN AL-A",
+            "NASRULLAH AL AMIN",
+            "NOVAN WAHYU HIDAYAT",
+            "NUR AVIVAH MAULID DIAH",
+            "QODAMA MAULANA YUSUF",
+            "RASSYA RAJA ISLAMI NOVEANSY",
+            "RAYHAN ALIF PRATAMA",
+            "RENDI SATRIA NUGROHO WICA",
+            "RESTU CANDRA NOVIANTO",
+            "RONI KURNIASANDY",
+            "SATRYA PRAMUDYA ANANDITA"
+        ];
+
+        foreach ($studentsList as $index => $studentName) {
+            $email = strtolower(str_replace(' ', '.', $studentName)) . '@siswa.smk.sch.id';
+            
+            $studentUser = User::firstOrCreate(
+                ['email' => $email],
+                [
+                    'name' => $studentName,
+                    'password' => Hash::make('password123'),
+                    'role' => 'siswa',
+                ]
+            );
+            
+            $studentUser->assignRole($siswaRole);
+        }
     }
 }

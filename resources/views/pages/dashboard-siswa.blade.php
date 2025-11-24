@@ -664,21 +664,10 @@
     <i class="fas fa-comments"></i>
     <span>Curhat Guru</span>
 </a>
-            <a href="{{ route('perkembangan.index') }}" class="menu-item">
-                <i class="fas fa-chart-line"></i>
-                <span>Perkembangan</span>
-            </a>
-<a href="{{ route('curhat.ai') }}" class="menu-item">
+<a href="http://localhost:3000/" target="_blank" class="menu-item">
     <i class="fas fa-robot"></i>
     <span>Curhat AI</span>
 </a>
-
-<a href="{{ route('arsip.lulusan') }}" class="menu-item">
-    <i class="fas fa-archive"></i>
-    <span>Arsip Kelulusan</span>
-</a>
-
-
         </nav>
         
         @if (Auth::check() && in_array(Auth::user()->role, ['admin', 'guru_bk']))
@@ -700,18 +689,6 @@
                     <i class="fas fa-user-lock"></i>
                     <span>Kelola Pelanggaran</span>
                 </a>
-                <a href="{{ route('lihat.laporan') }}" class="menu-item">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Lihat Laporan</span>
-                </a>
-                <a href="{{ route('chat.siswa') }}" class="menu-item">
-                    <i class="fas fa-inbox"></i>
-                    <span>Kotak Masuk Curhatan</span>
-                </a>
-                <a href="{{ route('kelola.kenaikan.kelulusan') }}" class="menu-item">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Kenaikan & Kelulusan</span>
-                </a>
             </nav>
             
             <h2>Kelola Data Siswa</h2>
@@ -727,32 +704,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Loop data siswa di sini --}}
-                    <tr>
-                        <td>1</td>
-                        <td>Budi Santoso</td>
-                        <td>12345</td>
-                        <td>XII-A</td>
-                        <td>Teknik Komputer & Jaringan</td>
-                        <td class="action-buttons">
-                            <button>Kenaikan Kelas</button>
-                            <button>Arsipkan (Lulus)</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Siti Rahmawati</td>
-                        <td>12346</td>
-                        <td>XI-B</td>
-                        <td>Akuntansi & Keuangan Lembaga</td>
-                        <td class="action-buttons">
-                            <button>Kenaikan Kelas</button>
-                            <button>Arsipkan (Lulus)</button>
-                        </td>
-                    </tr>
-                    {{-- End loop --}}
-                </tbody>
-            </table>
 
 <h2>Kelola Kasus</h2>
 <table class="data-table">
@@ -786,33 +737,6 @@
     </tbody>
 </table>
 
-<h2>Arsip Data Kelulusan</h2>
-<table class="data-table">
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>Nama</th>
-            <th>NIS</th>
-            <th>Tahun Lulus</th>
-            <th>Jurusan</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse($arsip as $index => $a)
-        <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ $a->nama_siswa }}</td>
-            <td>{{ $a->nis }}</td>
-            <td>{{ $a->tahun_lulus }}</td>
-            <td>{{ $a->jurusan }}</td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="5">Belum ada data kelulusan</td>
-        </tr>
-        @endforelse
-    </tbody>
-</table>
 
         @endif
 
@@ -831,7 +755,7 @@
                 Aplikasi Bimbingan Konseling SMK Antartika 1 Sidoarjo adalah sebuah platform digital yang dirancang untuk membantu siswa, guru, dan staf sekolah dalam mengelola dan memantau kegiatan bimbingan konseling.
             </p>
             <p>
-                Melalui aplikasi ini, pelanggaran, poin, kasus, jurusan, dan perkembangan siswa dapat dikelola dengan lebih mudah dan terstruktur.
+                Melalui aplikasi ini, pelanggaran, poin, kasus, dan jurusan siswa dapat dikelola dengan lebih mudah dan terstruktur.
             </p>
             <p>
                 Dengan adanya aplikasi ini, diharapkan proses bimbingan konseling menjadi lebih efektif, transparan, dan mendukung perkembangan siswa secara optimal di SMK Antartika 1 Sidoarjo.

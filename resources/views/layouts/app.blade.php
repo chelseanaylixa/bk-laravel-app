@@ -51,13 +51,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/peserta') }}">Peserta</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/kasus') }}">Kasus</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/point') }}">Poin</a></li>
-                </ul>
 
                 <!-- User Dropdown -->
                 <ul class="navbar-nav ms-3">

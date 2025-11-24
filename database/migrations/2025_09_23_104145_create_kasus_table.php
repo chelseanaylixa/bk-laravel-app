@@ -10,13 +10,16 @@ return new class extends Migration
     {
         Schema::create('kasus', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_siswa');
-            $table->string('kelas');
-            $table->string('jurusan');
-            $table->string('pelanggaran');
-            $table->integer('poin');
-            $table->string('penanggung_jawab');
+            $table->unsignedBigInteger('siswa_id');
+            $table->unsignedBigInteger('pelanggaran_id');
+            $table->date('tanggal');
+            $table->enum('status', ['diproses', 'selesai'])->default('diproses');
+            $table->text('catatan')->nullable();
             $table->timestamps();
+
+            // Foreign keys
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
+            $table->foreign('pelanggaran_id')->references('id')->on('pelanggaran')->onDelete('restrict');
         });
     }
 

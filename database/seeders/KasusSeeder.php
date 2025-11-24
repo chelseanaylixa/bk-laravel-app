@@ -9,37 +9,57 @@ class KasusSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('kasus')->insert([
+        // Get all siswa
+        $siswaList = DB::table('siswa')->pluck('id')->toArray();
+        $pelanggaranList = DB::table('pelanggaran')->pluck('id')->toArray();
+
+        if (empty($siswaList) || empty($pelanggaranList)) {
+            echo "Error: Siswa atau Pelanggaran table kosong. Jalankan seeder untuk kedua table terlebih dahulu.\n";
+            return;
+        }
+
+        // Create sample kasus
+        $kasus = [
             [
-                'nama_siswa' => 'Budi Santoso',
-                'kelas' => 'XII RPL 1',
-                'jurusan' => 'Rekayasa Perangkat Lunak',
-                'pelanggaran' => 'Terlambat masuk sekolah',
-                'poin' => 10,
-                'penanggung_jawab' => 'B. Prapti',
+                'siswa_id' => $siswaList[0],
+                'pelanggaran_id' => $pelanggaranList[0],
+                'tanggal' => now()->subDays(5)->toDateString(),
+                'status' => 'selesai',
+                'catatan' => 'Siswa sudah diminta untuk tidak terlambat lagi',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama_siswa' => 'Siti Aminah',
-                'kelas' => 'XI TKJ 2',
-                'jurusan' => 'Teknik Komputer Jaringan',
-                'pelanggaran' => 'Tidak memakai atribut lengkap',
-                'poin' => 15,
-                'penanggung_jawab' => 'B. Eka',
+                'siswa_id' => $siswaList[0],
+                'pelanggaran_id' => $pelanggaranList[2],
+                'tanggal' => now()->subDays(3)->toDateString(),
+                'status' => 'selesai',
+                'catatan' => 'Siswa telah mengumpulkan PR yang tertinggal',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama_siswa' => 'Andi Wijaya',
-                'kelas' => 'XII MM 1',
-                'jurusan' => 'Multimedia',
-                'pelanggaran' => 'Merokok di sekolah',
-                'poin' => 50,
-                'penanggung_jawab' => 'B. Prapti',
+                'siswa_id' => $siswaList[1] ?? $siswaList[0],
+                'pelanggaran_id' => $pelanggaranList[3],
+                'tanggal' => now()->subDays(2)->toDateString(),
+                'status' => 'diproses',
+                'catatan' => 'Sedang diperingatkan',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+            [
+                'siswa_id' => $siswaList[2] ?? $siswaList[0],
+                'pelanggaran_id' => $pelanggaranList[6],
+                'tanggal' => now()->toDateString(),
+                'status' => 'diproses',
+                'catatan' => 'Kasus baru, sedang ditangani guru BK',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+
+        foreach ($kasus as $item) {
+            DB::table('kasus')->insert($item);
+        }
     }
 }
