@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin/Guru BK</title>
     <style>
@@ -361,16 +362,16 @@
 
     <div class="navbar">
         <div class="navbar-brand">
-            <i class="icon">🎓</i> Dashboard BK
+            Dashboard BK
         </div>
         <div class="nav-links">
             <a href="#data-siswa" onclick="showSection('data-siswa')">Daftar Siswa</a>
-            <a href="#data-kasus" onclick="showSection('data-kasus')">Riwayat Kasus</a> <a href="#all-users" onclick="showSection('all-users')">All Data User</a>
+            <a href="#data-kasus" onclick="showSection('data-kasus')">Riwayat Kasus</a>
         </div>
 
         <div class="profile-menu">
             <button class="profile-btn" onclick="toggleDropdown()">
-                Halo, {{ Auth::user()->name ?? 'Admin BK' }} ▼
+                Halo, {{ Auth::user()->name ?? 'Admin BK' }}
             </button>
             <div id="profileDropdown" class="dropdown-content">
                 <a href="{{ route('logout') }}"
@@ -397,7 +398,6 @@
                             <th>JURUSAN</th>
                             <th>TOTAL POIN</th>
                             <th>RIWAYAT PELANGGARAN</th>
-                            <th>PENANGGUNG JAWAB TERAKHIR</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -410,7 +410,7 @@
         <div id="data-kasus" class="content-section" style="display: none;">
             <header>
                 <div style="display: flex; align-items: center;">
-                    <i class="icon">📘</i>
+                    <i class="icon"></i>
                     <h1>Riwayat Data Kasus Siswa</h1>
                 </div>
                 <button class="add-button" onclick="showAddModal()">+ Tambah Kasus</button>
@@ -425,26 +425,6 @@
                             <th>JURUSAN</th>
                             <th>PELANGGARAN</th>
                             <th>POIN</th>
-                            <th>PENANGGUNG JAWAB</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="all-users" class="content-section" style="display: none;">
-            <h2>Semua Data User (Akun yang Login)</h2>
-            <div class="table-responsive">
-                <table id="userTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>NAMA (Awal Email)</th>
-                            <th>EMAIL</th>
-                            <th>ROLE</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -471,7 +451,7 @@
                 <input type="text" id="pelanggaran" required>
 
                 <label for="poin">Poin (Angka Pelanggaran):</label>
-                <input type="number" id="poin" required min="1">
+                <input type="number" id="poin" required min="0" step="1">
 
                 <button type="submit" class="save-button">Simpan Data</button>
             </form>
@@ -532,7 +512,7 @@
             try {
                 const response = await fetch('/api/siswa-list', {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('api_token') || ''}`,
+                        'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     }
                 });
@@ -544,7 +524,7 @@
                 // Transform API response ke format yang diinginkan
                 studentsData = siswaList.map(s => ({
                     id: s.id,
-                    nama: s.nama,
+                    nama_lengkap: s.nama_lengkap,
                     email: s.email,
                 }));
 
@@ -563,7 +543,7 @@
             try {
                 const response = await fetch('/api/kasus', {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('api_token') || ''}`,
+                        'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     }
                 });
@@ -575,11 +555,11 @@
                 // Transform API response
                 casesData = kasusList.map(k => ({
                     id: k.id,
-                    nama: k.nama,
+                    nama_siswa: k.nama_siswa,
                     pelanggaran: k.pelanggaran,
                     poin: k.poin,
                     penanggungJawab: k.penanggungJawab,
-                    date: k.tanggal,
+                    tanggal: k.tanggal,
                 }));
 
                 renderKasusTable();
@@ -600,7 +580,7 @@
                 const response = await fetch(endpoint, {
                     method: method,
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('api_token') || ''}`,
+                        'Accept': 'application/json',
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
@@ -613,11 +593,26 @@
                 });
 
                 if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to save kasus');
+                    // Try to parse JSON error, but fall back to text (HTML) if server returned an error page
+                    const text = await response.text();
+                    try {
+                        const err = JSON.parse(text);
+                        throw new Error(err.error || err.message || 'Failed to save kasus');
+                    } catch (e) {
+                        // Not JSON — likely an HTML error page. Throw summarized text.
+                        const plain = text.replace(/<[^>]+>/g, '').trim();
+                        throw new Error(plain ? plain.substring(0, 300) : 'Server error');
+                    }
                 }
 
-                const result = await response.json();
+                let result;
+                try {
+                    result = await response.json();
+                } catch (e) {
+                    // If parsing fails but response was ok, at least try to read text
+                    const txt = await response.text();
+                    throw new Error(txt ? txt.substring(0, 300) : 'Invalid server response');
+                }
                 console.log(result.message);
 
                 // Refresh data
@@ -642,7 +637,6 @@
                 const response = await fetch(`/api/kasus/${kasusId}`, {
                     method: 'DELETE',
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('api_token') || ''}`,
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
@@ -674,7 +668,9 @@
             document.getElementById(sectionId).style.display = 'block';
 
             if (sectionId === 'all-users') {
+                console.log('Loading all users...');
                 renderUserTable();
+                console.log(usersData)
             }
         }
 
@@ -686,8 +682,8 @@
             pelanggaranList.innerHTML = '';
 
             const studentCases = casesData
-                .filter(k => k.nama === studentName)
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
+                .filter(k => k.nama_siswa === studentName)
+                .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
             if (studentCases.length === 0) {
                 pelanggaranList.innerHTML = '<li>Tidak ada riwayat pelanggaran tercatat.</li>';
@@ -696,7 +692,7 @@
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `
                         <div>
-                            [${kasus.date || 'Tanggal N/A'}] ${kasus.pelanggaran} <br>
+                            [${kasus.tanggal || 'Tanggal N/A'}] ${kasus.pelanggaran} <br>
                             <small>Oleh: ${kasus.penanggungJawab}</small>
                         </div>
                         <strong>-${kasus.poin} Poin</strong>
@@ -721,27 +717,31 @@
             const lastCaseMap = {};
 
             casesData.forEach(kasus => {
-                totalPoinMap[kasus.nama] = (totalPoinMap[kasus.nama] || 0) + kasus.poin;
+                totalPoinMap[kasus.nama_siswa] = (totalPoinMap[kasus.nama_siswa] || 0) + kasus.poin;
 
-                if (!lastCaseMap[kasus.nama] || new Date(kasus.date) > new Date(lastCaseMap[kasus.nama].date)) {
-                    lastCaseMap[kasus.nama] = kasus;
+                if (!lastCaseMap[kasus.nama_siswa] || new Date(kasus.tanggal) > new Date(lastCaseMap[kasus.nama_siswa].date)) {
+                    lastCaseMap[kasus.nama_siswa] = kasus;
                 }
             });
 
             const studentStatus = studentsData.map(siswa => {
-                const totalPoin = totalPoinMap[siswa.nama] || 0;
+                const totalPoin = totalPoinMap[siswa.nama_lengkap] || 0;
                 return {
                     ...siswa,
                     totalPoin
                 };
-            }).sort((a, b) => a.nama.localeCompare(b.nama));
+            }).sort((a, b) => {
+                const namaA = (a.nama_lengkap || '').toString().trim();
+                const namaB = (b.nama_lengkap || '').toString().trim();
+                return namaA.localeCompare(namaB);
+            });
 
             studentStatus.forEach((siswa, index) => {
                 const row = tableBody.insertRow();
-                const lastCase = lastCaseMap[siswa.nama] || {};
+                const lastCase = lastCaseMap[siswa.nama_lengkap] || {};
 
                 row.insertCell().textContent = index + 1;
-                row.insertCell().textContent = siswa.nama;
+                row.insertCell().textContent = siswa.nama_lengkap;
                 row.insertCell().textContent = siswa.kelas || '-';
                 row.insertCell().textContent = siswa.jurusan || '-';
 
@@ -750,15 +750,13 @@
 
                 const detailCell = row.insertCell();
                 detailCell.innerHTML = siswa.totalPoin > 0 ?
-                    `<button class="detail-btn" onclick="showDetailModal('${siswa.nama}')">Lihat ${siswa.totalPoin} Poin</button>` :
+                    `<button class="detail-btn" onclick="showDetailModal('${siswa.nama_lengkap}')">Lihat ${siswa.totalPoin} Poin</button>` :
                     'Tidak ada kasus';
-
-                row.insertCell().textContent = lastCase.penanggungJawab || 'N/A';
 
                 const actionCell = row.insertCell();
                 actionCell.classList.add('action-group');
                 actionCell.innerHTML = `
-                    <button class="siswa-edit-btn" onclick="showAddModal(true, '${siswa.nama}', ${siswa.id})">Tambah Kasus</button>
+                    <button class="siswa-edit-btn" onclick="showAddModal(true, '${siswa.nama_lengkap}', ${siswa.id})">Tambah Kasus</button>
                 `;
             });
         }
@@ -768,17 +766,16 @@
             const tableBody = document.getElementById('kasusTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = '';
 
-            const sortedCases = [...casesData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedCases = [...casesData].sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
             sortedCases.forEach((kasus, index) => {
                 const row = tableBody.insertRow();
                 row.insertCell().textContent = index + 1;
-                row.insertCell().textContent = kasus.nama;
+                row.insertCell().textContent = kasus.nama_siswa;
                 row.insertCell().textContent = '-';
                 row.insertCell().textContent = '-';
                 row.insertCell().textContent = kasus.pelanggaran;
                 row.insertCell().innerHTML = `<span class="poin-badge">${kasus.poin}</span>`;
-                row.insertCell().textContent = kasus.penanggungJawab;
 
                 const actionCell = row.insertCell();
                 actionCell.classList.add('action-group');
@@ -797,8 +794,8 @@
             studentsData.forEach(siswa => {
                 const option = document.createElement('option');
                 option.value = siswa.id;
-                option.textContent = siswa.nama;
-                option.dataset.siswaNama = siswa.nama;
+                option.textContent = siswa.nama_lengkap;
+                option.dataset.siswaNama = siswa.nama_lengkap;
                 selectNama.appendChild(option);
             });
         }
@@ -826,8 +823,12 @@
                 document.getElementById('siswaNama').dataset.siswaId = siswaId;
                 document.getElementById('siswaNama').dataset.siswaNama = studentName;
             }
-
             document.getElementById('kasusModal').style.display = 'block';
+            // Fokuskan input poin agar pengguna bisa langsung mengetik poin
+            setTimeout(() => {
+                const poinInput = document.getElementById('poin');
+                if (poinInput) poinInput.focus();
+            }, 100);
         }
 
         function hideModal() {
@@ -841,7 +842,7 @@
             document.getElementById('modalTitle').textContent = 'Edit Kasus';
             document.getElementById('kasusId').value = kasus.id;
 
-            const siswaOption = document.querySelector(`#nama option[data-siswa-nama="${kasus.nama}"]`);
+            const siswaOption = document.querySelector(`#nama option[data-siswa-nama="${kasus.nama_siswa}"]`);
             if (siswaOption) {
                 document.getElementById('nama').value = siswaOption.value;
                 document.getElementById('siswaNama').dataset.siswaId = siswaOption.value;

@@ -101,15 +101,41 @@ class KasusApiController extends Controller
      */
     public function store(Request $request)
     {
+        // Terima input dari front-end: siswa_id, pelanggaran (string), poin (int), catatan (optional)
         $validated = $request->validate([
             'siswa_id' => 'required|exists:siswa,id',
-            'pelanggaran_id' => 'required|exists:pelanggaran,id',
-            'tanggal' => 'required|date',
-            'status' => 'required|in:diproses,selesai',
+            'pelanggaran' => 'required|string',
+            'poin' => 'required|integer|min:0',
             'catatan' => 'nullable|string',
         ]);
 
-        $kasus = Kasus::create($validated);
+        $pelanggaranName = trim($validated['pelanggaran']);
+
+        // Cari pelanggaran yang sudah ada (case-insensitive)
+        $pel = Pelanggaran::whereRaw('LOWER(nama_pelanggaran) = ?', [mb_strtolower($pelanggaranName)])->first();
+
+        if (!$pel) {
+            $pel = Pelanggaran::create([
+                'nama_pelanggaran' => $pelanggaranName,
+                'jumlah_poin' => $validated['poin'],
+                // Provide a sensible default kategori to satisfy non-null DB column
+                'kategori' => 'lainnya',
+            ]);
+        } else {
+            // Jika poin berbeda, perbarui jumlah_poin agar konsisten
+            if (isset($validated['poin']) && $pel->jumlah_poin != $validated['poin']) {
+                $pel->jumlah_poin = $validated['poin'];
+                $pel->save();
+            }
+        }
+
+        $kasus = Kasus::create([
+            'siswa_id' => $validated['siswa_id'],
+            'pelanggaran_id' => $pel->id,
+            'tanggal' => now()->format('Y-m-d'),
+            'status' => 'diproses',
+            'catatan' => $validated['catatan'] ?? null,
+        ]);
 
         return response()->json([
             'success' => true,
@@ -118,8 +144,8 @@ class KasusApiController extends Controller
                 'id' => $kasus->id,
                 'siswa_id' => $kasus->siswa_id,
                 'nama_siswa' => $kasus->siswa->nama_lengkap,
-                'pelanggaran' => $kasus->pelanggaran->nama_pelanggaran,
-                'poin' => $kasus->pelanggaran->jumlah_poin,
+                'pelanggaran' => $pel->nama_pelanggaran,
+                'poin' => $pel->jumlah_poin ?? $validated['poin'],
                 'status' => $kasus->status,
                 'tanggal' => $kasus->tanggal,
             ],
@@ -138,14 +164,42 @@ class KasusApiController extends Controller
             return response()->json(['error' => 'Kasus tidak ditemukan'], 404);
         }
 
+        // Terima update: pelanggaran (string) optional, poin optional, status, catatan
         $validated = $request->validate([
-            'pelanggaran_id' => 'sometimes|exists:pelanggaran,id',
+            'pelanggaran' => 'sometimes|string',
+            'poin' => 'sometimes|integer|min:0',
             'tanggal' => 'sometimes|date',
             'status' => 'sometimes|in:diproses,selesai',
             'catatan' => 'nullable|string',
         ]);
 
-        $kasus->update($validated);
+        // Jika pelanggaran dikirim, temukan atau buat pelanggaran baru
+        if (isset($validated['pelanggaran'])) {
+            $pelanggaranName = trim($validated['pelanggaran']);
+            $pel = Pelanggaran::whereRaw('LOWER(nama_pelanggaran) = ?', [mb_strtolower($pelanggaranName)])->first();
+
+            if (!$pel) {
+                $pel = Pelanggaran::create([
+                    'nama_pelanggaran' => $pelanggaranName,
+                    'jumlah_poin' => $validated['poin'] ?? 0,
+                    // default kategori when creating from update endpoint
+                    'kategori' => 'lainnya',
+                ]);
+            } else {
+                if (isset($validated['poin']) && $pel->jumlah_poin != $validated['poin']) {
+                    $pel->jumlah_poin = $validated['poin'];
+                    $pel->save();
+                }
+            }
+
+            $kasus->pelanggaran_id = $pel->id;
+        }
+
+        if (isset($validated['status'])) $kasus->status = $validated['status'];
+        if (isset($validated['catatan'])) $kasus->catatan = $validated['catatan'];
+        if (isset($validated['tanggal'])) $kasus->tanggal = $validated['tanggal'];
+
+        $kasus->save();
 
         return response()->json([
             'success' => true,

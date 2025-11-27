@@ -740,24 +740,11 @@
 
         @endif
 
-        <section class="social-section">
-            <h2>Ikuti Kami di Media Sosial</h2>
-            <div class="social-profiles">
-                <a href="https://www.instagram.com/smkantartika1sda/" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/smkantartika1/?locale=id_ID" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.youtube.com/@smkantartika1sidoarjo726" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            </div>
-        </section>
-
         <section class="app-description">
             <h2>Apa Itu Aplikasi Bimbingan Konseling SMK Antartika 1 Sidoarjo?</h2>
             <p>
                 Aplikasi Bimbingan Konseling SMK Antartika 1 Sidoarjo adalah sebuah platform digital yang dirancang untuk membantu siswa, guru, dan staf sekolah dalam mengelola dan memantau kegiatan bimbingan konseling.
-            </p>
-            <p>
                 Melalui aplikasi ini, pelanggaran, poin, kasus, dan jurusan siswa dapat dikelola dengan lebih mudah dan terstruktur.
-            </p>
-            <p>
                 Dengan adanya aplikasi ini, diharapkan proses bimbingan konseling menjadi lebih efektif, transparan, dan mendukung perkembangan siswa secara optimal di SMK Antartika 1 Sidoarjo.
             </p>
         </section>
@@ -780,18 +767,6 @@
             });
             });
     </script>
-    <section class="school-map">
-    <h2>Lokasi SMK Antartika 1 Sidoarjo</h2>
-    <div class="map-container">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.943982478237!2d112.7284261!3d-7.4333114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7e6a663d94b21%3A0x3a57baa5fb4760ce!2sSMK%20Antartika%201%20Sidoarjo!5e0!3m2!1sid!2sid!4v1695555555555!5m2!1sid!2sid" 
-            width="100%" 
-            height="400" 
-            style="border:0; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.2);" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
             <footer class="footer">
         <p>&copy; 2025 SMK Antartika 1 Sidoarjo. All rights reserved.</p>
         <p>Versi 1.0.0</p>

@@ -13,6 +13,7 @@ class KasusController extends Controller
     public function index()
     {
         $kasus = Kasus::all();
+        // dd('ok');
         return view('kasus.index', compact('kasus'));
     }
 

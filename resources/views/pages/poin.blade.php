@@ -29,7 +29,7 @@
             @if(! $user)
             <div class="text-center text-red-600">Silakan login untuk melihat poin Anda.</div>
             @elseif(! $siswa)
-            <div class="text-center text-yellow-600">Tidak ditemukan data siswa terkait dengan akun Anda. Mohon hubungi admin.</div>
+            <div class="text-center text-blue-600">Tidak ditemukan data siswa terkait dengan akun Anda. Mohon hubungi admin.</div>
             @else
             @php
             $cases = $siswa->kasus()->with('pelanggaran')->get();
