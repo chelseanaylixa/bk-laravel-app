@@ -740,14 +740,7 @@
 
         @endif
 
-        <section class="app-description">
-            <h2>Apa Itu Aplikasi Bimbingan Konseling SMK Antartika 1 Sidoarjo?</h2>
-            <p>
-                Aplikasi Bimbingan Konseling SMK Antartika 1 Sidoarjo adalah sebuah platform digital yang dirancang untuk membantu siswa, guru, dan staf sekolah dalam mengelola dan memantau kegiatan bimbingan konseling.
-                Melalui aplikasi ini, pelanggaran, poin, kasus, dan jurusan siswa dapat dikelola dengan lebih mudah dan terstruktur.
-                Dengan adanya aplikasi ini, diharapkan proses bimbingan konseling menjadi lebih efektif, transparan, dan mendukung perkembangan siswa secara optimal di SMK Antartika 1 Sidoarjo.
-            </p>
-        </section>
+        
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

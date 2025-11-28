@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Data Kelas dan Pelanggaran</title>
+    <title>Sistem Data Kelas dan Jurusan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,9 +14,19 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        :root {
+            --blue-900: #0b3d91;
+            --blue-800: #1e4aa0;
+            --blue-700: #2563eb;
+            --blue-600: #3b82f6;
+            --blue-200: #e6f2ff;
+            --bg-blue: #eaf4ff;
+            --muted: #55607a;
+        }
+
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: var(--bg-blue);
+            color: var(--muted);
             line-height: 1.6;
         }
 
@@ -28,10 +38,10 @@
         /* Sidebar Styles */
         .sidebar {
             width: 250px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, var(--blue-900), var(--blue-800));
             color: white;
             padding: 20px 0;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 12px rgba(11, 61, 145, 0.12);
         }
 
         .logo {
@@ -61,8 +71,8 @@
 
         .menu-item:hover,
         .menu-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #2563eb;
+            background-color: rgba(255, 255, 255, 0.06);
+            border-left: 4px solid var(--blue-700);
         }
 
         /* Main Content Styles */
@@ -82,17 +92,18 @@
         }
 
         .header h1 {
-            color: #2a5298;
+            color: var(--blue-900);
             font-size: 1.8rem;
         }
 
         .card {
-            background: white;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(238, 246, 255, 0.96));
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 6px 18px rgba(11, 61, 145, 0.06);
+            border-top: 4px solid var(--blue-600);
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
         }
 
         .card:hover {
@@ -100,10 +111,10 @@
         }
 
         .card h2 {
-            color: #1e3c72;
+            color: var(--blue-900);
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.08);
         }
 
         .tabs {
@@ -123,8 +134,9 @@
 
         .tab:hover,
         .tab.active {
-            background-color: #2a5298;
+            background-color: var(--blue-700);
             color: white;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
         }
 
         .class-info {
@@ -134,14 +146,14 @@
         }
 
         .class-card {
-            background: linear-gradient(to right, #4facfe, #00f2fe);
+            background: linear-gradient(90deg, var(--blue-700), var(--blue-600));
             color: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 10px;
             width: calc(33.333% - 20px);
             min-width: 250px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .class-card:hover {
@@ -152,6 +164,7 @@
         .class-card h3 {
             margin-bottom: 10px;
             font-size: 1.3rem;
+            color: #fff;
         }
 
         .jurusan-list {
@@ -190,8 +203,8 @@
         }
 
         th {
-            background-color: #f8f9fa;
-            color: #1e3c72;
+            background-color: var(--blue-200);
+            color: var(--blue-900);
             cursor: pointer;
         }
 
@@ -204,7 +217,7 @@
         }
 
         tr:hover {
-            background-color: #f1f5ff;
+            background-color: #e9f6ff;
         }
 
         td {
@@ -218,13 +231,13 @@
         }
 
         .violation-card {
-            background: white;
-            border-left: 4px solid #2563eb;
+            background: linear-gradient(180deg, #fff, #f6fbff);
+            border-left: 4px solid var(--blue-700);
             padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(11, 61, 145, 0.04);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
         }
 
         .violation-card:hover {
@@ -233,7 +246,7 @@
         }
 
         .violation-card h4 {
-            color: #2563eb;
+            color: var(--blue-700);
             margin-bottom: 10px;
         }
 
@@ -252,7 +265,7 @@
         }
 
         .violation-list li:hover {
-            background-color: #f0f7ff;
+            background-color: #f0f9ff;
             padding-left: 5px;
         }
 
@@ -262,22 +275,23 @@
 
         .violation-list li i {
             margin-right: 8px;
-            color: #2563eb;
+            color: var(--blue-700);
         }
 
         .edit-btn {
-            background-color: #4facfe;
+            background-color: var(--blue-600);
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s ease;
+            font-size: 13px;
+            transition: background-color 0.18s ease, transform 0.18s ease;
         }
 
         .edit-btn:hover {
-            background-color: #2a5298;
+            background-color: var(--blue-900);
+            transform: translateY(-2px);
         }
 
         .modal {
