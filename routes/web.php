@@ -94,7 +94,6 @@ Route::middleware('auth')->group(function () {
             })->name('pelanggaran');
             Route::get('poin', fn() => view('pages.poin'))->name('poin');
             // Route kasus-page dihapus/diganti jika Anda menggunakan dashboard siswa sebagai halaman kasusnya.
-            Route::get('jurusan', fn() => view('pages.jurusan'))->name('jurusan');
             Route::get('curhat-guru', fn() => view('pages.curhat-guru'))->name('curhat-guru');
 
             // Dua rute ini seharusnya hanya untuk Admin/Guru BK, jadi kita pindahkan

@@ -71,7 +71,7 @@
                 <i class="fas fa-arrow-left"></i> Kembali
             </button>
 
-            <h1 class="text-xl font-bold">🤖 Teman Curhat AI</h1>
+            <h1 class="text-xl font-bold">🤖 Teman Curhat Kamu</h1>
         </div>
 
         <div id="chat-box" class="h-96 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-3">

@@ -663,10 +663,6 @@
                 <i class="fas fa-star"></i>
                 <span>Poin</span>
             </a>
-            <a href="{{ route('jurusan') }}" class="menu-item">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Jurusan</span>
-            </a>
             <a href="{{ route('curhat-guru') }}" class="menu-item">
                 <i class="fas fa-comments"></i>
                 <span>Curhat Guru</span>

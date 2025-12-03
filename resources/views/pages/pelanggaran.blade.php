@@ -17,7 +17,7 @@
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
 
-    <nav class="bg-[#1e3a8a] text-white px-6 py-4 shadow-md mb-8 sticky top-0 z-50">
+    <nav class="text-white px-6 py-4 shadow-md mb-8 sticky top-0 z-50" style="background: linear-gradient(to right, #003366, #004aad);">
         <div class="container mx-auto flex justify-start items-center gap-4 max-w-5xl">
             <button
                 class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white border-none px-4 py-2 rounded-md cursor-pointer transition-all duration-300 flex items-center gap-2"
@@ -34,14 +34,14 @@
     <div class="container mx-auto px-4 pb-10 max-w-5xl flex-1">
 
         <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-            <div class="bg-[#1e3a8a] p-5">
+            <div class="p-5" style="background: linear-gradient(to right, #003366, #004aad);">
                 <h2 class="text-white text-xl font-bold text-center uppercase tracking-wide">DAFTAR PELANGGARAN & SANKSI</h2>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-blue-800 text-white text-sm uppercase">
+                        <tr style="background: linear-gradient(to right, #003366, #004aad);" class="text-white text-sm uppercase">
                             <th class="py-4 px-6 w-1/5 border-r border-blue-700 text-center">Kategori</th>
                             <th class="py-4 px-6 w-1/3 border-r border-blue-700 text-center">Jenis Pelanggaran</th>
                             <th class="py-4 px-6 w-1/2 text-center">Sanksi / Penanganan</th>

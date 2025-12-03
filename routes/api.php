@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KasusApiController;
 use App\Http\Controllers\TataTertibApiController;
+use App\Http\Controllers\JurusanController;
 
 // Get all siswa with poin
 Route::get('/siswa-list', [KasusApiController::class, 'getSiswaWithPoin']);
@@ -28,3 +29,4 @@ Route::get('/tata-tertib', [TataTertibApiController::class, 'index']);
 Route::post('/tata-tertib', [TataTertibApiController::class, 'store']);
 Route::put('/tata-tertib/{id}', [TataTertibApiController::class, 'update']);
 Route::delete('/tata-tertib/{id}', [TataTertibApiController::class, 'destroy']);
+

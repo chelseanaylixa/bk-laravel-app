@@ -705,7 +705,6 @@
                             <th>NAMA SISWA</th>
                             <th>EMAIL</th>
                             <th>TOTAL POIN</th>
-                            <th>STATUS</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -731,7 +730,6 @@
                             <th>PELANGGARAN</th>
                             <th>POIN</th>
                             <th>TANGGAL</th>
-                            <th>STATUS</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -967,9 +965,6 @@
                 const poinCell = row.insertCell();
                 poinCell.innerHTML = `<span class="poin-badge" style="background: linear-gradient(135deg, ${statusColor}, ${statusColor})">${totalPoin}</span>`;
 
-                const statusCell = row.insertCell();
-                statusCell.innerHTML = `<span class="status-badge" style="background: ${statusColor}22; color: ${statusColor};">${status}</span>`;
-
                 const actionCell = row.insertCell();
                 actionCell.innerHTML = `
                     <div class="btn-group">
@@ -1001,10 +996,6 @@
                 poinCell.innerHTML = `<span class="poin-badge">${kasus.poin}</span>`;
 
                 row.insertCell().textContent = kasus.tanggal || new Date().toISOString().split('T')[0];
-
-                const statusCell = row.insertCell();
-                const statusBg = kasus.status === 'selesai' ? '#28a745' : '#ff9800';
-                statusCell.innerHTML = `<span class="status-badge" style="background: ${statusBg}22; color: ${statusBg};">${kasus.status || 'Diproses'}</span>`;
 
                 const actionCell = row.insertCell();
                 actionCell.innerHTML = `
