@@ -1,81 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Pelanggaran</title>
+    <title>Daftar Pelanggaran & Tata Tertib - SMK Antartika 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            font-family: 'Roboto', sans-serif;
         }
     </style>
 </head>
 
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="container mx-auto p-4 md:p-8">
-        <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-5xl mx-auto">
-            <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">Tabel Pelanggaran</h1>
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
-            <div class="overflow-x-auto rounded-lg shadow-md">
-                <table class="w-full table-auto">
+    <nav class="bg-[#1e3a8a] text-white px-6 py-4 shadow-md mb-8 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-start items-center gap-4 max-w-5xl">
+            <button
+                class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white border-none px-4 py-2 rounded-md cursor-pointer transition-all duration-300 flex items-center gap-2"
+                onclick="history.back()"
+                aria-label="Kembali ke halaman sebelumnya">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <div class="font-bold text-lg flex items-center gap-2">
+                <i class="fa-solid fa-book-open"></i> Tata Tertib Sekolah
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 pb-10 max-w-5xl flex-1">
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+            <div class="bg-[#1e3a8a] p-5">
+                <h2 class="text-white text-xl font-bold text-center uppercase tracking-wide">DAFTAR PELANGGARAN & SANKSI</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-blue-600 text-white uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Jenis Pelanggaran</th>
-                            <th class="py-3 px-6 text-left">Pelanggaran</th>
-                            <th class="py-3 px-6 text-left">Cara Penanganan</th>
+                        <tr class="bg-blue-800 text-white text-sm uppercase">
+                            <th class="py-4 px-6 w-1/5 border-r border-blue-700 text-center">Kategori</th>
+                            <th class="py-4 px-6 w-1/3 border-r border-blue-700 text-center">Jenis Pelanggaran</th>
+                            <th class="py-4 px-6 w-1/2 text-center">Sanksi / Penanganan</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-700 text-sm font-light">
-                        <tr class="border-b border-gray-200 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Akademik</td>
-                            <td class="py-3 px-6 text-left">Terlambat datang ke sekolah</td>
-                            <td class="py-3 px-6 text-left">Sanksi sesuai tata tertib sekolah, penanaman kesadaran disiplin.</td>
+                    <tbody class="text-gray-700 text-sm">
+                        {{-- LOOPING DATA DARI CONTROLLER --}}
+                        @foreach($tataTertibs as $aturan)
+                        <tr class="border-b hover:bg-blue-50 transition">
+                            <td class="py-4 px-6 font-bold text-blue-800 border-r border-gray-200 align-middle text-center">{{ $aturan->kategori }}</td>
+                            <td class="py-4 px-6 border-r border-gray-200 align-middle">{{ $aturan->jenis_pelanggaran }}</td>
+                            <td class="py-4 px-6 align-middle">{{ $aturan->sanksi }}</td>
                         </tr>
-                        <tr class="border-b border-gray-200 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Akademik</td>
-                            <td class="py-3 px-6 text-left">Tidak hadir tanpa surat keterangan</td>
-                            <td class="py-3 px-6 text-left">Pemberian sanksi dan komunikasi dengan wali murid.</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Akademik</td>
-                            <td class="py-3 px-6 text-left">Tidak mengerjakan tugas/PR</td>
-                            <td class="py-3 px-6 text-left">Motivasi dan bimbingan dari guru, pemberian tugas tambahan.</td>
-                        </tr>
+                        @endforeach
+                        {{-- END LOOPING --}}
 
-                        <tr class="border-b border-gray-200 bg-blue-100 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Estetika</td>
-                            <td class="py-3 px-6 text-left">Tidak berpakaian seragam sesuai ketentuan</td>
-                            <td class="py-3 px-6 text-left">Peringatan lisan, sanksi ringan, dan penegakan kode etik.</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 bg-blue-100 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Estetika</td>
-                            <td class="py-3 px-6 text-left">Rambut gondrong/tidak rapi</td>
-                            <td class="py-3 px-6 text-left">Tindakan pendisiplinan (misalnya, dipotong di sekolah), pemberian contoh keteladanan.</td>
-                        </tr>
-
-                        <tr class="border-b border-gray-200 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Etika</td>
-                            <td class="py-3 px-6 text-left">Bersikap tidak sopan terhadap guru/staf</td>
-                            <td class="py-3 px-6 text-left">Bimbingan konseling, pemberian sanksi, dan penanaman kesadaran moral.</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Etika</td>
-                            <td class="py-3 px-6 text-left">Membawa dan merokok di lingkungan sekolah</td>
-                            <td class="py-3 px-6 text-left">Sanksi berat, komunikasi dengan orang tua, dan pembinaan.</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-blue-50">
-                            <td class="py-3 px-6 text-left whitespace-nowrap font-medium">Etika</td>
-                            <td class="py-3 px-6 text-left">Melakukan tindakan kriminal</td>
-                            <td class="py-3 px-6 text-left">Penanganan sesuai hukum yang berlaku dan kolaborasi dengan pihak berwenang.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="bg-gray-100 p-4 text-center text-xs text-gray-500 border-t border-gray-200">
+                * Peraturan ini mengikat seluruh siswa SMK Antartika 1 Sidoarjo.
+            </div>
+
         </div>
-    </div>
+
 </body>
+
 </html>

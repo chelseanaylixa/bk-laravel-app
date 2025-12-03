@@ -42,6 +42,10 @@
             gap: 10px;
         }
 
+        .navbar-brand i {
+            font-size: 28px;
+        }
+
         .nav-links {
             display: flex;
             gap: 10px;
@@ -130,6 +134,18 @@
             background-color: white;
             border-radius: 16px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, #003366, #004aad);
+            border-radius: 16px 16px 0 0;
         }
 
         header {
@@ -152,6 +168,10 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        header h1 i {
+            font-size: 32px;
         }
 
         h2 {
@@ -243,6 +263,10 @@
             color: white;
         }
 
+        .btn-primary:hover {
+            background: linear-gradient(to right, #003366, #002244);
+        }
+
         .btn-success {
             background: linear-gradient(to right, #28a745, #20c997);
             color: white;
@@ -261,6 +285,11 @@
         .btn-info {
             background: linear-gradient(to right, #17a2b8, #138496);
             color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .btn-group {
@@ -376,17 +405,6 @@
             font-family: inherit;
             font-size: 14px;
             transition: all 0.3s;
-            background-color: white;
-            color: #0d1a40;
-        }
-
-        .form-group select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23003366' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 20px;
-            padding-right: 40px;
         }
 
         .form-group input:focus,
@@ -511,22 +529,10 @@
             border: 1px solid #f5c6cb;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .status-diproses {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .status-selesai {
-            background: #d4edda;
-            color: #155724;
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
 
         /* === RESPONSIVE === */
@@ -588,6 +594,10 @@
             .add-button {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .table-responsive {
+                border-radius: 8px;
             }
 
             table {
@@ -659,6 +669,41 @@
                 padding: 6px 10px;
                 font-size: 11px;
             }
+        }
+
+        /* === LOADING & STATUS === */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 74, 173, 0.2);
+            border-radius: 50%;
+            border-top-color: #004aad;
+            animation: spin 1s ease infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-diproses {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-selesai {
+            background: #d4edda;
+            color: #155724;
         }
     </style>
 </head>
@@ -754,8 +799,9 @@
                         <tr>
                             <th>NO</th>
                             <th>KATEGORI</th>
-                            <th>JENIS PELANGGARAN</th>
-                            <th>SANKSI</th>
+                            <th>PELANGGARAN</th>
+                            <th>POIN</th>
+                            <th>PENANGANAN</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -784,13 +830,9 @@
                         <option value="">-- Pilih Pelanggaran --</option>
                     </select>
                 </div>
-                <div class="form-group" id="pelanggaranCustomGroup" style="display: none;">
-                    <label for="pelanggaranCustom">Sebutkan Jenis Pelanggaran Lainnya *</label>
-                    <input type="text" id="pelanggaranCustom" placeholder="Masukkan jenis pelanggaran custom...">
-                </div>
                 <div class="form-group">
                     <label for="poinValue">Poin *</label>
-                    <input type="number" id="poinValue" required min="0" step="1">
+                    <input type="number" id="poinValue" required min="0" step="1" readonly>
                 </div>
                 <div class="form-group">
                     <label for="catatan">Catatan (Opsional)</label>
@@ -840,12 +882,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="jenisPelanggaran">Jenis Pelanggaran *</label>
-                    <input type="text" id="jenisPelanggaran" required>
+                    <label for="namaPelanggaran">Nama Pelanggaran *</label>
+                    <input type="text" id="namaPelanggaran" required>
                 </div>
                 <div class="form-group">
-                    <label for="sanksi">Sanksi *</label>
-                    <textarea id="sanksi" required placeholder="Masukkan sanksi..."></textarea>
+                    <label for="jumlahPoin">Jumlah Poin *</label>
+                    <input type="number" id="jumlahPoin" required min="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="caraPenanganan">Cara Penanganan *</label>
+                    <textarea id="caraPenanganan" required placeholder="Masukkan cara penanganan..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="cancel-button" onclick="closeTataTertibModal()">
@@ -861,20 +907,115 @@
 
     <script>
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-        let studentsData = [];
-        let kasusData = [];
-        let tataTertibData = [];
 
-        // ===== UTILITY FUNCTIONS =====
-        function showAlert(message, type = 'info') {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.textContent = message;
-            alertBox.className = `alert show alert-${type}`;
-            setTimeout(() => {
-                alertBox.classList.remove('show');
-            }, 4000);
+        let studentsData = [];
+        let casesData = [];
+        let usersData = [];
+
+        // --- FUNGSI API CALLS ---
+        async function fetchSiswa() {
+            try {
+                const response = await fetch('/api/siswa-list', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) throw new Error('Failed to fetch siswa');
+                const siswaList = await response.json();
+
+                // Asumsi data siswa dari API mencakup kelas dan jurusan
+                studentsData = siswaList.map(s => ({
+                    id: s.id,
+                    nama_lengkap: s.nama_lengkap,
+                    email: s.email,
+                    kelas: s.kelas,
+                    jurusan: s.jurusan
+                }));
+                populateStudentSelect();
+                renderSiswaTable();
+            } catch (error) {
+                console.error('Error fetching siswa:', error);
+                // alert('Gagal memuat data siswa'); 
+            }
         }
 
+        async function fetchKasus() {
+            try {
+                const response = await fetch('/api/kasus', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) throw new Error('Failed to fetch kasus');
+                const kasusList = await response.json();
+                casesData = kasusList.map(k => ({
+                    id: k.id,
+                    nama_siswa: k.nama_siswa,
+                    pelanggaran: k.pelanggaran,
+                    poin: k.poin,
+                    penanggungJawab: k.penanggungJawab,
+                    tanggal: k.tanggal
+                }));
+                renderKasusTable();
+            } catch (error) {
+                console.error('Error fetching kasus:', error);
+                // alert('Gagal memuat data kasus');
+            }
+        }
+
+        async function submitKasus(formData) {
+            try {
+                const endpoint = formData.kasusId ? `/api/kasus/${formData.kasusId}` : '/api/kasus';
+                const method = formData.kasusId ? 'PUT' : 'POST';
+                const response = await fetch(endpoint, {
+                    method: method,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        siswa_id: formData.siswaId,
+                        pelanggaran: formData.pelanggaran,
+                        poin: formData.poin,
+                        catatan: formData.catatan
+                    })
+                });
+
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(text.substring(0, 300) || 'Server error');
+                }
+                await fetchKasus();
+                hideModal();
+                return true;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+                return false;
+            }
+        }
+
+        async function deleteKasusApi(kasusId) {
+            if (!window.confirm('Yakin ingin menghapus kasus ini?')) return;
+            try {
+                const response = await fetch(`/api/kasus/${kasusId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                if (!response.ok) throw new Error('Failed to delete');
+                await fetchKasus();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // --- FUNGSI NAVIGASI & TAMPILAN ---
         function toggleDropdown() {
             document.getElementById("profileDropdown").classList.toggle("show");
         }
@@ -886,484 +1027,164 @@
             document.getElementById(sectionId).style.display = 'block';
         }
 
-        // ===== API CALLS - FETCH DATA =====
-        async function fetchStudents() {
-            try {
-                const response = await fetch('/api/siswa-list', {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                if (!response.ok) throw new Error('Gagal memuat siswa');
-                studentsData = await response.json();
-                populateStudentSelect();
-                renderSiswaTable();
-                return true;
-            } catch (error) {
-                console.error('Error fetching students:', error);
-                showAlert('Gagal memuat data siswa', 'error');
-                return false;
-            }
-        }
-
-        async function fetchKasus() {
-            try {
-                const response = await fetch('/api/kasus', {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                if (!response.ok) throw new Error('Gagal memuat kasus');
-                kasusData = await response.json();
-                renderKasusTable();
-                renderSiswaTable();
-                return true;
-            } catch (error) {
-                console.error('Error fetching kasus:', error);
-                showAlert('Gagal memuat data kasus', 'error');
-                return false;
-            }
-        }
-
-        async function fetchTataTertib() {
-            try {
-                const response = await fetch('/api/tata-tertib', {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                if (!response.ok) throw new Error('Gagal memuat tata tertib');
-                tataTertibData = await response.json();
-                populatePelanggaranSelect();
-                renderTataTertibTable();
-                return true;
-            } catch (error) {
-                console.error('Error fetching tata tertib:', error);
-                showAlert('Gagal memuat data tata tertib', 'error');
-                return false;
-            }
-        }
-
-        // ===== RENDER TABLE FUNCTIONS =====
+        // --- RENDER TABLE & LOGIC ---
         function renderSiswaTable() {
             const tableBody = document.getElementById('siswaTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = '';
+            const totalPoinMap = {};
+            casesData.forEach(kasus => totalPoinMap[kasus.nama_siswa] = (totalPoinMap[kasus.nama_siswa] || 0) + kasus.poin);
 
-            if (studentsData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">Tidak ada data siswa</td></tr>';
-                return;
-            }
+            const studentStatus = studentsData.map(siswa => ({
+                    ...siswa,
+                    totalPoin: totalPoinMap[siswa.nama_lengkap] || 0
+                }))
+                .sort((a, b) => (a.nama_lengkap || '').localeCompare(b.nama_lengkap || ''));
 
-            studentsData.forEach((siswa, index) => {
-                const totalPoin = calculateTotalPoin(siswa.id);
-                const status = totalPoin > 100 ? 'Kritis' : totalPoin > 50 ? 'Perlu Perhatian' : 'Baik';
-                const statusColor = totalPoin > 100 ? '#d32f2f' : totalPoin > 50 ? '#ff9800' : '#28a745';
-
+            studentStatus.forEach((siswa, index) => {
                 const row = tableBody.insertRow();
                 row.insertCell().textContent = index + 1;
                 row.insertCell().textContent = siswa.nama_lengkap;
-                row.insertCell().textContent = siswa.email || '-';
+                row.insertCell().textContent = siswa.kelas || '-';
+                row.insertCell().textContent = siswa.jurusan || '-';
 
-                const poinCell = row.insertCell();
-                poinCell.innerHTML = `<span class="poin-badge" style="background: linear-gradient(135deg, ${statusColor}, ${statusColor})">${totalPoin}</span>`;
+                const badgeColor = siswa.totalPoin > 100 ? '#b71c1c' : siswa.totalPoin > 50 ? '#e65100' : '#2e7d32';
+                row.insertCell().innerHTML = `<span class="poin-badge" style="background-color: ${badgeColor};">${siswa.totalPoin}</span>`;
 
-                const statusCell = row.insertCell();
-                statusCell.innerHTML = `<span class="status-badge" style="background: ${statusColor}22; color: ${statusColor};">${status}</span>`;
+                row.insertCell().innerHTML = siswa.totalPoin > 0 ?
+                    `<button class="detail-btn" onclick="showDetailModal('${siswa.nama_lengkap}')">Lihat ${siswa.totalPoin} Poin</button>` : 'Tidak ada kasus';
 
-                const actionCell = row.insertCell();
-                actionCell.innerHTML = `
-                    <div class="btn-group">
-                        ${totalPoin > 0 ? `<button class="btn btn-info" onclick="showDetailModal('${siswa.nama_lengkap}', ${siswa.id})"><i class="fas fa-eye"></i> Lihat</button>` : ''}
-                        <button class="btn btn-primary" onclick="showAddKasusModal(${siswa.id}, '${siswa.nama_lengkap}')"><i class="fas fa-plus"></i> Kasus</button>
-                    </div>
-                `;
+                row.insertCell().innerHTML = `<button class="siswa-edit-btn" style="border:none; border-radius:4px; padding:6px 10px; color:white; cursor:pointer;" onclick="showAddModal(true, '${siswa.nama_lengkap}', ${siswa.id})">Tambah Kasus</button>`;
             });
         }
 
         function renderKasusTable() {
             const tableBody = document.getElementById('kasusTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = '';
+            const sortedCases = [...casesData].sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
-            if (kasusData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Tidak ada data kasus</td></tr>';
-                return;
-            }
+            const getStudentDetails = (namaSiswa) => {
+                const siswa = studentsData.find(s => s.nama_lengkap === namaSiswa);
+                return {
+                    kelas: siswa ? siswa.kelas : '-',
+                    jurusan: siswa ? siswa.jurusan : '-'
+                };
+            };
 
-            const sortedKasus = [...kasusData].sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
-
-            sortedKasus.forEach((kasus, index) => {
+            sortedCases.forEach((kasus, index) => {
+                const details = getStudentDetails(kasus.nama_siswa);
                 const row = tableBody.insertRow();
                 row.insertCell().textContent = index + 1;
                 row.insertCell().textContent = kasus.nama_siswa;
+                row.insertCell().textContent = details.kelas;
+                row.insertCell().textContent = details.jurusan;
                 row.insertCell().textContent = kasus.pelanggaran;
-
-                const poinCell = row.insertCell();
-                poinCell.innerHTML = `<span class="poin-badge">${kasus.poin}</span>`;
-
-                row.insertCell().textContent = kasus.tanggal || new Date().toISOString().split('T')[0];
-
-                const statusCell = row.insertCell();
-                const statusBg = kasus.status === 'selesai' ? '#28a745' : '#ff9800';
-                statusCell.innerHTML = `<span class="status-badge" style="background: ${statusBg}22; color: ${statusBg};">${kasus.status || 'Diproses'}</span>`;
-
-                const actionCell = row.insertCell();
-                actionCell.innerHTML = `
-                    <div class="btn-group">
-                        <button class="btn btn-warning" onclick="editKasus(${kasus.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger" onclick="deleteKasus(${kasus.id})"><i class="fas fa-trash"></i></button>
-                    </div>
-                `;
+                row.insertCell().innerHTML = `<span class="poin-badge">${kasus.poin}</span>`;
+                row.insertCell().innerHTML = `<button class="edit-btn" style="border:none; border-radius:4px; padding:6px 10px; color:white; cursor:pointer; margin-right:5px;" onclick="editKasus(${kasus.id})">Edit</button><button class="delete-btn" style="border:none; border-radius:4px; padding:6px 10px; color:white; cursor:pointer;" onclick="deleteKasusApi(${kasus.id})">Hapus</button>`;
             });
+            renderSiswaTable();
         }
 
-        function renderTataTertibTable() {
-            const tableBody = document.getElementById('tataTertibTable').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = '';
-
-            if (tataTertibData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Tidak ada data tata tertib</td></tr>';
-                return;
-            }
-
-            tataTertibData.forEach((item, index) => {
-                const row = tableBody.insertRow();
-                row.insertCell().textContent = index + 1;
-                row.insertCell().textContent = item.kategori || '-';
-                row.insertCell().textContent = item.jenis_pelanggaran || '-';
-                row.insertCell().textContent = item.sanksi || '-';
-
-                const actionCell = row.insertCell();
-                actionCell.innerHTML = `
-                    <div class="btn-group">
-                        <button class="btn btn-warning" onclick="editTataTertib(${item.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger" onclick="deleteTataTertib(${item.id})"><i class="fas fa-trash"></i></button>
-                    </div>
-                `;
-            });
-        }
-
-        // ===== MODAL FUNCTIONS =====
-        function showAddKasusModal(siswaId = null, siswaNama = null) {
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Tambah Kasus Baru';
-            document.getElementById('kasusForm').reset();
-            document.getElementById('kasusId').value = '';
-
-            const selectSiswa = document.getElementById('namaSiswa');
-            if (siswaId) {
-                selectSiswa.value = siswaId;
-                selectSiswa.disabled = true;
-                updateStudentInfo();
-            } else {
-                selectSiswa.disabled = false;
-            }
-
-            document.getElementById('kasusModal').classList.add('active');
-        }
-
-        function closeKasusModal() {
-            document.getElementById('kasusModal').classList.remove('active');
-            document.getElementById('namaSiswa').disabled = false;
-        }
-
-        function showDetailModal(siswaNama, siswaId) {
-            document.getElementById('detailSiswaName').textContent = siswaNama;
-            const list = document.getElementById('pelanggaranList');
-            list.innerHTML = '';
-
-            const studentKasus = kasusData.filter(k => k.siswa_id === siswaId || k.nama_siswa === siswaNama)
-                .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
-
-            if (studentKasus.length === 0) {
-                list.innerHTML = '<li style="background: #d4edda; border-left: 4px solid #28a745; color: #155724;">Tidak ada riwayat pelanggaran</li>';
-            } else {
-                studentKasus.forEach(item => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <div class="pelanggaran-info">
-                            <p><strong>${item.pelanggaran}</strong></p>
-                            <p><small>Tanggal: ${item.tanggal} | Status: ${item.status || 'Diproses'}</small></p>
-                            ${item.catatan ? `<p><small>Catatan: ${item.catatan}</small></p>` : ''}
-                        </div>
-                        <div><strong style="color: #d32f2f;">-${item.poin} Poin</strong></div>
-                    `;
-                    list.appendChild(li);
-                });
-            }
-
-            document.getElementById('detailModal').classList.add('active');
-        }
-
-        function closeDetailModal() {
-            document.getElementById('detailModal').classList.remove('active');
-        }
-
-        function showAddTataTertibModal(id = null) {
-            document.getElementById('tataTertibModalTitle').innerHTML = id ? '<i class="fas fa-edit"></i> Edit Tata Tertib' : '<i class="fas fa-plus-circle"></i> Tambah Tata Tertib';
-            document.getElementById('tataTertibForm').reset();
-            document.getElementById('tataTertibId').value = id || '';
-
-            if (id) {
-                const item = tataTertibData.find(t => t.id === id);
-                if (item) {
-                    document.getElementById('kategori').value = item.kategori;
-                    document.getElementById('jenisPelanggaran').value = item.jenis_pelanggaran;
-                    document.getElementById('sanksi').value = item.sanksi;
-                }
-            }
-
-            document.getElementById('tataTertibModal').classList.add('active');
-        }
-
-        function closeTataTertibModal() {
-            document.getElementById('tataTertibModal').classList.remove('active');
-        }
-
-        // ===== HELPER FUNCTIONS =====
+        // --- HELPERS (Populate, Modal Show/Hide) ---
         function populateStudentSelect() {
-            const select = document.getElementById('namaSiswa');
-            select.innerHTML = '<option value="">-- Pilih Siswa --</option>';
+            const selectNama = document.getElementById('nama');
+            selectNama.innerHTML = '<option value="">-- Pilih Siswa --</option>';
             studentsData.forEach(siswa => {
                 const option = document.createElement('option');
                 option.value = siswa.id;
                 option.textContent = siswa.nama_lengkap;
-                option.dataset.email = siswa.email;
-                select.appendChild(option);
+                option.dataset.siswaNama = siswa.nama_lengkap;
+                option.dataset.siswaKelas = siswa.kelas;
+                option.dataset.siswaJurusan = siswa.jurusan;
+                selectNama.appendChild(option);
             });
         }
 
-        function populatePelanggaranSelect() {
-            const select = document.getElementById('pelanggaranName');
-            select.innerHTML = '<option value="">-- Pilih Pelanggaran --</option>';
-            tataTertibData.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.jenis_pelanggaran;
-                option.textContent = item.jenis_pelanggaran;
-                option.dataset.sanksi = item.sanksi;
-                option.dataset.id = item.id;
-                select.appendChild(option);
-            });
-            // Tambah opsi pelanggaran custom
-            const customOption = document.createElement('option');
-            customOption.value = 'Pelanggaran Lainnya';
-            customOption.textContent = 'Pelanggaran Lainnya';
-            customOption.dataset.sanksi = '';
-            customOption.dataset.id = 'custom';
-            select.appendChild(customOption);
+        function updateKelasJurusan() {
+            const select = document.getElementById('nama');
+            const opt = select.options[select.selectedIndex];
+            document.getElementById('siswaNama').dataset.siswaNama = opt.dataset.siswaNama;
+            document.getElementById('siswaNama').dataset.siswaId = opt.value;
         }
 
-        function updateStudentInfo() {
-            // Placeholder untuk penggunaan nanti
-        }
-
-        function updatePoinValue() {
-            const select = document.getElementById('pelanggaranName');
-            const selected = select.options[select.selectedIndex];
-            // Gunakan poin default 10 jika tidak ada di dataset
-            document.getElementById('poinValue').value = selected.dataset.poin || 10;
-
-            // Show/hide custom pelanggaran input
-            const customGroup = document.getElementById('pelanggaranCustomGroup');
-            if (select.value === 'Pelanggaran Lainnya') {
-                customGroup.style.display = 'block';
-                document.getElementById('pelanggaranCustom').required = true;
-            } else {
-                customGroup.style.display = 'none';
-                document.getElementById('pelanggaranCustom').required = false;
-                document.getElementById('pelanggaranCustom').value = '';
+        function showAddModal(quick = false, name = '', id = null) {
+            document.getElementById('modalTitle').textContent = 'Tambah Kasus Baru';
+            document.getElementById('kasusId').value = '';
+            document.getElementById('kasusForm').reset();
+            const select = document.getElementById('nama');
+            select.disabled = false;
+            if (quick) {
+                select.value = id;
+                select.disabled = true;
+                document.getElementById('siswaNama').dataset.siswaId = id;
+                document.getElementById('siswaNama').dataset.siswaNama = name;
             }
+            document.getElementById('kasusModal').style.display = 'block';
         }
 
-        function calculateTotalPoin(siswaId) {
-            return kasusData
-                .filter(k => k.siswa_id === siswaId)
-                .reduce((sum, k) => sum + k.poin, 0);
+        function hideModal() {
+            document.getElementById('kasusModal').style.display = 'none';
         }
 
-        // ===== FORM SUBMISSIONS =====
+        function editKasus(id) {
+            const kasus = casesData.find(k => k.id === id);
+            if (!kasus) return;
+            document.getElementById('modalTitle').textContent = 'Edit Kasus';
+            document.getElementById('kasusId').value = kasus.id;
+            const opt = document.querySelector(`#nama option[data-siswa-nama="${kasus.nama_siswa}"]`);
+            if (opt) {
+                document.getElementById('nama').value = opt.value;
+                document.getElementById('siswaNama').dataset.siswaId = opt.value;
+            }
+            document.getElementById('pelanggaran').value = kasus.pelanggaran;
+            document.getElementById('poin').value = kasus.poin;
+            document.getElementById('nama').disabled = true;
+            document.getElementById('kasusModal').style.display = 'block';
+        }
+
         document.getElementById('kasusForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
-            const siswaId = document.getElementById('namaSiswa').value;
-            if (!siswaId) {
-                showAlert('Pilih siswa terlebih dahulu', 'error');
-                return;
-            }
-
-            const kasusId = document.getElementById('kasusId').value;
-            let pelanggaranName = document.getElementById('pelanggaranName').value;
-            const poin = parseInt(document.getElementById('poinValue').value);
-            const catatan = document.getElementById('catatan').value;
-
-            // Handle custom pelanggaran
-            if (pelanggaranName === 'Pelanggaran Lainnya') {
-                const customPelanggaran = document.getElementById('pelanggaranCustom').value;
-                if (!customPelanggaran.trim()) {
-                    showAlert('Masukkan jenis pelanggaran lainnya', 'error');
-                    return;
-                }
-                pelanggaranName = customPelanggaran;
-            }
-
-            const endpoint = kasusId ? `/api/kasus/${kasusId}` : '/api/kasus';
-            const method = kasusId ? 'PUT' : 'POST';
-
-            try {
-                const response = await fetch(endpoint, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        siswa_id: parseInt(siswaId),
-                        pelanggaran: pelanggaranName,
-                        poin: poin,
-                        catatan: catatan
-                    })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Gagal menyimpan kasus');
-                }
-
-                await fetchKasus();
-                closeKasusModal();
-                showAlert(kasusId ? 'Kasus berhasil diperbarui' : 'Kasus berhasil ditambahkan', 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert(`Gagal: ${error.message}`, 'error');
-            }
+            const siswaId = document.getElementById('nama').value;
+            if (!siswaId) return alert('Pilih siswa');
+            await submitKasus({
+                kasusId: document.getElementById('kasusId').value,
+                siswaId: parseInt(siswaId),
+                pelanggaran: document.getElementById('pelanggaran').value,
+                poin: parseInt(document.getElementById('poin').value)
+            });
+            document.getElementById('nama').disabled = false;
         });
 
-        document.getElementById('tataTertibForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const tataTertibId = document.getElementById('tataTertibId').value;
-            const kategori = document.getElementById('kategori').value;
-            const jenisPelanggaran = document.getElementById('jenisPelanggaran').value;
-            const sanksi = document.getElementById('sanksi').value;
-
-            const endpoint = tataTertibId ? `/api/tata-tertib/${tataTertibId}` : '/api/tata-tertib';
-            const method = tataTertibId ? 'PUT' : 'POST';
-
-            try {
-                const response = await fetch(endpoint, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        kategori,
-                        jenis_pelanggaran: jenisPelanggaran,
-                        sanksi: sanksi
-                    })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Gagal menyimpan tata tertib');
-                }
-
-                await fetchTataTertib();
-                closeTataTertibModal();
-                showAlert(tataTertibId ? 'Tata tertib berhasil diperbarui' : 'Tata tertib berhasil ditambahkan', 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert(`Gagal: ${error.message}`, 'error');
-            }
-        });
-
-        // ===== EDIT & DELETE FUNCTIONS =====
-        function editKasus(kasusId) {
-            const kasus = kasusData.find(k => k.id === kasusId);
-            if (!kasus) return;
-
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Kasus';
-            document.getElementById('kasusId').value = kasus.id;
-            document.getElementById('namaSiswa').value = kasus.siswa_id;
-            document.getElementById('namaSiswa').disabled = true;
-            document.getElementById('pelanggaranName').value = kasus.pelanggaran;
-            document.getElementById('poinValue').value = kasus.poin;
-            document.getElementById('catatan').value = kasus.catatan || '';
-
-            document.getElementById('kasusModal').classList.add('active');
+        function showDetailModal(name) {
+            document.getElementById('detailSiswaName').textContent = name;
+            const list = document.getElementById('pelanggaranList');
+            list.innerHTML = '';
+            const history = casesData.filter(k => k.nama_siswa === name).sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+            if (history.length === 0) list.innerHTML = '<li>Tidak ada riwayat.</li>';
+            else history.forEach(h => list.innerHTML += `<li><div>[${h.tanggal || 'N/A'}] ${h.pelanggaran}<br><small>Oleh: ${h.penanggungJawab || '-'}</small></div><strong>-${h.poin} Poin</strong></li>`);
+            document.getElementById('detailModal').style.display = 'block';
         }
 
-        async function deleteKasus(kasusId) {
-            if (!confirm('Yakin ingin menghapus kasus ini?')) return;
-
-            try {
-                const response = await fetch(`/api/kasus/${kasusId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) throw new Error('Gagal menghapus kasus');
-
-                await fetchKasus();
-                showAlert('Kasus berhasil dihapus', 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert(`Gagal: ${error.message}`, 'error');
-            }
+        function hideDetailModal() {
+            document.getElementById('detailModal').style.display = 'none';
         }
 
-        function editTataTertib(id) {
-            showAddTataTertibModal(id);
+        function hideUserModal() {
+            document.getElementById('userModal').style.display = 'none';
         }
 
-        async function deleteTataTertib(id) {
-            if (!confirm('Yakin ingin menghapus tata tertib ini?')) return;
-
-            try {
-                const response = await fetch(`/api/tata-tertib/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) throw new Error('Gagal menghapus tata tertib');
-
-                await fetchTataTertib();
-                showAlert('Tata tertib berhasil dihapus', 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert(`Gagal: ${error.message}`, 'error');
+        window.onclick = function(e) {
+            if (!e.target.matches('.profile-btn') && !e.target.closest('.profile-btn')) {
+                const dd = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dd.length; i++)
+                    if (dd[i].classList.contains('show')) dd[i].classList.remove('show');
             }
+            if (e.target.className === 'modal') e.target.style.display = "none";
         }
 
-        // ===== CLOSE MODALS ON OUTSIDE CLICK =====
-        window.addEventListener('click', function(event) {
-            const kasusModal = document.getElementById('kasusModal');
-            const detailModal = document.getElementById('detailModal');
-            const tataTertibModal = document.getElementById('tataTertibModal');
-
-            if (event.target === kasusModal) {
-                closeKasusModal();
-            }
-            if (event.target === detailModal) {
-                closeDetailModal();
-            }
-            if (event.target === tataTertibModal) {
-                closeTataTertibModal();
-            }
-        });
-
-        // ===== INITIALIZE PAGE =====
-        window.addEventListener('DOMContentLoaded', async function() {
-            await fetchStudents();
+        window.onload = async function() {
+            await fetchSiswa();
             await fetchKasus();
-            await fetchTataTertib();
-        });
+        };
     </script>
 </body>
 

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Siswa;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class SiswaSeeder extends Seeder
 {
@@ -58,27 +58,24 @@ class SiswaSeeder extends Seeder
         ];
 
         foreach ($siswaList as $index => $namaLengkap) {
-            // Create user first
-            $user = DB::table('users')->insertGetId([
-                'name' => $namaLengkap,
-                'email' => strtolower(str_replace(' ', '.', $namaLengkap)) . '@siswa.smk.sch.id',
-                'password' => Hash::make('password123'),
-                'role' => 'siswa',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            // Find user by name (created by UserSeeder)
+            $user = User::where('name', $namaLengkap)
+                ->where('role', 'siswa')
+                ->first();
 
-            // Then create siswa record
-            DB::table('siswa')->insert([
-                'user_id' => $user,
-                'nama_lengkap' => $namaLengkap,
-                'nis' => sprintf('NIS%04d', $index + 1),
-                'jenis_kelamin' => $index % 2 == 0 ? 'Laki-laki' : 'Perempuan',
-                'tanggal_lahir' => now()->subYears(15)->toDateString(),
-                'alamat' => 'Jalan Pembangunan No. ' . ($index + 1),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            if ($user) {
+                // Check if siswa record already exists
+                Siswa::firstOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'nama_lengkap' => $namaLengkap,
+                        'nis' => sprintf('NIS%04d', $index + 1),
+                        'jenis_kelamin' => $index % 2 == 0 ? 'Laki-laki' : 'Perempuan',
+                        'tanggal_lahir' => now()->subYears(15)->toDateString(),
+                        'alamat' => 'Jalan Pembangunan No. ' . ($index + 1),
+                    ]
+                );
+            }
         }
     }
 }

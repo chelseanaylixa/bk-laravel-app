@@ -11,11 +11,12 @@ use App\Http\Controllers\CurhatAIController;
 use App\Models\Kasus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\TataTertib;
 
 // Route::get('/dashboard', [KasusController::class, 'index'])->name('kasus.index'); 
 // NOTE: Route ini dihapus karena konflik dengan Route::resource('kasus') di bawah.
 
-Route::resource('kasus', KasusController::class)->except(['index']); 
+Route::resource('kasus', KasusController::class)->except(['index']);
 // NOTE: Saya menggunakan 'except' karena index diatur ulang di bawah
 
 // Halaman utama
@@ -67,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin,guru_bk')->group(function () {
         Route::get('kasus', [KasusController::class, 'index'])->name('kasus.index'); // Route index (daftar kasus)
         Route::resource('kasus', KasusController::class)->only(['create', 'store', 'edit', 'update', 'destroy', 'show']);
+        Route::get('/admin/tata-tertib', [KasusController::class, 'indexTataTertib'])->name('admin.tatatertib.index');
+        Route::post('/admin/tata-tertib', [KasusController::class, 'storeTataTertib'])->name('admin.tatatertib.store');
+        Route::delete('/admin/tata-tertib/{id}', [KasusController::class, 'destroyTataTertib'])->name('admin.tatatertib.destroy');
     });
     // NOTE: Sekarang rute 'kasus.index' hanya bisa diakses oleh admin/guru_bk.
 
@@ -78,21 +82,32 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
 
             // Halaman dashboard siswa
-            Route::get('pelanggaran', fn() => view('pages.pelanggaran'))->name('pelanggaran');
+
+            // ... kode lain ...
+
+            Route::get('pelanggaran', function () {
+                // 1. Ambil data dari database
+                $tataTertibs = TataTertib::all();
+
+                // 2. Kirim data ke view menggunakan compact
+                return view('pages.pelanggaran', compact('tataTertibs'));
+            })->name('pelanggaran');
             Route::get('poin', fn() => view('pages.poin'))->name('poin');
             // Route kasus-page dihapus/diganti jika Anda menggunakan dashboard siswa sebagai halaman kasusnya.
             Route::get('jurusan', fn() => view('pages.jurusan'))->name('jurusan');
             Route::get('curhat-guru', fn() => view('pages.curhat-guru'))->name('curhat-guru');
-            
+
             // Dua rute ini seharusnya hanya untuk Admin/Guru BK, jadi kita pindahkan
             // Route::get('kelola-users', fn() => view('pages.kelola-users'))->name('kelola.users');
             // Route::get('kelola-pelanggaran', fn() => view('pages.kelola-pelanggaran'))->name('kelola.pelanggaran');
-            
-            // Curhat AI
-            Route::get('/curhat-ai', [CurhatAIController::class, 'index'])->name('curhat.ai');
-            Route::post('/curhat-ai', [CurhatAIController::class, 'store'])->name('curhat.ai.store');
+
+            // Route untuk membuka halaman
+            Route::get('curhat-ai', [CurhatAiController::class, 'index'])->name('curhat_ai');
+
+            // Route untuk mengirim pesan (API)
+            Route::post('curhat-ai', [CurhatAiController::class, 'chat'])->name('curhat_ai');
         });
-        
+
     // =============================
     // Route Khusus Admin/Guru BK
     // =============================
@@ -100,4 +115,13 @@ Route::middleware('auth')->group(function () {
         Route::get('kelola-users', fn() => view('pages.kelola-users'))->name('kelola.users');
         Route::get('kelola-pelanggaran', fn() => view('pages.kelola-pelanggaran'))->name('kelola.pelanggaran');
     });
+    // Contoh di routes/api.php
+    Route::put('/users/{id}', function (Request $request, $id) {
+        $user = \App\Models\User::findOrFail($id);
+        $user->update($request->only(['name', 'kelas', 'jurusan']));
+        return response()->json(['message' => 'Success']);
+    });
+    // --- FITUR INPUT PELANGGARAN ---
+    Route::get('/kasus/index.blade.php', [DashboardController::class, 'createPelanggaran'])->name('kasus.pelanggaran.create');
+    Route::post('/kasus/index.blade.php', [DashboardController::class, 'storePelanggaran'])->name('kasus.pelanggaran.store');
 });

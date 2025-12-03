@@ -7,6 +7,57 @@
     <title>Sistem Data Kelas dan Jurusan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Styling untuk tombol back */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* MODIFIKASI PADA HEADER YANG SUDAH ADA */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(to right, #003366, #004aad);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+            color: white !important;
+            font-size: 1.8rem;
+            margin: 0;
+            flex: 1;
+            opacity: 1 !important;
+        }
+
+        /* DIV BARU: Membungkus h1 dan user-info agar user-info tetap di kanan */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            /* Memastikan konten header menempati ruang yang tersedia */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -146,7 +197,7 @@
         }
 
         .class-card {
-            background: linear-gradient(90deg, var(--blue-700), var(--blue-600));
+            background: linear-gradient(90deg, #003366, #004aad);
             color: white;
             padding: 18px;
             border-radius: 10px;
@@ -193,7 +244,7 @@
         table,
         th,
         td {
-            border: 1px solid #e0e0e0;
+            border: 1px solid #003366;
         }
 
         th,
@@ -203,21 +254,22 @@
         }
 
         th {
-            background-color: var(--blue-200);
-            color: var(--blue-900);
+            background-color: #003366;
+            color: white;
             cursor: pointer;
+            font-weight: 600;
         }
 
         th:hover {
-            background-color: #e9ecef;
+            background-color: #004aad;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f0f5ff;
         }
 
         tr:hover {
-            background-color: #e9f6ff;
+            background-color: #e6f0ff;
         }
 
         td {
@@ -366,6 +418,12 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="header">
+            <button
+                class="back-btn"
+                onclick="history.back()"
+                aria-label="Kembali">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
             <h1>Data Kelas dan Jurusan</h1>
             <div class="user-info">
             </div>
@@ -378,11 +436,11 @@
                     <h3>Kelas X</h3>
                     <p>Jurusan:</p>
                     <ul class="jurusan-list">
-                        <li onclick="showNotification('TKR dipilih')">TKR (7 kelas: TKR I - TKR VII)</li>
-                        <li onclick="showNotification('TPM dipilih')">TPM (5 kelas: TPM I - TPM V)</li>
-                        <li onclick="showNotification('RPL dipilih')">RPL (3 kelas)</li>
-                        <li onclick="showNotification('TEI dipilih')">TEI (3 kelas)</li>
-                        <li onclick="showNotification('TITL dipilih')">TITL (2 kelas)</li>
+                        <li onclick="showNotification('TKR dipilih')">TKR (Teknik Kendaraan Ringan)</li>
+                        <li onclick="showNotification('TPM dipilih')">TPM (Teknik Permesinan)</li>
+                        <li onclick="showNotification('RPL dipilih')">RPL (Rekayasa Perangkat Lunak) </li>
+                        <li onclick="showNotification('TEI dipilih')">TEI (Teknik Elektronika Industri)</li>
+                        <li onclick="showNotification('TITL dipilih')">TITL (Teknik Listrik) </li>
                     </ul>
                 </div>
 
@@ -390,11 +448,10 @@
                     <h3>Kelas XI</h3>
                     <p>Jurusan:</p>
                     <ul class="jurusan-list">
-                        <li onclick="showNotification('TKR dipilih')">TKR (8 kelas: TKR I - TKR VIII)</li>
-                        <li onclick="showNotification('TPM dipilih')">TPM (6 kelas: TPM I - TPM VI)</li>
-                        <li onclick="showNotification('RPL dipilih')">RPL (3 kelas)</li>
-                        <li onclick="showNotification('TEI dipilih')">TEI (3 kelas)</li>
-                        <li onclick="showNotification('TITL dipilih')">TITL (2 kelas)</li>
+                        <li onclick="showNotification('TKR dipilih')">TKR (Teknik Kendaraan Ringan)</li>
+                        <li onclick="showNotification('TPM dipilih')">TPM (Teknik Permesinan)</li>
+                        <li onclick="showNotification('RPL dipilih')">RPL (Rekayasa Perangkat Lunak) </li>
+                        <li onclick="showNotification('TITL dipilih')">TITL (Teknik Listrik) </li>
                     </ul>
                 </div>
 
@@ -402,12 +459,10 @@
                     <h3>Kelas XII</h3>
                     <p>Jurusan:</p>
                     <ul class="jurusan-list">
-                        <li onclick="showNotification('TKR dipilih')">TKR (6 kelas: TKR I - TKR VI)</li>
-                        <li onclick="showNotification('TPM dipilih')">TPM (4 kelas: TPM I - TPM IV)</li>
-                        <li onclick="showNotification('RPL dipilih')">RPL (3 kelas)</li>
-                        <li onclick="showNotification('TEI dipilih')">TEI (3 kelas)</li>
-                        <li onclick="showNotification('TITL dipilih')">TITL (2 kelas)</li>
-
+                        <li onclick="showNotification('TKR dipilih')">TKR (Teknik Kendaraan Ringan)</li>
+                        <li onclick="showNotification('TPM dipilih')">TPM (Teknik Permesinan)</li>
+                        <li onclick="showNotification('RPL dipilih')">RPL (Rekayasa Perangkat Lunak) </li>
+                        <li onclick="showNotification('TITL dipilih')">TITL (Teknik Listrik) </li>
                     </ul>
                 </div>
             </div>
@@ -415,25 +470,25 @@
         <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-600">
             <h2 class="text-2xl font-semibold text-blue-800 mb-4">Penjelasan Jurusan</h2>
             <div class="space-y-6">
-                <div>
-                    <h3 class="text-xl font-bold text-blue-900">Teknik Kendaraan Ringan (TKR)</h3>
-                    <p class="text-gray-700">Jurusan ini fokus pada perbaikan dan perawatan mobil. Siswa akan mempelajari tentang mesin, sistem kelistrikan, dan sasis kendaraan ringan.</p>
+                <div style="background: linear-gradient(90deg, #f0f9ff, #e6f0ff); border-left: 4px solid #003366; padding: 16px; border-radius: 8px;">
+                    <h3 style="color: #003366; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px;">Teknik Kendaraan Ringan (TKR)</h3>
+                    <p style="color: #555; line-height: 1.6;">Jurusan ini fokus pada perbaikan dan perawatan mobil. Siswa akan mempelajari tentang mesin, sistem kelistrikan, dan sasis kendaraan ringan.</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-blue-900">Rekayasa Perangkat Lunak (RPL)</h3>
-                    <p class="text-gray-700">Jurusan ini mengajarkan siswa cara mengembangkan perangkat lunak, mulai dari aplikasi desktop, web, hingga mobile. Kurikulum mencakup pemrograman, basis data, dan desain sistem.</p>
+                <div style="background: linear-gradient(90deg, #f0f9ff, #e6f0ff); border-left: 4px solid #003366; padding: 16px; border-radius: 8px;">
+                    <h3 style="color: #003366; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px;">Rekayasa Perangkat Lunak (RPL)</h3>
+                    <p style="color: #555; line-height: 1.6;">Jurusan ini mengajarkan siswa cara mengembangkan perangkat lunak, mulai dari aplikasi desktop, web, hingga mobile. Kurikulum mencakup pemrograman, basis data, dan desain sistem.</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-blue-900">Teknik Permesinan (TPM)</h3>
-                    <p class="text-gray-700">Siswa di jurusan ini akan belajar mengoperasikan mesin-mesin industri, membuat komponen mekanik, dan merawat peralatan produksi. Keterampilan yang diajarkan sangat dibutuhkan di dunia manufaktur.</p>
+                <div style="background: linear-gradient(90deg, #f0f9ff, #e6f0ff); border-left: 4px solid #003366; padding: 16px; border-radius: 8px;">
+                    <h3 style="color: #003366; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px;">Teknik Permesinan (TPM)</h3>
+                    <p style="color: #555; line-height: 1.6;">Siswa di jurusan ini akan belajar mengoperasikan mesin-mesin industri, membuat komponen mekanik, dan merawat peralatan produksi. Keterampilan yang diajarkan sangat dibutuhkan di dunia manufaktur.</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-blue-900">Teknik Listrik (TITL)</h3>
-                    <p class="text-gray-700">Jurusan ini mendalami instalasi, perbaikan, dan pemeliharaan sistem kelistrikan. Siswa akan belajar tentang rangkaian listrik, motor listrik, dan sistem tenaga listrik.</p>
+                <div style="background: linear-gradient(90deg, #f0f9ff, #e6f0ff); border-left: 4px solid #003366; padding: 16px; border-radius: 8px;">
+                    <h3 style="color: #003366; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px;">Teknik Listrik (TITL)</h3>
+                    <p style="color: #555; line-height: 1.6;">Jurusan ini mendalami instalasi, perbaikan, dan pemeliharaan sistem kelistrikan. Siswa akan belajar tentang rangkaian listrik, motor listrik, dan sistem tenaga listrik.</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-blue-900">Teknik Elektronika Industri (TEI)</h3>
-                    <p class="text-gray-700">Jurusan ini menggabungkan elektronika dengan sistem kontrol otomatis. Siswa akan mempelajari cara merancang dan memprogram perangkat elektronika untuk keperluan industri.</p>
+                <div style="background: linear-gradient(90deg, #f0f9ff, #e6f0ff); border-left: 4px solid #003366; padding: 16px; border-radius: 8px;">
+                    <h3 style="color: #003366; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px;">Teknik Elektronika Industri (TEI)</h3>
+                    <p style="color: #555; line-height: 1.6;">Jurusan ini menggabungkan elektronika dengan sistem kontrol otomatis. Siswa akan mempelajari cara merancang dan memprogram perangkat elektronika untuk keperluan industri.</p>
                 </div>
             </div>
         </div>

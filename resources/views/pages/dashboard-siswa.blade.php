@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,6 +13,7 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #e6f0ff 0%, #c9e2ff 100%);
@@ -73,7 +75,7 @@
             font-size: 20px;
             transition: all 0.3s ease;
         }
-        
+
         /* Dropdown Logout */
         .dropdown-menu {
             position: absolute;
@@ -151,14 +153,14 @@
             background: linear-gradient(to right, #003366, #004aad);
             border-radius: 2px;
         }
-        
+
         h2 {
             color: #004aad;
             font-size: 24px;
             margin-top: 40px;
             margin-bottom: 20px;
             padding-left: 10px;
-    
+
         }
 
         h3 {
@@ -175,7 +177,7 @@
             gap: 25px;
             margin-bottom: 50px;
         }
-        
+
         .menu-item {
             background: linear-gradient(to bottom, #004aad, #003366);
             color: white;
@@ -244,7 +246,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .data-table th, .data-table td {
+        .data-table th,
+        .data-table td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #e0e7ee;
@@ -272,7 +275,7 @@
         .data-table .action-buttons button:hover {
             background-color: #0056b3;
         }
-        
+
         .student-info-card {
             background: #f0f5ff;
             padding: 25px;
@@ -457,7 +460,8 @@
 
         /* Style untuk pop-up */
         .modal {
-            display: none; /* Sembunyikan secara default */
+            display: none;
+            /* Sembunyikan secara default */
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -505,116 +509,119 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0, 150, 50, 0.4);
         }
+
         .school-map {
-    margin-top: 40px;
-    text-align: center;
-}
+            margin-top: 40px;
+            text-align: center;
+        }
 
-.school-map h2 {
-    margin-bottom: 20px;
-    color: #004aad;
-}
+        .school-map h2 {
+            margin-bottom: 20px;
+            color: #004aad;
+        }
 
-.map-container {
-    max-width: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-}
-/* ====== Tambahan Responsif ====== */
-@media (max-width: 992px) {
-    .container {
-        padding: 20px;
-    }
+        .map-container {
+            max-width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
 
-    .data-table th, .data-table td {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
+        /* ====== Tambahan Responsif ====== */
+        @media (max-width: 992px) {
+            .container {
+                padding: 20px;
+            }
 
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+            .data-table th,
+            .data-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
 
-    .school-info {
-        flex-direction: column;
-        align-items: center;
-    }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
 
-    .user-info {
-        margin-top: 15px;
-    }
+            .school-info {
+                flex-direction: column;
+                align-items: center;
+            }
 
-    .menu {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 12px;
-    }
+            .user-info {
+                margin-top: 15px;
+            }
 
-    .menu-item {
-        padding: 18px 12px;
-        font-size: 14px;
-    }
+            .menu {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 12px;
+            }
 
-    h1 {
-        font-size: 22px;
-    }
+            .menu-item {
+                padding: 18px 12px;
+                font-size: 14px;
+            }
 
-    h2 {
-        font-size: 18px;
-    }
+            h1 {
+                font-size: 22px;
+            }
 
-    .social-profiles {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+            h2 {
+                font-size: 18px;
+            }
 
-    .social-profiles a {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-    }
-}
+            .social-profiles {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
 
-@media (max-width: 480px) {
-    .header {
-        padding: 10px;
-    }
+            .social-profiles a {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
 
-    .school-logo {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
-    }
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px;
+            }
 
-    .menu-item i {
-        font-size: 26px;
-    }
+            .school-logo {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
 
-    .menu-item span {
-        font-size: 12px;
-    }
+            .menu-item i {
+                font-size: 26px;
+            }
 
-    .data-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+            .menu-item span {
+                font-size: 12px;
+            }
 
-    .student-info-card p {
-        font-size: 14px;
-    }
+            .data-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
 
-    .app-description {
-        font-size: 14px;
-    }
-    
-}
+            .student-info-card p {
+                font-size: 14px;
+            }
 
+            .app-description {
+                font-size: 14px;
+            }
+
+        }
     </style>
 </head>
+
 <body>
     <header class="header">
         <div class="school-info">
@@ -634,7 +641,7 @@
             <div class="user-avatar">
                 <i class="fas fa-user"></i>
             </div>
-            
+
             <div id="logout-dropdown" class="dropdown-menu">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -660,87 +667,17 @@
                 <i class="fas fa-graduation-cap"></i>
                 <span>Jurusan</span>
             </a>
-<a href="{{ route('curhat-guru') }}" class="menu-item">
-    <i class="fas fa-comments"></i>
-    <span>Curhat Guru</span>
-</a>
-<a href="http://localhost:3000/" target="_blank" class="menu-item">
-    <i class="fas fa-robot"></i>
-    <span>Curhat AI</span>
-</a>
+            <a href="{{ route('curhat-guru') }}" class="menu-item">
+                <i class="fas fa-comments"></i>
+                <span>Curhat Guru</span>
+            </a>
+            <a href="{{ route('curhat_ai') }}" class="menu-item">
+                <i class="fas fa-comments"></i>
+                <span>Curhat AI</span>
+            </a>
         </nav>
-        
-        @if (Auth::check() && in_array(Auth::user()->role, ['admin', 'guru_bk']))
-            <h1>Menu Admin & Guru BK</h1>
-            <nav class="menu">
-                <a href="{{ route('kasus.page') }}" class="menu-item">
-                    <i class="fas fa-briefcase"></i>
-                    <span>Kasus</span>
-                </a>
-                <a href="{{ route('kasus.create') }}" class="menu-item">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Tambah Kasus</span>
-                </a>
-                <a href="{{ route('kelola.users') }}" class="menu-item">
-                    <i class="fas fa-users"></i>
-                    <span>Kelola Pengguna</span>
-                </a>
-                <a href="{{ route('kelola.pelanggaran') }}" class="menu-item">
-                    <i class="fas fa-user-lock"></i>
-                    <span>Kelola Pelanggaran</span>
-                </a>
-            </nav>
-            
-            <h2>Kelola Data Siswa</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nama</th>
-                        <th>NIS</th>
-                        <th>Kelas</th>
-                        <th>Jurusan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-<h2>Kelola Kasus</h2>
-<table class="data-table">
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>Nama Siswa</th>
-            <th>Tanggal</th>
-            <th>Deskripsi Kasus</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse($kasus as $index => $k)
-        <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ $k->nama_siswa }}</td>
-            <td>{{ $k->created_at->format('d-m-Y') }}</td>
-            <td>{{ $k->pelanggaran }}</td>
-            <td class="action-buttons">
-                <button>Lihat Detail</button>
-                <button>Edit</button>
-                <button>Hapus</button>
-            </td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="5">Belum ada kasus</td>
-        </tr>
-        @endforelse
-    </tbody>
-</table>
 
 
-        @endif
-
-        
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -758,13 +695,14 @@
                     logoutDropdown.classList.remove('show');
                 }
             });
-            });
+        });
     </script>
-            <footer class="footer">
+    <footer class="footer">
         <p>&copy; 2025 SMK Antartika 1 Sidoarjo. All rights reserved.</p>
         <p>Versi 1.0.0</p>
     </footer>
     </div>
-</section>
+    </section>
 </body>
+
 </html>

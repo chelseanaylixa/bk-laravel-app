@@ -37,7 +37,6 @@ class KasusController extends Controller
             'jurusan' => 'required|string|max:100',
             'pelanggaran' => 'required|string|max:255',
             'poin' => 'required|integer',
-            'penanggung_jawab' => 'required|string|max:255',
         ]);
 
         // Gunakan data yang sudah divalidasi untuk membuat record baru
@@ -66,7 +65,6 @@ class KasusController extends Controller
             'jurusan' => 'required|string|max:100',
             'pelanggaran' => 'required|string|max:255',
             'poin' => 'required|integer',
-            'penanggung_jawab' => 'required|string|max:255',
         ]);
 
         // Gunakan data yang sudah divalidasi untuk memperbarui record

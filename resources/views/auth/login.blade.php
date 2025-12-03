@@ -202,6 +202,23 @@
                 });
             }
         });
+        
+    </script>
+    <script>
+        // Teknik ini mengganti entri saat ini di riwayat browser dengan URL Landing Page (/)
+        // Sehingga saat pengguna menekan tombol Back, tidak ada halaman sebelumnya yang bisa dikunjungi,
+        // dan ia akan diarahkan ke Landing Page atau halaman utama.
+        window.onload = function() {
+            if (window.history && window.history.pushState) {
+                // Menjaga agar tombol 'back' tidak kembali ke halaman sebelumnya
+                window.history.pushState('forward', document.title, window.location.pathname);
+                
+                // Mencegah kembali ke riwayat sebelum login
+                window.addEventListener('popstate', function (e) {
+                    window.location.replace("{{ url('/') }}"); // Ganti ke landing page
+                });
+            }
+        }
     </script>
 </body>
 </html>

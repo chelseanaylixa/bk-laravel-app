@@ -455,8 +455,6 @@
 
 <body>
 
-    <!-- Navbar Utama (Disesuaikan dengan permintaan user) -->
-    <!-- Struktur Navbar diperbaiki agar link dan tombol Masuk terlihat jelas di desktop -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #004d99, #0066cc) !important; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#home" style="color: white !important; font-weight: bold;">
@@ -477,9 +475,6 @@
                 <ul class="navbar-nav mx-auto"> <!-- mx-auto untuk pusatkan di desktop -->
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#home" style="color: white !important;">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}" style="color: white !important;">Layanan Kami</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#kontak" style="color: white !important;">Kontak Kami</a>
