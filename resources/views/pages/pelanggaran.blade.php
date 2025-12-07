@@ -26,7 +26,7 @@
                 <i class="fas fa-arrow-left"></i> Kembali
             </button>
             <div class="font-bold text-lg flex items-center gap-2">
-                <i class="fa-solid fa-book-open"></i> Tata Tertib Sekolah
+                <i class="fa-solid fa-book-open"></i> Pelanggaran
             </div>
         </div>
     </nav>

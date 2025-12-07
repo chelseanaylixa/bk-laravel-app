@@ -30,11 +30,18 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .school-info {
             display: flex;
             align-items: center;
+        }
+
+        .school-info h2 {
+            color: white;
         }
 
         .school-logo {
@@ -154,6 +161,35 @@
             border-radius: 2px;
         }
 
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
         h2 {
             color: #004aad;
             font-size: 24px;
@@ -170,12 +206,88 @@
             margin-bottom: 15px;
         }
 
+        /* Description Box */
+        .description-box {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f4ff 100%);
+            padding: 30px;
+            border-radius: 14px;
+            margin-bottom: 80px;
+            border-left: 6px solid #003366;
+            border-right: 6px solid #003366;
+            box-shadow: 0 8px 20px rgba(0, 52, 102, 0.12);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .description-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 74, 173, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .description-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 52, 102, 0.18);
+            border-left-color: #004aad;
+            border-right-color: #004aad;
+        }
+
+        .description-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #003366, #004aad);
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 52, 102, 0.25);
+        }
+
+        .description-box p {
+            color: #1a3a52;
+            font-size: 15px;
+            line-height: 2;
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .description-box:hover p {
+            transform: scale(1.02);
+            transform-origin: left center;
+        }
+
+        .description-box strong {
+            color: #003366;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .description-box:hover strong {
+            color: #004aad;
+            text-shadow: 0 2px 8px rgba(0, 74, 173, 0.2);
+        }
+
         /* Menu pilihan */
         .menu {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 25px;
             margin-bottom: 50px;
+            animation: slideInFromLeft 0.8s ease-out 0.4s both;
         }
 
         .menu-item {
@@ -653,6 +765,15 @@
 
     <div class="container">
         <h1>Dashboard Siswa</h1>
+
+        <div class="description-box">
+            <div class="description-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <p>
+                Di aplikasi BK ini, kamu bisa ngurus banyak hal dengan lebih gampang. Mulai dari fitur <strong>Pelanggaran</strong>, tempat kamu bisa lihat daftar aturan sekolah lengkap sama contoh pelanggarannya. Lalu ada fitur <strong>Poin</strong> yang ngebantu kamu mantau poin positif maupun negatif selama di sekolah. Kalau lagi butuh cerita atau butuh bimbingan, kamu bisa pakai <strong>Curhat Guru</strong> buat ngobrol langsung sama guru BK secara aman dan rahasia. Dan kalau mau curhat cepat kapan aja, tinggal buka <strong>Curhat AI</strong> yang siap dengerin dan kasih saran kapan pun kamu butuh.
+            </p>
+        </div>
 
         <nav class="menu" role="navigation" aria-label="Menu Pilihan Dashboard">
             <a href="{{ route('pelanggaran') }}" class="menu-item">
