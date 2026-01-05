@@ -130,7 +130,12 @@
         }
 
         .data-table th:nth-child(5) {
-            width: 20%;
+            width: 25%;
+            min-width: 150px;
+        }
+
+        .data-table th:nth-child(6) {
+            width: 15%;
             min-width: 120px;
         }
 
@@ -162,8 +167,31 @@
         }
 
         .data-table td:nth-child(5) {
-            width: 20%;
+            width: 25%;
+            min-width: 150px;
+        }
+
+        .data-table td:nth-child(6) {
+            width: 15%;
             min-width: 120px;
+        }
+
+        .catatan-box {
+            background: #f0f7ff;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 12px;
+            color: #0d1a40;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            word-wrap: break-word;
+        }
+
+        .catatan-box.empty {
+            color: #999;
+            font-style: italic;
         }
 
         .paraf-box {
@@ -244,8 +272,9 @@
                         <tr>
                             <th>NO</th>
                             <th>HARI/TANGGAL</th>
-                            <th>PELANGGARAN</th>
+                            <th>KASUS</th>
                             <th>POIN</th>
+                            <th>CATATAN</th>
                             <th>PARAF GURU</th>
                         </tr>
                     </thead>
@@ -254,8 +283,13 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ optional($kasus->tanggal)->format('d-m-Y') ?? ($kasus->created_at ? $kasus->created_at->format('d-m-Y') : '-') }}</td>
-                            <td>{{ $kasus->pelanggaran->nama_pelanggaran ?? $kasus->catatan ?? '-' }}</td>
+                            <td>{{ $kasus->pelanggaran->nama_pelanggaran ?? '-' }}</td>
                             <td><strong>{{ $kasus->pelanggaran->jumlah_poin ?? 0 }}</strong></td>
+                            <td>
+                                <div class="catatan-box {{ empty($kasus->catatan) ? 'empty' : '' }}">
+                                    {{ $kasus->catatan ?? 'Tidak ada catatan' }}
+                                </div>
+                            </td>
                             <td>
                                 <div class="paraf-box"></div>
                             </td>

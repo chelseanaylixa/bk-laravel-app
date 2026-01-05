@@ -771,7 +771,7 @@
                 <i class="fas fa-lightbulb"></i>
             </div>
             <p>
-                Di aplikasi BK ini, kamu bisa ngurus banyak hal dengan lebih gampang. Mulai dari fitur <strong>Pelanggaran</strong>, tempat kamu bisa lihat daftar aturan sekolah lengkap sama contoh pelanggarannya. Lalu ada fitur <strong>Poin</strong> yang ngebantu kamu mantau poin positif maupun negatif selama di sekolah. Kalau lagi butuh cerita atau butuh bimbingan, kamu bisa pakai <strong>Curhat Guru</strong> buat ngobrol langsung sama guru BK secara aman dan rahasia. Dan kalau mau curhat cepat kapan aja, tinggal buka <strong>Curhat AI</strong> yang siap dengerin dan kasih saran kapan pun kamu butuh.
+                Di aplikasi BK ini, kamu bisa ngurus banyak hal dengan lebih gampang. Mulai dari fitur <strong>Pelanggaran</strong>, tempat kamu bisa lihat daftar aturan sekolah lengkap sama contoh pelanggarannya. Lalu ada fitur <strong>Poin</strong> yang ngebantu kamu mantau poin selama di sekolah. Kalau lagi butuh cerita atau butuh bimbingan, kamu bisa pakai <strong>Curhat Guru</strong> buat ngobrol langsung sama guru BK secara aman dan rahasia. Dan kalau mau curhat cepat kapan aja, tinggal buka <strong>Curhat AI</strong> yang siap dengerin dan kasih saran kapan pun kamu butuh.
             </p>
         </div>
 
