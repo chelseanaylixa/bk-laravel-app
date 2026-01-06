@@ -54,12 +54,13 @@ Route::middleware('auth')->group(function () {
     // Dashboard sesuai role (Perbaikan minor: Menghilangkan $kasus->all() karena KasusController sudah mengurusnya)
     Route::get('dashboard', function () {
         $user = Auth::user();
+        $userRole = $user?->role ?? null;
 
-        if (in_array($user->role, ['admin', 'guru_bk'])) {
+        if (in_array($userRole, ['admin', 'guru_bk'])) {
             return redirect()->route('kasus.index'); // Langsung alihkan ke halaman utama kasus
         }
 
-        if (in_array($user->role, ['wali_kelas', 'wali_murid', 'guru_mapel', 'kepala_sekolah', 'siswa'])) {
+        if (in_array($userRole, ['wali_kelas', 'wali_murid', 'guru_mapel', 'kepala_sekolah', 'siswa'])) {
             return view('pages.dashboard-siswa');
         }
 
