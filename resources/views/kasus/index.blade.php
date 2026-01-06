@@ -928,6 +928,7 @@
                                 <th>KEPUASAN</th>
                                 <th>MASUKAN</th>
                                 <th>TANGGAL</th>
+                                <th>AKSI</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -1505,15 +1506,44 @@
                                 <td><span class="badge badge-${item.kepuasan}">${kepuasanLabel}</span></td>
                                 <td>${item.masukan ? item.masukan.substring(0, 50) + '...' : '-'}</td>
                                 <td>${new Date(item.created_at).toLocaleDateString('id-ID')}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger" onclick="deleteSurvei(${item.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
                             </tr>
                         `;
                         tbody.insertAdjacentHTML('beforeend', row);
                     });
                 } else {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #999;">Belum ada data survei</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px; color: #999;">Belum ada data survei</td></tr>';
                 }
             } catch (error) {
                 console.error('Error loading survei data:', error);
+            }
+        }
+
+        async function deleteSurvei(surveiId) {
+            if (!confirm('Yakin ingin menghapus data survei ini?')) return;
+
+            try {
+                const response = await fetch(`/api/survei/${surveiId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Gagal menghapus survei');
+                }
+
+                await loadSurveiData();
+                showAlert('Survei berhasil dihapus', 'success');
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert(`Gagal: ${error.message}`, 'error');
             }
         }
 

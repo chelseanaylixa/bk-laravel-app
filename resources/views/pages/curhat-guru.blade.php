@@ -74,7 +74,7 @@
                 <div class="text-left md:w-1/2 md:pr-8">
                     <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Yuk, Mulai Curhat dengan Guru!</h1>
                     <p class="text-lg text-gray-600">
-                        Kamu tidak harus menghadapi semuanya sendiri. Kami hadir untuk memberikan layanan konseling online dengan guru Bimbingan Konseling yang siap mendengarkan.
+                        Anda tidak harus menghadapi semuanya sendiri. Kami hadir untuk memberikan layanan konseling online dengan guru Bimbingan Konseling yang siap mendengarkan.
                     </p>
                     <button id="btn-konsultasi" class="mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all">
                         Konsultasi Sekarang
@@ -107,7 +107,7 @@
                                 <path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11zM9 10h6c.55 0 1 .45 1 1s-.45 1-1 1H9c-.55 0-1-.45-1-1s.45-1 1-1z" />
                             </svg>
                         </div>
-                        <p class="text-gray-600 text-center">Menjaga dan menjamin privasi kamu</p>
+                        <p class="text-gray-600 text-center">Menjaga dan menjamin privasi anda</p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center">
                         <div class="bg-cyan-500 text-white rounded-full p-4 mb-4">
@@ -115,7 +115,7 @@
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm5-.25v-1.93c1.38-1.57 2.4-3.55 2.93-5.75L17 12h-4v-2h5.92c-.22-1.63-.98-3.1-2.12-4.25L16 7l-2-2 1.95-1.95c-1.56-1.19-3.41-1.9-5.38-1.9L9 3.07V6c0 1.1.9 2 2 2h2c1.1 0 2 .9 2 2v2h4c0 4.41-3.59 8-8 8z" />
                             </svg>
                         </div>
-                        <p class="text-gray-600 text-center">Menerapkan standar profesionalisme tertinggi demi kenyamanan kamu</p>
+                        <p class="text-gray-600 text-center">Menerapkan standar profesionalisme tertinggi demi kenyamanan anda</p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center">
                         <div class="bg-cyan-500 text-white rounded-full p-4 mb-4">
@@ -123,15 +123,15 @@
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                             </svg>
                         </div>
-                        <p class="text-gray-600 text-center">Mengutamakan kebutuhan kamu dan selalu memberikan pelayanan terbaik.</p>
+                        <p class="text-gray-600 text-center">Mengutamakan kebutuhan anda dan selalu memberikan pelayanan terbaik.</p>
                     </div>
                 </div>
             </div>
 
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Apa yang Sedang Kamu Rasakan?</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Apa yang Sedang Anda Rasakan?</h2>
                 <p class="text-lg text-gray-600 mb-8">
-                    Yuk, pilih perasaan yang sedang kamu hadapi dan temukan bantuan yang kamu butuhkan sekarang!
+                    Yuk, pilih perasaan yang sedang anda hadapi dan temukan bantuan yang anda butuhkan sekarang!
                 </p>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
                     <div class="emotion-icon bg-gray-50 p-4 rounded-xl shadow-sm text-center cursor-pointer hover:bg-gray-200 transition-colors" data-emotion="Keluarga & hubungan">

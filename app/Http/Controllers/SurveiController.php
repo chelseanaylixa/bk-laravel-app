@@ -39,4 +39,12 @@ class SurveiController extends Controller
 
         return response()->json($statistics);
     }
+
+    public function destroy($id)
+    {
+        $survei = Survei::findOrFail($id);
+        $survei->delete();
+
+        return response()->json(['message' => 'Survei berhasil dihapus'], 200);
+    }
 }
