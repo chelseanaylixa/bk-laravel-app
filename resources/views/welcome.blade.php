@@ -269,6 +269,56 @@
             font-size: 1.05rem;
         }
 
+        /* Survei Section */
+        .survei-section {
+            padding: 60px 0;
+            background-color: var(--light-blue-bg);
+        }
+
+        .survei-badge-container {
+            margin-bottom: 20px;
+        }
+
+        .survei-badge {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 6px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .survei-card {
+            background-color: white;
+            border-radius: 25px;
+            padding: 40px;
+            border: 3px solid var(--secondary-color);
+        }
+
+        .survei-card .form-label {
+            color: var(--dark-color);
+            font-size: 1rem;
+        }
+
+        .survei-card .form-control,
+        .survei-card .form-check-input {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .survei-card .form-control:focus,
+        .survei-card .form-check-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
+        }
+
+        .survei-card .btn-warning {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
         /* Topic Konseling Section */
         .topic-section {
             padding: 60px 0;
@@ -477,6 +527,9 @@
                         <a class="nav-link active" aria-current="page" href="#home" style="color: white !important;">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#survei" style="color: white !important;">Survei</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#kontak" style="color: white !important;">Kontak Kami</a>
                     </li>
                 </ul>
@@ -484,10 +537,10 @@
                 <!-- Tombol Masuk/Dashboard (Pojok Kanan Atas) -->
                 <div class="d-flex ms-lg-auto"> <!-- ms-lg-auto memastikan tombol di kanan setelah link -->
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="btn btn-warning btn-lg fw-bold text-dark" style="padding: 0.5rem 2rem;">Dashboard</a>
+                    <a href="{{ url('/dashboard') }}" class="btn btn-lg fw-bold" style="padding: 0.5rem 2rem; background-color: #003366; border-color: #003366; color: white;">Dashboard</a>
                     @else
                     <!-- Tombol Masuk besar, diletakkan di pojok kanan -->
-                    <a href="{{ route('login') }}" class="btn btn-warning btn-lg fw-bold text-dark" style="padding: 0.5rem 2rem;">Masuk</a>
+                    <a href="{{ route('login') }}" class="btn btn-lg fw-bold" style="padding: 0.5rem 2rem; background-color: #003366; border-color: #003366; color: white;">Masuk</a>
                     @endauth
                 </div>
 
@@ -502,7 +555,7 @@
             <h1 class="hero-title text-uppercase">Ruang Konseling Online</h1>
             <h2 class="hero-subtitle">Selamat Datang di SMK ANTARTIKA 1 SIDOARJO!</h2>
 
-            <a href="{{ route('login') }}" class="btn btn-warning btn-lg me-2 fw-bold shadow-lg">MULAI SEKARANG</a>
+            <a href="{{ route('login') }}" class="btn btn-lg me-2 fw-bold shadow-lg" style="background-color: #003366; border-color: #003366; color: white;">MULAI SEKARANG</a>
             <!-- Tautan tombol diubah menjadi #layanan --><a href="#layanan" class="btn btn-outline-light btn-lg fw-bold shadow-lg">PELAJARI FITUR</a>
         </div>
     </section>
@@ -522,7 +575,7 @@
     <!-- Benefit Section -->
     <section class="benefit-section" id="layanan">
         <div class="container">
-            <h2 class="mb-5 text-center fw-bold" style="color: var(--primary-color);">Manfaat Aplikasi BK Digital</h2>
+            <h2 class="mb-5 text-center fw-bold" style="color: var(--primary-color);">Fitur Aplikasi BK Digital</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="benefit-card">
@@ -711,7 +764,7 @@
 
                         <!-- Link Tambahan seperti di contoh -->
                         <div class="faq-item mt-4">
-                            <a href="#" class="text-decoration-none" style="color: var(--primary-color); font-weight: 600;">
+                            <a href="#survei" class="text-decoration-none" style="color: var(--primary-color); font-weight: 600;">
                                 <i class="fas fa-angle-right me-3" style="font-size: 1.15rem;"></i> Saya ingin tahu lebih lanjut tentang BK-App
                             </a>
                             <hr class="mt-3">
@@ -722,6 +775,111 @@
             </div>
         </div>
     </section>
+
+    <!-- Survei Section -->
+    <section class="survei-section" id="survei">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="survei-badge-container text-center mb-4">
+                    </div>
+                    <h2 class="mb-5 text-center fw-bold" style="color: var(--primary-color);">Survei Kepuasan</h2>
+
+                    @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Terjadi Kesalahan!</strong>
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+                    <div class="survei-card">
+                        <form action="{{ route('survei.store') }}" method="POST">
+                            @csrf
+
+                            <!-- Nama Anda -->
+                            <div class="mb-4">
+                                <label for="nama" class="form-label fw-bold">Nama Anda</label>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Masukkan nama Anda" required value="{{ old('nama') }}">
+                                @error('nama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- E-mail Anda -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-bold">E-mail Anda</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email Anda" required value="{{ old('email') }}">
+                                @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- Radio Buttons Kepuasan -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Apakah Anda Puas dengan Layanan e-Konseling?</label>
+                                <div class="mt-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kepuasan" id="sangat_puas" value="sangat_puas" required {{ old('kepuasan') == 'sangat_puas' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="sangat_puas">
+                                            Sangat Puas
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kepuasan" id="puas" value="puas" {{ old('kepuasan') == 'puas' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="puas">
+                                            Puas
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kepuasan" id="kurang_puas" value="kurang_puas" {{ old('kepuasan') == 'kurang_puas' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="kurang_puas">
+                                            Kurang Puas
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kepuasan" id="tidak_puas" value="tidak_puas" {{ old('kepuasan') == 'tidak_puas' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="tidak_puas">
+                                            Tidak Puas
+                                        </label>
+                                    </div>
+                                </div>
+                                @error('kepuasan')
+                                <div class="text-danger small mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- Textarea Masukan -->
+                            <div class="mb-4">
+                                <label for="masukan" class="form-label fw-bold">Tuliskan Masukan untuk Layanan e-Konseling</label>
+                                <textarea class="form-control @error('masukan') is-invalid @enderror" id="masukan" name="masukan" rows="5" placeholder="Masukkan masukan Anda..." style="resize: vertical;">{{ old('masukan') }}</textarea>
+                                @error('masukan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- Button Kirim -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-lg fw-bold" style="background-color: #003366; color: white; border-color: #003366;">KIRIM</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="school-map">
         <h2 class="mb-5 text-center fw-bold faq-title">Lokasi SMK Antartika 1 Sidoarjo</h2>
         <div class="map-container">
@@ -756,6 +914,7 @@
                             <h5 class="fw-bold mb-3">Link Cepat</h5>
                             <ul class="list-unstyled">
                                 <li><a href="#home" class="text-white text-decoration-none">Home</a></li>
+                                <li><a href="#survei" class="text-white text-decoration-none">Survei</a></li>
                                 <li><a href="{{ route('login') }}" class="text-white text-decoration-none">Layanan</a></li>
                             </ul>
                         </div>

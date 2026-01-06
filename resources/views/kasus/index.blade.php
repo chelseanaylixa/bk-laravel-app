@@ -660,6 +660,143 @@
                 font-size: 11px;
             }
         }
+
+        /* === SURVEI SECTION === */
+        .survei-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .survei-tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #004aad;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .survei-tab-btn:hover {
+            color: #003366;
+            border-bottom-color: #003366;
+        }
+
+        .survei-tab-btn.active {
+            color: white;
+            background: linear-gradient(to right, #003366, #004aad);
+            border-radius: 8px 8px 0 0;
+            border-bottom-color: #004aad;
+        }
+
+        .survei-tab-content {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .survei-stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #003366, #004aad);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 52, 102, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 52, 102, 0.3);
+        }
+
+        .stat-card.sangat-puas {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .stat-card.puas {
+            background: linear-gradient(135deg, #17a2b8, #0dcaf0);
+        }
+
+        .stat-card.kurang-puas {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+
+        .stat-card.tidak-puas {
+            background: linear-gradient(135deg, #dc3545, #fd7e14);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-percentage {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .survei-chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Badges untuk status kepuasan */
+        .badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-sangat_puas {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-puas {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .badge-kurang_puas {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .badge-tidak_puas {
+            background-color: #dc3545;
+            color: white;
+        }
     </style>
 </head>
 
@@ -671,7 +808,8 @@
         <div class="nav-links">
             <a onclick="showSection('data-siswa')"><i class="fas fa-users"></i> Daftar Siswa</a>
             <a onclick="showSection('data-kasus')"><i class="fas fa-file-alt"></i> Riwayat Kasus</a>
-            <a onclick="showSection('tata-tertib')"><i class="fas fa-book-open"></i> Tata Tertib</a>
+            <a onclick="showSection('tata-tertib')"><i class="fas fa-book-open"></i> Pelanggaran</a>
+            <a onclick="showSection('survei')"><i class="fas fa-poll"></i> Hasil Survei</a>
         </div>
         <div class="profile-menu">
             <button class="profile-btn" onclick="toggleDropdown()">
@@ -741,9 +879,9 @@
         <!-- Tata Tertib Section -->
         <div id="tata-tertib" class="content-section" style="display: none;">
             <header>
-                <h1><i class="fas fa-book-open"></i> Daftar Tata Tertib & Sanksi</h1>
+                <h1><i class="fas fa-book-open"></i> Daftar Pelanggaran</h1>
                 <button class="add-button" onclick="showAddTataTertibModal()">
-                    <i class="fas fa-plus"></i> Tambah Tata Tertib
+                    <i class="fas fa-plus"></i> Tambah Pelanggaran
                 </button>
             </header>
             <div class="table-responsive">
@@ -759,6 +897,75 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Survei Section -->
+        <div id="survei" class="content-section" style="display: none;">
+            <header>
+                <h1><i class="fas fa-poll"></i> Hasil Survei Kepuasan Siswa</h1>
+            </header>
+
+            <!-- Tab Navigation -->
+            <div class="survei-tabs">
+                <button class="survei-tab-btn active" onclick="showSurveiTab('hasil-survei')">
+                    <i class="fas fa-list"></i> Hasil Survei
+                </button>
+                <button class="survei-tab-btn" onclick="showSurveiTab('statistik-survei')">
+                    <i class="fas fa-chart-pie"></i> Statistik
+                </button>
+            </div>
+
+            <!-- Tab Content: Hasil Survei -->
+            <div id="hasil-survei" class="survei-tab-content" style="display: block;">
+                <div class="table-responsive">
+                    <table id="surveiTable">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>NAMA</th>
+                                <th>EMAIL</th>
+                                <th>KEPUASAN</th>
+                                <th>MASUKAN</th>
+                                <th>TANGGAL</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab Content: Statistik -->
+            <div id="statistik-survei" class="survei-tab-content" style="display: none;">
+                <div class="survei-stats-container">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Survei</div>
+                        <div class="stat-number" id="total-survei">0</div>
+                    </div>
+                    <div class="stat-card sangat-puas">
+                        <div class="stat-label">Sangat Puas</div>
+                        <div class="stat-number" id="sangat-puas">0</div>
+                        <div class="stat-percentage" id="persen-sangat-puas">0%</div>
+                    </div>
+                    <div class="stat-card puas">
+                        <div class="stat-label">Puas</div>
+                        <div class="stat-number" id="puas">0</div>
+                        <div class="stat-percentage" id="persen-puas">0%</div>
+                    </div>
+                    <div class="stat-card kurang-puas">
+                        <div class="stat-label">Kurang Puas</div>
+                        <div class="stat-number" id="kurang-puas">0</div>
+                        <div class="stat-percentage" id="persen-kurang-puas">0%</div>
+                    </div>
+                    <div class="stat-card tidak-puas">
+                        <div class="stat-label">Tidak Puas</div>
+                        <div class="stat-number" id="tidak-puas">0</div>
+                        <div class="stat-percentage" id="persen-tidak-puas">0%</div>
+                    </div>
+                </div>
+                <div class="survei-chart-container" style="margin-top: 30px;">
+                    <canvas id="satisfactionChart" style="max-width: 500px; margin: 0 auto;"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -790,10 +997,7 @@
                     <label for="poinValue">Poin *</label>
                     <input type="number" id="poinValue" required min="0" step="1">
                 </div>
-                <div class="form-group">
-                    <label for="catatan">Catatan (Opsional)</label>
-                    <textarea id="catatan" placeholder="Masukkan catatan tambahan..."></textarea>
-                </div>
+
                 <div class="form-actions">
                     <button type="button" class="cancel-button" onclick="closeKasusModal()">
                         <i class="fas fa-times"></i> Batal
@@ -1072,7 +1276,7 @@
                     li.innerHTML = `
                         <div class="pelanggaran-info">
                             <p><strong>${item.pelanggaran}</strong></p>
-                            <p><small>Tanggal: ${item.tanggal} | Status: ${item.status || 'Diproses'}</small></p>
+                            <p><small>Tanggal: ${item.tanggal}</small></p>
                             ${item.catatan ? `<p><small>Catatan: ${item.catatan}</small></p>` : ''}
                         </div>
                         <div><strong style="color: #d32f2f;">-${item.poin} Poin</strong></div>
@@ -1170,104 +1374,6 @@
                 .reduce((sum, k) => sum + k.poin, 0);
         }
 
-        // ===== FORM SUBMISSIONS =====
-        document.getElementById('kasusForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const siswaId = document.getElementById('namaSiswa').value;
-            if (!siswaId) {
-                showAlert('Pilih siswa terlebih dahulu', 'error');
-                return;
-            }
-
-            const kasusId = document.getElementById('kasusId').value;
-            let pelanggaranName = document.getElementById('pelanggaranName').value;
-            const poin = parseInt(document.getElementById('poinValue').value);
-            const catatan = document.getElementById('catatan').value;
-
-            // Handle custom pelanggaran
-            if (pelanggaranName === 'Pelanggaran Lainnya') {
-                const customPelanggaran = document.getElementById('pelanggaranCustom').value;
-                if (!customPelanggaran.trim()) {
-                    showAlert('Masukkan jenis pelanggaran lainnya', 'error');
-                    return;
-                }
-                pelanggaranName = customPelanggaran;
-            }
-
-            const endpoint = kasusId ? `/api/kasus/${kasusId}` : '/api/kasus';
-            const method = kasusId ? 'PUT' : 'POST';
-
-            try {
-                const response = await fetch(endpoint, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        siswa_id: parseInt(siswaId),
-                        pelanggaran: pelanggaranName,
-                        poin: poin,
-                        catatan: catatan
-                    })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Gagal menyimpan kasus');
-                }
-
-                await fetchKasus();
-                closeKasusModal();
-                showAlert(kasusId ? 'Kasus berhasil diperbarui' : 'Kasus berhasil ditambahkan', 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert(`Gagal: ${error.message}`, 'error');
-            }
-        });
-
-        document.getElementById('tataTertibForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const tataTertibId = document.getElementById('tataTertibId').value;
-            const kategori = document.getElementById('kategori').value;
-            const jenisPelanggaran = document.getElementById('jenisPelanggaran').value;
-            const sanksi = document.getElementById('sanksi').value;
-
-            const endpoint = tataTertibId ? `/api/tata-tertib/${tataTertibId}` : '/api/tata-tertib';
-            const method = tataTertibId ? 'PUT' : 'POST';
-
-            try {
-                const response = await fetch(endpoint, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        kategori,
-                        jenis_pelanggaran: jenisPelanggaran,
-                        sanksi: sanksi
-                    })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Gagal menyimpan tata tertib');
-                }
-
-                await fetchTataTertib();
-                closeTataTertibModal();
-                showAlert(tataTertibId ? 'Tata tertib berhasil diperbarui' : 'Tata tertib berhasil ditambahkan', 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert(`Gagal: ${error.message}`, 'error');
-            }
-        });
-
         // ===== EDIT & DELETE FUNCTIONS =====
         function editKasus(kasusId) {
             const kasus = kasusData.find(k => k.id === kasusId);
@@ -1349,11 +1455,243 @@
             }
         });
 
+        // ===== SURVEI FUNCTIONS =====
+        function showSurveiTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.survei-tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.survei-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab and mark button as active
+            document.getElementById(tabName).style.display = 'block';
+            event.target.classList.add('active');
+
+            // Load data jika tab statistik dipilih
+            if (tabName === 'statistik-survei') {
+                loadSurveiStatistics();
+            }
+        }
+
+        async function loadSurveiData() {
+            try {
+                const response = await fetch('{{ route("api.survei.data") }}', {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+                const data = await response.json();
+
+                const tbody = document.querySelector('#surveiTable tbody');
+                tbody.innerHTML = '';
+
+                if (data.survei && data.survei.length > 0) {
+                    data.survei.forEach((item, index) => {
+                        const kepuasanLabel = {
+                            'sangat_puas': 'Sangat Puas',
+                            'puas': 'Puas',
+                            'kurang_puas': 'Kurang Puas',
+                            'tidak_puas': 'Tidak Puas'
+                        } [item.kepuasan] || item.kepuasan;
+
+                        const row = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${item.nama}</td>
+                                <td>${item.email}</td>
+                                <td><span class="badge badge-${item.kepuasan}">${kepuasanLabel}</span></td>
+                                <td>${item.masukan ? item.masukan.substring(0, 50) + '...' : '-'}</td>
+                                <td>${new Date(item.created_at).toLocaleDateString('id-ID')}</td>
+                            </tr>
+                        `;
+                        tbody.insertAdjacentHTML('beforeend', row);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #999;">Belum ada data survei</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading survei data:', error);
+            }
+        }
+
+        async function loadSurveiStatistics() {
+            try {
+                const response = await fetch('{{ route("api.survei.stats") }}', {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+                const stats = await response.json();
+
+                // Update card values
+                document.getElementById('total-survei').textContent = stats.total;
+                document.getElementById('sangat-puas').textContent = stats.sangat_puas;
+                document.getElementById('puas').textContent = stats.puas;
+                document.getElementById('kurang-puas').textContent = stats.kurang_puas;
+                document.getElementById('tidak-puas').textContent = stats.tidak_puas;
+
+                // Calculate and update percentages
+                if (stats.total > 0) {
+                    document.getElementById('persen-sangat-puas').textContent = Math.round((stats.sangat_puas / stats.total) * 100) + '%';
+                    document.getElementById('persen-puas').textContent = Math.round((stats.puas / stats.total) * 100) + '%';
+                    document.getElementById('persen-kurang-puas').textContent = Math.round((stats.kurang_puas / stats.total) * 100) + '%';
+                    document.getElementById('persen-tidak-puas').textContent = Math.round((stats.tidak_puas / stats.total) * 100) + '%';
+                }
+
+                // Load chart if Chart.js is available
+                if (typeof Chart !== 'undefined') {
+                    loadSurveiChart(stats);
+                }
+            } catch (error) {
+                console.error('Error loading survei statistics:', error);
+            }
+        }
+
+        function loadSurveiChart(stats) {
+            const chartCanvas = document.getElementById('satisfactionChart');
+            if (!chartCanvas) return;
+
+            // Destroy existing chart if any
+            if (window.surveiChart) {
+                window.surveiChart.destroy();
+            }
+
+            const ctx = chartCanvas.getContext('2d');
+            window.surveiChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sangat Puas', 'Puas', 'Kurang Puas', 'Tidak Puas'],
+                    datasets: [{
+                        data: [stats.sangat_puas, stats.puas, stats.kurang_puas, stats.tidak_puas],
+                        backgroundColor: [
+                            '#28a745',
+                            '#17a2b8',
+                            '#ffc107',
+                            '#dc3545'
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
         // ===== INITIALIZE PAGE =====
         window.addEventListener('DOMContentLoaded', async function() {
             await fetchStudents();
             await fetchKasus();
             await fetchTataTertib();
+            await loadSurveiData();
+
+            // ===== FORM SUBMISSIONS (Tambahkan di sini SETELAH DOM loaded) =====
+            document.getElementById('kasusForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const siswaId = document.getElementById('namaSiswa').value;
+                if (!siswaId) {
+                    showAlert('Pilih siswa terlebih dahulu', 'error');
+                    return;
+                }
+
+                const kasusId = document.getElementById('kasusId').value;
+                let pelanggaranName = document.getElementById('pelanggaranName').value;
+                const poin = parseInt(document.getElementById('poinValue').value);
+                const catatan = document.getElementById('catatan')?.value || '';
+
+                if (pelanggaranName === 'Pelanggaran Lainnya') {
+                    const customPelanggaran = document.getElementById('pelanggaranCustom').value;
+                    if (!customPelanggaran.trim()) {
+                        showAlert('Masukkan jenis pelanggaran lainnya', 'error');
+                        return;
+                    }
+                    pelanggaranName = customPelanggaran;
+                }
+
+                const endpoint = kasusId ? `/api/kasus/${kasusId}` : '/api/kasus';
+                const method = kasusId ? 'PUT' : 'POST';
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            siswa_id: parseInt(siswaId),
+                            pelanggaran: pelanggaranName,
+                            poin: poin,
+                            catatan: catatan
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Gagal menyimpan kasus');
+                    }
+
+                    await fetchKasus();
+                    closeKasusModal();
+                    showAlert(kasusId ? 'Kasus berhasil diperbarui' : 'Kasus berhasil ditambahkan', 'success');
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert(`Gagal: ${error.message}`, 'error');
+                }
+            });
+
+            // Event listener untuk tataTertibForm
+            document.getElementById('tataTertibForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const tataTertibId = document.getElementById('tataTertibId').value;
+                const kategori = document.getElementById('kategori').value;
+                const jenisPelanggaran = document.getElementById('jenisPelanggaran').value;
+                const sanksi = document.getElementById('sanksi').value;
+
+                const endpoint = tataTertibId ? `/api/tata-tertib/${tataTertibId}` : '/api/tata-tertib';
+                const method = tataTertibId ? 'PUT' : 'POST';
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            kategori,
+                            jenis_pelanggaran: jenisPelanggaran,
+                            sanksi: sanksi
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Gagal menyimpan tata tertib');
+                    }
+
+                    await fetchTataTertib();
+                    closeTataTertibModal();
+                    showAlert(tataTertibId ? 'Tata tertib berhasil diperbarui' : 'Tata tertib berhasil ditambahkan', 'success');
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert(`Gagal: ${error.message}`, 'error');
+                }
+            });
         });
     </script>
 </body>

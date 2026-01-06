@@ -748,7 +748,7 @@
 
         <div id="profile-container" class="user-info">
             <div class="user-details">
-                <p>Halo, <strong>{{ Auth::user()->name }}</strong></p>
+                <p><strong>{{ Auth::user()->name }}</strong></p>
             </div>
             <div class="user-avatar">
                 <i class="fas fa-user"></i>
@@ -771,7 +771,7 @@
                 <i class="fas fa-lightbulb"></i>
             </div>
             <p>
-                Di aplikasi BK ini, kamu bisa ngurus banyak hal dengan lebih gampang. Mulai dari fitur <strong>Pelanggaran</strong>, tempat kamu bisa lihat daftar aturan sekolah lengkap sama contoh pelanggarannya. Lalu ada fitur <strong>Poin</strong> yang ngebantu kamu mantau poin selama di sekolah. Kalau lagi butuh cerita atau butuh bimbingan, kamu bisa pakai <strong>Curhat Guru</strong> buat ngobrol langsung sama guru BK secara aman dan rahasia. Dan kalau mau curhat cepat kapan aja, tinggal buka <strong>Curhat AI</strong> yang siap dengerin dan kasih saran kapan pun kamu butuh.
+Halo, adakah yang bisa saya bantu hari ini? Sebagai siswa di SMK Antartika 1 Sidoarjo, Anda dapat melihat pelanggaran, memeriksa poin Anda, atau berbagi curhat dengan guru dan AI kami. Silakan pilih salah satu menu di bawah untuk memulai.
             </p>
         </div>
 

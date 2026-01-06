@@ -195,11 +195,12 @@
         }
 
         .paraf-box {
-            width: 50px;
-            height: 30px;
-            border: 1px solid #ccc;
+            width: 70px;
+            height: 40px;
+            border: 1px solid #999;
             display: inline-block;
-            background: #f9f9f9;
+            background: white;
+            margin: 0 auto;
         }
 
         .data-table tbody tr:hover {
@@ -274,7 +275,6 @@
                             <th>HARI/TANGGAL</th>
                             <th>KASUS</th>
                             <th>POIN</th>
-                            <th>CATATAN</th>
                             <th>PARAF GURU</th>
                         </tr>
                     </thead>
@@ -285,12 +285,7 @@
                             <td>{{ optional($kasus->tanggal)->format('d-m-Y') ?? ($kasus->created_at ? $kasus->created_at->format('d-m-Y') : '-') }}</td>
                             <td>{{ $kasus->pelanggaran->nama_pelanggaran ?? '-' }}</td>
                             <td><strong>{{ $kasus->pelanggaran->jumlah_poin ?? 0 }}</strong></td>
-                            <td>
-                                <div class="catatan-box {{ empty($kasus->catatan) ? 'empty' : '' }}">
-                                    {{ $kasus->catatan ?? 'Tidak ada catatan' }}
-                                </div>
-                            </td>
-                            <td>
+                            <td style="text-align: center;">
                                 <div class="paraf-box"></div>
                             </td>
                         </tr>
