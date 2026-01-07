@@ -38,28 +38,54 @@
                 <h2 class="text-white text-xl font-bold text-center uppercase tracking-wide">DAFTAR PELANGGARAN & SANKSI</h2>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr style="background: linear-gradient(to right, #003366, #004aad);" class="text-white text-sm uppercase">
-                            <th class="py-4 px-6 w-1/5 border-r border-blue-700 text-center">Kategori</th>
-                            <th class="py-4 px-6 w-1/3 border-r border-blue-700 text-center">Jenis Pelanggaran</th>
-                            <th class="py-4 px-6 w-1/2 text-center">Sanksi / Penanganan</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-700 text-sm">
-                        {{-- LOOPING DATA DARI CONTROLLER --}}
-                        @foreach($tataTertibs as $aturan)
-                        <tr class="border-b hover:bg-blue-50 transition">
-                            <td class="py-4 px-6 font-bold text-blue-800 border-r border-gray-200 align-middle text-center">{{ $aturan->kategori }}</td>
-                            <td class="py-4 px-6 border-r border-gray-200 align-middle">{{ $aturan->jenis_pelanggaran }}</td>
-                            <td class="py-4 px-6 align-middle">{{ $aturan->sanksi }}</td>
-                        </tr>
-                        @endforeach
-                        {{-- END LOOPING --}}
+            <!-- Filter Kategori Section -->
+            <div class="p-6 border-b border-gray-200 bg-gray-50">
+                <label for="kategoriFilter" class="block text-sm font-semibold text-gray-700 mb-3">
+                    <i class="fas fa-filter mr-2"></i>Pilih Kategori:
+                </label>
+                <select id="kategoriFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" onchange="filterByCategory()">
+                    <option value="">-- Tampilkan Semua Kategori --</option>
+                    @php
+                    $kategoris = $tataTertibs->pluck('kategori')->unique()->sort();
+                    @endphp
+                    @foreach($kategoris as $kategori)
+                    <option value="{{ $kategori }}">{{ $kategori }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-                    </tbody>
-                </table>
+            <!-- Card-based Layout -->
+            <div class="p-6" id="card-container">
+                {{-- LOOPING DATA DARI CONTROLLER --}}
+                @foreach($tataTertibs as $aturan)
+                <div class="pelanggaran-card mb-4 p-5 border-l-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 bg-white pelanggaran-row"
+                    data-kategori="{{ $aturan->kategori }}"
+                    style="border-left-color: #004aad;">
+
+                    <div class="flex flex-col gap-3">
+                        <!-- Kategori Badge -->
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="inline-block px-3 py-1 text-xs font-bold text-white rounded-full"
+                                style="background: linear-gradient(to right, #003366, #004aad);">
+                                {{ $aturan->kategori }}
+                            </span>
+                        </div>
+
+                        <!-- Jenis Pelanggaran -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-800 mb-1">Jenis Pelanggaran:</h3>
+                            <p class="text-sm text-gray-700">{{ $aturan->jenis_pelanggaran }}</p>
+                        </div>
+
+                        <!-- Sanksi / Penanganan -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-800 mb-1">Sanksi / Penanganan:</h3>
+                            <p class="text-sm text-gray-700">{{ $aturan->sanksi }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                {{-- END LOOPING --}}
             </div>
 
             <div class="bg-gray-100 p-4 text-center text-xs text-gray-500 border-t border-gray-200">
@@ -67,6 +93,44 @@
             </div>
 
         </div>
+
+    </div>
+
+    <script>
+        function filterByCategory() {
+            const selectedKategori = document.getElementById('kategoriFilter').value;
+            const cards = document.querySelectorAll('.pelanggaran-row');
+
+            cards.forEach(card => {
+                const cardKategori = card.getAttribute('data-kategori');
+
+                if (selectedKategori === '' || cardKategori === selectedKategori) {
+                    card.style.display = 'block';
+                    // Tambah animasi fade in
+                    card.style.opacity = '0';
+                    card.style.animation = 'fadeIn 0.3s ease-in-out forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // CSS untuk animasi
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-5px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 
 </body>
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\KasusController;
 use App\Http\Controllers\SurveiController;
 use App\Http\Controllers\CurhatAIController;
+use App\Http\Controllers\UserController;
 use App\Models\Kasus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -51,10 +52,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Halaman waiting approval untuk user dengan status pending
+    Route::get('waiting-approval', [LoginController::class, 'showWaitingApproval'])->name('waiting-approval');
+
     // Dashboard sesuai role (Perbaikan minor: Menghilangkan $kasus->all() karena KasusController sudah mengurusnya)
     Route::get('dashboard', function () {
         $user = Auth::user();
         $userRole = $user?->role ?? null;
+        $userStatus = $user?->status ?? 'active';
+
+        // Jika user masih pending, redirect ke waiting approval
+        if ($userRole === 'pending' || $userStatus === 'pending') {
+            return redirect()->route('waiting-approval');
+        }
 
         if (in_array($userRole, ['admin', 'guru_bk'])) {
             return redirect()->route('kasus.index'); // Langsung alihkan ke halaman utama kasus
@@ -80,6 +90,14 @@ Route::middleware('auth')->group(function () {
         // API Routes untuk Survei
         Route::get('/api/survei/data', [SurveiController::class, 'getData'])->name('api.survei.data');
         Route::get('/api/survei/stats', [SurveiController::class, 'getStats'])->name('api.survei.stats');
+    });
+
+    // =============================
+    // Admin Only Routes (User Management)
+    // =============================
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/get-all-users', [UserController::class, 'getAllUsers'])->name('get-all-users');
+        Route::post('/update-user-role', [UserController::class, 'updateUserRole'])->name('update-user-role');
     });
     // NOTE: Sekarang rute 'kasus.index' hanya bisa diakses oleh admin/guru_bk.
 

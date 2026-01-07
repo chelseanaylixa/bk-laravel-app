@@ -32,6 +32,9 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             flex-wrap: wrap;
             gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .navbar-brand {
@@ -810,6 +813,9 @@
             <a onclick="showSection('data-kasus')"><i class="fas fa-file-alt"></i> Riwayat Kasus</a>
             <a onclick="showSection('tata-tertib')"><i class="fas fa-book-open"></i> Pelanggaran</a>
             <a onclick="showSection('survei')"><i class="fas fa-poll"></i> Hasil Survei</a>
+            @if(Auth::user() && Auth::user()->role === 'admin')
+            <a onclick="showSection('all-users')"><i class="fas fa-shield-alt"></i> All User</a>
+            @endif
         </div>
         <div class="profile-menu">
             <button class="profile-btn" onclick="toggleDropdown()">
@@ -969,6 +975,27 @@
                 </div>
             </div>
         </div>
+
+        <!-- All Users Section (Admin Only) -->
+        <div id="all-users" class="content-section" style="display: none;">
+            <header>
+                <h1><i class="fas fa-shield-alt"></i> Daftar Semua User & Role</h1>
+            </header>
+            <div class="table-responsive">
+                <table id="allUsersTable">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>NAMA</th>
+                            <th>EMAIL</th>
+                            <th>ROLE</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <!-- Modal Tambah/Edit Kasus -->
@@ -1062,6 +1089,45 @@
         </div>
     </div>
 
+    <!-- Modal Edit Role User -->
+    <div id="editRoleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeEditRoleModal()">&times;</span>
+            <h3><i class="fas fa-edit"></i> Edit Role User</h3>
+            <form id="editRoleForm">
+                <input type="hidden" id="editUserId">
+                <div class="form-group">
+                    <label for="editUserName">Nama User</label>
+                    <input type="text" id="editUserName" readonly style="background-color: #f0f0f0;">
+                </div>
+                <div class="form-group">
+                    <label for="editUserEmail">Email</label>
+                    <input type="email" id="editUserEmail" readonly style="background-color: #f0f0f0;">
+                </div>
+                <div class="form-group">
+                    <label for="editUserRole">Role *</label>
+                    <select id="editUserRole" required>
+                        <option value="">-- Pilih Role --</option>
+                        <option value="admin">Admin</option>
+                        <option value="guru_bk">Guru BK</option>
+                        <option value="siswa">Siswa</option>
+                        <option value="wali_murid">Wali Murid</option>
+                        <option value="wali_kelas">Wali Kelas</option>
+
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-button" onclick="closeEditRoleModal()">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                    <button type="submit" class="save-button">
+                        <i class="fas fa-save"></i> Simpan Role
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
         let studentsData = [];
@@ -1145,6 +1211,95 @@
                 showAlert('Gagal memuat data tata tertib', 'error');
                 return false;
             }
+        }
+
+        // ===== FETCH ALL USERS (ADMIN ONLY) =====
+        let allUsersData = [];
+        async function fetchAllUsers() {
+            try {
+                const response = await fetch('{{ route("get-all-users") }}', {
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.warn('Failed to fetch users:', response.status, errorData);
+                    if (response.status === 403) {
+                        console.warn('Not authorized to view users. Requires admin role.');
+                        showAlert('⚠️ Anda tidak memiliki akses untuk melihat semua user. Hanya admin yang bisa.', 'error');
+                    }
+                    return false;
+                }
+                allUsersData = await response.json();
+                console.log('✅ Users loaded successfully:', allUsersData);
+                renderAllUsersTable();
+                return true;
+            } catch (error) {
+                console.error('Error fetching all users:', error);
+                showAlert('❌ Gagal memuat data users: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        function renderAllUsersTable() {
+            console.log('🔄 renderAllUsersTable called with', allUsersData.length, 'users');
+            const tableBody = document.getElementById('allUsersTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            if (allUsersData.length === 0) {
+                console.warn('⚠️ No users found in allUsersData');
+                tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">Tidak ada data user</td></tr>';
+                return;
+            }
+
+            allUsersData.forEach((user, index) => {
+                console.log(`📝 Rendering user ${index + 1}:`, user.email, user.status);
+                const row = tableBody.insertRow();
+                row.insertCell().textContent = index + 1;
+                row.insertCell().textContent = user.name || '-';
+                row.insertCell().textContent = user.email || '-';
+
+                const roleCell = row.insertCell();
+                const roleColors = {
+                    'admin': '#d32f2f',
+                    'guru_bk': '#ff9800',
+                    'siswa': '#28a745',
+                    'wali_murid': '#17a2b8',
+                    'wali_kelas': '#111a61ff',
+                    'pending': '#9e9e9e'
+                };
+                const roleDisplay = {
+                    'admin': 'Admin',
+                    'guru_bk': 'Guru BK',
+                    'siswa': 'Siswa',
+                    'wali_murid': 'Wali Murid',
+                    'wali_kelas': 'Wali Kelas',
+                    'pending': 'Pending'
+                };
+                const roleColor = roleColors[user.role] || '#666';
+                const roleText = roleDisplay[user.role] || user.role;
+                roleCell.innerHTML = `<span class="poin-badge" style="background: ${roleColor};">${roleText}</span>`;
+                const actionCell = row.insertCell();
+                actionCell.innerHTML = `
+                    <div class="btn-group">
+                        <button class="btn btn-warning" onclick="showEditRoleModal(${user.id}, '${user.name}', '${user.email}', '${user.role}')"><i class="fas fa-edit"></i> Edit</button>
+                    </div>
+                `;
+            });
+        }
+
+        function showEditRoleModal(userId, userName, userEmail, userRole) {
+            document.getElementById('editUserId').value = userId;
+            document.getElementById('editUserName').value = userName;
+            document.getElementById('editUserEmail').value = userEmail;
+            document.getElementById('editUserRole').value = userRole;
+            document.getElementById('editRoleModal').classList.add('active');
+        }
+
+        function closeEditRoleModal() {
+            document.getElementById('editRoleModal').classList.remove('active');
         }
 
         // ===== RENDER TABLE FUNCTIONS =====
@@ -1444,6 +1599,7 @@
             const kasusModal = document.getElementById('kasusModal');
             const detailModal = document.getElementById('detailModal');
             const tataTertibModal = document.getElementById('tataTertibModal');
+            const editRoleModal = document.getElementById('editRoleModal');
 
             if (event.target === kasusModal) {
                 closeKasusModal();
@@ -1453,6 +1609,9 @@
             }
             if (event.target === tataTertibModal) {
                 closeTataTertibModal();
+            }
+            if (event.target === editRoleModal) {
+                closeEditRoleModal();
             }
         });
 
@@ -1623,6 +1782,7 @@
             await fetchStudents();
             await fetchKasus();
             await fetchTataTertib();
+            await fetchAllUsers();
             await loadSurveiData();
 
             // ===== FORM SUBMISSIONS (Tambahkan di sini SETELAH DOM loaded) =====
@@ -1717,6 +1877,42 @@
                     await fetchTataTertib();
                     closeTataTertibModal();
                     showAlert(tataTertibId ? 'Tata tertib berhasil diperbarui' : 'Tata tertib berhasil ditambahkan', 'success');
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert(`Gagal: ${error.message}`, 'error');
+                }
+            });
+
+            // Event listener untuk editRoleForm
+            document.getElementById('editRoleForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const userId = document.getElementById('editUserId').value;
+                const userRole = document.getElementById('editUserRole').value;
+
+                try {
+                    const response = await fetch('{{ route("update-user-role") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id: userId,
+                            role: userRole
+                        }),
+                        credentials: 'include'
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Gagal mengubah role user');
+                    }
+
+                    await fetchAllUsers();
+                    closeEditRoleModal();
+                    showAlert('Role user berhasil diperbarui', 'success');
                 } catch (error) {
                     console.error('Error:', error);
                     showAlert(`Gagal: ${error.message}`, 'error');

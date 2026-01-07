@@ -83,7 +83,7 @@
 
         .hero-section {
             /* Gambar background lebih full */
-            background-image: linear-gradient(rgba(0, 77, 153, 0.7), rgba(0, 77, 153, 0.7)),
+            background-image: linear-gradient(rgba(29, 29, 29, 0.65), rgba(130, 130, 130, 0.65)),
             url("{{ asset('images/siswa_smk.jpeg') }}");
             background-size: cover;
             background-position: center;
@@ -277,6 +277,14 @@
 
         .survei-badge-container {
             margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .survei-badge-container.animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .survei-badge {
@@ -294,6 +302,14 @@
             border-radius: 25px;
             padding: 40px;
             border: 3px solid var(--secondary-color);
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+        }
+
+        .survei-card.animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .survei-card .form-label {
@@ -500,6 +516,81 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* School Map Section */
+        .school-map {
+            padding-top: 80px;
+            padding-bottom: 40px;
+            background-color: white;
+        }
+
+        .map-container {
+            position: relative;
+        }
+
+        /* Profil Section */
+        .profil-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--light-blue-bg) 0%, white 100%);
+        }
+
+        .profil-video-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            max-height: 85vh;
+        }
+
+        .profil-video-container video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 55%;
+        }
+
+        @media (max-width: 768px) {
+            .profil-video-container {
+                max-height: 60vh;
+            }
+        }
+
+        /* Animation untuk profil section */
+        .profil-section h2 {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .profil-section h2.animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .profil-video-container {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+        }
+
+        .profil-video-container.animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .profil-section p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+        }
+
+        .profil-section p.animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -510,7 +601,7 @@
             <a class="navbar-brand d-flex align-items-center" href="#home" style="color: white !important; font-weight: bold;">
                 <!-- Perlu Anda ganti dengan URL aset logo Anda yang sebenarnya -->
                 <img src="{{ asset('images/logo smk.png') }}" alt="Logo SMK" class="me-2" style="height: 30px;">
-                <span class="fw-bold text-uppercase">Ruang BK Online</span>
+                <span class="fw-bold text-uppercase">Layanan BK</span>
             </a>
 
             <!-- Tombol Toggler untuk Mobile (Wajib ada) -->
@@ -528,6 +619,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#survei" style="color: white !important;">Survei</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#profil" style="color: white !important;">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lokasi" style="color: white !important;">Lokasi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#kontak" style="color: white !important;">Kontak Kami</a>
@@ -552,8 +649,8 @@
     <!-- Hero Section -->
     <section class="hero-section" id="home">
         <div class="container">
-            <h1 class="hero-title text-uppercase">Ruang Konseling Online</h1>
-            <h2 class="hero-subtitle">Selamat Datang di SMK ANTARTIKA 1 SIDOARJO!</h2>
+            <h1 class="hero-title text-uppercase">Selamat Datang</h1>
+            <h2 class="hero-subtitle"> Ruang Konseling Online SMKS ANTARTIKA 1 SIDOARJO</h2>
 
             <a href="{{ route('login') }}" class="btn btn-lg me-2 fw-bold shadow-lg" style="background-color: #003366; border-color: #003366; color: white;">MULAI SEKARANG</a>
             <!-- Tautan tombol diubah menjadi #layanan --><a href="#layanan" class="btn btn-outline-light btn-lg fw-bold shadow-lg">PELAJARI FITUR</a>
@@ -880,7 +977,25 @@
         </div>
     </section>
 
-    <section class="school-map">
+    <!-- Profil Section dengan Video -->
+    <section class="profil-section" id="profil">
+        <div class="container-fluid px-3 px-lg-5">
+            <h2 class="mb-5 text-center fw-bold" style="color: var(--primary-color);">Profil SMK Antartika 1 Sidoarjo</h2>
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="profil-video-container">
+                        <video width="100%" height="auto" autoplay muted playsinline controls style="border-radius: 15px; box-shadow: 0 8px 20px rgba(0, 77, 153, 0.2); object-fit: cover; object-position: center 55%;">
+                            <source src="{{ asset('videos/Vidio_profil_smk.mp4') }}" type="video/mp4">
+                            Browser Anda tidak mendukung tag video HTML5.
+                        </video>
+                    </div>
+                    <p class="text-center mt-4" style="color: var(--dark-color); font-size: 1.1rem; line-height: 1.8;"> </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="school-map" id="lokasi">
         <h2 class="mb-5 text-center fw-bold faq-title">Lokasi SMK Antartika 1 Sidoarjo</h2>
         <div class="map-container">
             <iframe
@@ -915,6 +1030,8 @@
                             <ul class="list-unstyled">
                                 <li><a href="#home" class="text-white text-decoration-none">Home</a></li>
                                 <li><a href="#survei" class="text-white text-decoration-none">Survei</a></li>
+                                <li><a href="#profil" class="text-white text-decoration-none">Profil</a></li>
+                                <li><a href="#lokasi" class="text-white text-decoration-none">Lokasi</a></li>
                                 <li><a href="{{ route('login') }}" class="text-white text-decoration-none">Layanan</a></li>
                             </ul>
                         </div>
@@ -1005,6 +1122,11 @@
                             '.topic-card',
                             '.faq-title',
                             '.faq-item',
+                            '.survei-badge-container',
+                            '.survei-card',
+                            '.profil-section h2',
+                            '.profil-video-container',
+                            '.profil-section p',
                             '.school-map h2',
                             '.map-container',
                             'footer .col-md-4'

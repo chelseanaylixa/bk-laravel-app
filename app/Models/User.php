@@ -14,6 +14,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Siswa;
 
+/**
+ * User Model
+ * 
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $role
+ * @property string $status
+ * @property int|null $parent_id
+ * @property string|null $email_verified_at
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -28,6 +40,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'status',
         'parent_id',
     ];
 
