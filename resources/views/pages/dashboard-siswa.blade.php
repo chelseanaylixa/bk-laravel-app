@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard Siswa - SMK Antartika 1 Sidoarjo</title>
+    <title>Dashboard - SMK Antartika 1 Sidoarjo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         /* Reset dan style dasar */
@@ -764,15 +764,14 @@
     </header>
 
     <div class="container">
-        <h1>Dashboard Siswa</h1>
+        <h1>Dashboard</h1>
 
         <div class="description-box">
             <div class="description-icon">
                 <i class="fas fa-lightbulb"></i>
             </div>
             <p>
-Halo, adakah yang bisa saya bantu hari ini? Sebagai siswa di SMK Antartika 1 Sidoarjo, Anda dapat melihat pelanggaran, memeriksa poin Anda, atau berbagi curhat dengan guru dan AI kami. Silakan pilih salah satu menu di bawah untuk memulai.
-            </p>
+Halo, selamat datang di aplikasi layanan konseling. Anda dapat memeriksa data pelanggaran, melihat poin, atau berbagi cerita dan permasalahan secara pribadi dengan guru BK dan AI kami. Silakan pilih menu di bawah untuk melanjutkan.            </p>
         </div>
 
         <nav class="menu" role="navigation" aria-label="Menu Pilihan Dashboard">
