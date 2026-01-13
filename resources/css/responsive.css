@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    .card { margin: 10px 0; }
+    .card-header h5 { font-size: 16px; }
+    .btn-action { font-size: 12px; padding: 5px 8px; }
+    .table th, .table td { font-size: 12px; white-space: nowrap; }
+}
+
+@media (max-width: 480px) {
+    .card-header h5 { font-size: 14px; }
+    .btn-action { display: block; margin: 5px auto; width: 100%; }
+}
