@@ -22,7 +22,7 @@ class CurhatAiController extends Controller
         ]);
 
         $userMessage = $request->input('message');
-        $apiKey = env('GROQ_API_KEY');
+        $apiKey = config('services.groq.api_key');
 
         // Cek apakah API Key ada
         if (!$apiKey) {
@@ -33,19 +33,19 @@ class CurhatAiController extends Controller
         $response = Http::withOptions(['verify' => false]) // Tetap false agar jalan di localhost
             ->withToken($apiKey)
             ->post('https://api.groq.com/openai/v1/chat/completions', [
-                
+
                 // --- PERBAIKAN DI SINI (Ganti model lama ke model baru) ---
-                'model' => 'llama-3.3-70b-versatile', 
+                'model' => 'llama-3.3-70b-versatile',
                 // ---------------------------------------------------------
 
                 'messages' => [
                     [
-                        'role' => 'system', 
+                        'role' => 'system',
                         // Saya rapikan prompt-nya agar AI lebih menjiwai sebagai konselor sekolah
                         'content' => 'Kamu adalah "Teman Curhat", asisten konseling siswa SMK Antartika 1 Sidoarjo. Karaktermu ramah, pendengar yang baik, empatik, dan solutif. Gunakan bahasa Indonesia yang santai, gaul, tapi tetap sopan. Jangan menghakimi siswa, berikan dukungan semangat.'
-                    ], 
+                    ],
                     [
-                        'role' => 'user', 
+                        'role' => 'user',
                         'content' => $userMessage
                     ],
                 ],
@@ -59,7 +59,7 @@ class CurhatAiController extends Controller
         } else {
             // Menampilkan error detail jika gagal
             return response()->json([
-                'reply' => 'Maaf, terjadi kesalahan pada AI: ' . $response->body() 
+                'reply' => 'Maaf, terjadi kesalahan pada AI: ' . $response->body()
             ], 500);
         }
     }

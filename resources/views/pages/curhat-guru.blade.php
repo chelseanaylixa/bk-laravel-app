@@ -43,32 +43,38 @@
         }
 
         .header-top {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 20px 30px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            border-radius: 12px 12px 0 0;
+            border-radius: 0;
             margin-bottom: 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 999;
         }
     </style>
 </head>
 
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="container mx-auto p-4 md:p-8">
-        <div class="header-top">
-            <button
-                id="backButton"
-                class="back-btn"
-                onclick="history.back()"
-                aria-label="Kembali ke halaman sebelumnya">
-                <i class="fas fa-arrow-left"></i> Kembali
-            </button>
-        </div>
+<body class="bg-gray-100">
+    <div class="header-top">
+        <button
+            id="backButton"
+            class="back-btn"
+            onclick="history.back()"
+            aria-label="Kembali ke halaman sebelumnya">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </button>
+    </div>
 
-        <div class="bg-white p-8 rounded-b-2xl shadow-lg w-full max-w-6xl mx-auto text-center relative">
+    <div class="container mx-auto p-4 md:p-8" style="margin-top: 75px;">
+        <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-6xl mx-auto text-center relative">
 
             <div class="flex flex-col md:flex-row items-center justify-between mb-12 pt-10">
                 <div class="text-left md:w-1/2 md:pr-8">
@@ -76,7 +82,7 @@
                     <p class="text-lg text-gray-600">
                         Anda tidak harus menghadapi semuanya sendiri. Kami hadir untuk memberikan layanan konseling online dengan guru Bimbingan Konseling yang siap mendengarkan.
                     </p>
-                    <button id="btn-konsultasi" class="mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all">
+                    <button id="btn-konsultasi" class="mt-6 bg-gradient-to-r from-purple-600 to-red-600 hover:from-purple-700 hover:to-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                         Konsultasi Sekarang
                     </button>
                 </div>
@@ -90,11 +96,11 @@
             </div>
 
             <div class="mb-12">
-                <span class="inline-block px-4 py-1 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-500 mb-4">Layanan Kami</span>
+                <span class="inline-block px-4 py-1 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-red-600 mb-4" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">Layanan Kami</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Bimbingan Konseling SMK Antartika 1 Sidoarjo siap untuk...</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center">
-                        <div class="bg-cyan-500 text-white rounded-full p-4 mb-4">
+                        <div class="bg-gradient-to-r from-cyan-500 to-teal-600 text-white rounded-full p-4 mb-4" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.76 1.42 2.97 3.62 2.97 5.95V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
                             </svg>
@@ -102,7 +108,7 @@
                         <p class="text-gray-600 text-center">Memberikan konsultasi tatap muka via video chat dengan nyaman</p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center">
-                        <div class="bg-cyan-500 text-white rounded-full p-4 mb-4">
+                        <div class="text-white rounded-full p-4 mb-4" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11zM9 10h6c.55 0 1 .45 1 1s-.45 1-1 1H9c-.55 0-1-.45-1-1s.45-1 1-1z" />
                             </svg>
@@ -110,7 +116,7 @@
                         <p class="text-gray-600 text-center">Menjaga dan menjamin privasi anda</p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center">
-                        <div class="bg-cyan-500 text-white rounded-full p-4 mb-4">
+                        <div class="text-white rounded-full p-4 mb-4" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm5-.25v-1.93c1.38-1.57 2.4-3.55 2.93-5.75L17 12h-4v-2h5.92c-.22-1.63-.98-3.1-2.12-4.25L16 7l-2-2 1.95-1.95c-1.56-1.19-3.41-1.9-5.38-1.9L9 3.07V6c0 1.1.9 2 2 2h2c1.1 0 2 .9 2 2v2h4c0 4.41-3.59 8-8 8z" />
                             </svg>
@@ -118,7 +124,7 @@
                         <p class="text-gray-600 text-center">Menerapkan standar profesionalisme tertinggi demi kenyamanan anda</p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center">
-                        <div class="bg-cyan-500 text-white rounded-full p-4 mb-4">
+                        <div class="text-white rounded-full p-4 mb-4" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                             </svg>
@@ -175,14 +181,14 @@
         </div>
     </div>
 
-    <div id="modal-pilihan" class="modal fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div id="modal-pilihan" class="modal fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden" style="z-index: 1000;">
         <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm mx-auto text-center">
             <h2 class="text-xl font-semibold mb-4">Pilih Guru yang Ingin Anda Hubungi</h2>
             <div class="space-y-4">
-                <a id="link-prapti" href="https://wa.me/628523201670?text=Halo%20Bu%20Prapti,%20saya%20ingin%20konsultasi%20mengenai%20sebuah%20masalah." target="_blank" class="block w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition-colors">
+                <a id="link-prapti" href="https://wa.me/628523201670?text=Halo%20Bu%20Prapti,%20saya%20ingin%20konsultasi%20mengenai%20sebuah%20masalah." target="_blank" class="block w-full text-white font-semibold py-3 rounded-md hover:opacity-90 transition-colors" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                     Hubungi Bu Prapti
                 </a>
-                <a id="link-eka" href="https://wa.me/6287846284511?text=Halo%20Bu%20Eka,%20saya%20ingin%20konsultasi%20mengenai%20sebuah%20masalah." target="_blank" class="block w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition-colors">
+                <a id="link-eka" href="https://wa.me/6287846284511?text=Halo%20Bu%20Eka,%20saya%20ingin%20konsultasi%20mengenai%20sebuah%20masalah." target="_blank" class="block w-full text-white font-semibold py-3 rounded-md hover:opacity-90 transition-colors" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                     Hubungi Bu Eka
                 </a>
             </div>
@@ -191,7 +197,6 @@
     </div>
 
     <script>
-        // ... (Kode JavaScript tetap sama) ...
         const btnKonsultasi = document.getElementById('btn-konsultasi');
         const modal = document.getElementById('modal-pilihan');
         const closeModal = document.getElementById('close-modal');

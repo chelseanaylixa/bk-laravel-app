@@ -29,11 +29,11 @@
         }
 
         .header-chat {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
         }
 
         .send-btn {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
         }
 
         .send-btn:hover {
@@ -42,12 +42,12 @@
 
         .ai-message {
             background-color: #e6f0ff;
-            color: #003366;
+            color: #0f2862;
         }
 
         .user-message {
             background-color: #d0dff5;
-            color: #003366;
+            color: #0f2862;
         }
 
         .chat-input {
@@ -56,35 +56,39 @@
 
         .chat-input:focus {
             outline: none;
-            border-color: #004aad;
-            box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+            border-color: #0f2862;
+            box-shadow: 0 0 0 3px rgba(15, 40, 98, 0.1);
         }
     </style>
 </head>
 
-<body class="bg-gray-100 h-screen flex flex-col items-center justify-center">
+<body class="bg-gray-100 h-screen flex flex-col">
 
-    <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden">
+    <!-- Header Full Width -->
+    <div class="header-chat p-4 text-white flex items-center shadow-md gap-4 w-full">
+        <button onclick="history.back()" class="back-btn" title="Kembali ke Dashboard">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </button>
 
-        <div class="header-chat p-4 text-white flex items-center shadow-md gap-4">
-            <button onclick="history.back()" class="back-btn" title="Kembali ke Dashboard">
-                <i class="fas fa-arrow-left"></i> Kembali
-            </button>
+        <h1 class="text-xl font-bold">🤖 Teman Curhat Kamu</h1>
+    </div>
 
-            <h1 class="text-xl font-bold">🤖 Teman Curhat Kamu</h1>
-        </div>
+    <!-- Chat Container -->
+    <div class="flex-1 flex items-center justify-center w-full px-4">
+        <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden h-full flex flex-col">
 
-        <div id="chat-box" class="h-96 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-3">
-            <div class="self-start ai-message p-3 rounded-lg max-w-xs shadow-sm">
-                Halo! Ada yang ingin diceritakan hari ini? Aku siap mendengarkan. 😊
+            <div id="chat-box" class="flex-1 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-3">
+                <div class="self-start ai-message p-3 rounded-lg max-w-xs shadow-sm">
+                    Halo! Ada yang ingin diceritakan hari ini? Aku siap mendengarkan. 😊
+                </div>
             </div>
-        </div>
 
-        <div class="p-4 border-t bg-white flex gap-2">
-            <input type="text" id="user-input" class="chat-input flex-1 border p-2 rounded-lg transition" placeholder="Ketik curhatanmu di sini...">
-            <button onclick="sendMessage()" id="send-btn" class="send-btn text-white px-4 py-2 rounded-lg transition font-semibold">
-                Kirim
-            </button>
+            <div class="p-4 border-t bg-white flex gap-2">
+                <input type="text" id="user-input" class="chat-input flex-1 border p-2 rounded-lg transition" placeholder="Ketik curhatanmu di sini...">
+                <button onclick="sendMessage()" id="send-btn" class="send-btn text-white px-4 py-2 rounded-lg transition font-semibold">
+                    Kirim
+                </button>
+            </div>
         </div>
     </div>
 

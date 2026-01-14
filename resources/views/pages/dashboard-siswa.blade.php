@@ -23,7 +23,7 @@
 
         /* Header */
         .header {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 20px;
             display: flex;
@@ -47,14 +47,14 @@
         .school-logo {
             width: 60px;
             height: 60px;
-            background: white;
-            border-radius: 50%;
+            background: transparent;
+            border-radius: 0;
             margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            color: #004aad;
+            color: #0f2862;
         }
 
         /* Modifikasi user-info untuk dropdown */
@@ -78,7 +78,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #004aad;
+            color: #0f2862;
             font-size: 20px;
             transition: all 0.3s ease;
         }
@@ -107,7 +107,7 @@
         }
 
         .dropdown-menu a {
-            color: #003366;
+            color: #0f2862;
             padding: 10px 20px;
             display: block;
             text-decoration: none;
@@ -137,14 +137,14 @@
             left: 0;
             right: 0;
             height: 8px;
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
         }
 
         h1 {
             text-align: center;
             margin-bottom: 40px;
             font-weight: 700;
-            color: #003366;
+            color: #0f2862;
             position: relative;
             padding-bottom: 15px;
         }
@@ -157,7 +157,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             border-radius: 2px;
         }
 
@@ -191,7 +191,7 @@
         }
 
         h2 {
-            color: #004aad;
+            color: #0f2862;
             font-size: 24px;
             margin-top: 40px;
             margin-bottom: 20px;
@@ -200,7 +200,7 @@
         }
 
         h3 {
-            color: #003366;
+            color: #0f2862;
             font-size: 20px;
             margin-top: 30px;
             margin-bottom: 15px;
@@ -212,8 +212,8 @@
             padding: 30px;
             border-radius: 14px;
             margin-bottom: 80px;
-            border-left: 6px solid #003366;
-            border-right: 6px solid #003366;
+            border-left: 6px solid #0f2862;
+            border-right: 6px solid #0f2862;
             box-shadow: 0 8px 20px rgba(0, 52, 102, 0.12);
             animation: fadeInUp 0.8s ease-out 0.2s both;
             position: relative;
@@ -236,8 +236,8 @@
         .description-box:hover {
             transform: scale(1.02);
             box-shadow: 0 12px 30px rgba(0, 52, 102, 0.18);
-            border-left-color: #004aad;
-            border-right-color: #004aad;
+            border-left-color: #0f2862;
+            border-right-color: #0f2862;
         }
 
         .description-icon {
@@ -246,7 +246,7 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #003366, #004aad);
+            background: linear-gradient(135deg, #0f2862, #0f2862);
             color: white;
             border-radius: 50%;
             font-size: 24px;
@@ -271,13 +271,13 @@
         }
 
         .description-box strong {
-            color: #003366;
+            color: #0f2862;
             font-weight: 700;
             transition: all 0.3s ease;
         }
 
         .description-box:hover strong {
-            color: #004aad;
+            color: #0f2862;
             text-shadow: 0 2px 8px rgba(0, 74, 173, 0.2);
         }
 
@@ -288,10 +288,11 @@
             gap: 25px;
             margin-bottom: 50px;
             animation: slideInFromLeft 0.8s ease-out 0.4s both;
+            perspective: 1000px;
         }
 
         .menu-item {
-            background: linear-gradient(to bottom, #004aad, #003366);
+            background: linear-gradient(to bottom, #0f2862, #0f2862);
             color: white;
             padding: 30px 20px;
             border-radius: 12px;
@@ -300,7 +301,7 @@
             font-size: 18px;
             cursor: pointer;
             box-shadow: 0 6px 15px rgba(0, 74, 173, 0.4);
-            transition: all 0.3s ease;
+            transition: all 0.6s ease;
             user-select: none;
             text-decoration: none;
             display: flex;
@@ -308,43 +309,55 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            min-height: 140px;
+            transform-style: preserve-3d;
         }
 
-        .menu-item::before {
-            content: '';
+        .menu-item-front,
+        .menu-item-back {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-            opacity: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            padding: 30px 20px;
+            border-radius: 12px;
+        }
+
+        .menu-item-front {
+            transform: rotateY(0deg);
+            background: linear-gradient(to bottom, #0f2862, #0f2862);
+        }
+
+        .menu-item-back {
+            transform: rotateY(180deg);
+            font-size: 14px;
+            line-height: 1.5;
+            background: linear-gradient(to bottom, #0f2862, #001f4d);
         }
 
         .menu-item:hover {
-            transform: translateY(-8px);
+            transform: rotateY(180deg) translateY(-8px);
             box-shadow: 0 12px 25px rgba(0, 74, 173, 0.5);
-        }
-
-        .menu-item:hover::before {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
         }
 
         .menu-item i {
             font-size: 40px;
             margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
         }
 
         .menu-item span {
-            position: relative;
-            z-index: 1;
+            font-weight: 600;
+        }
+
+        .menu-item-desc {
+            font-size: 12px;
+            opacity: 0.95;
+            font-weight: 500;
         }
 
         /* Table Styling */
@@ -366,7 +379,7 @@
         }
 
         .data-table thead {
-            background-color: #004aad;
+            background-color: #0f2862;
             color: white;
         }
 
@@ -393,7 +406,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: inset 0 0 10px #cce0ff;
-            color: #003366;
+            color: #0f2862;
             margin-top: 30px;
         }
 
@@ -403,7 +416,7 @@
         }
 
         .student-info-card strong {
-            color: #004aad;
+            color: #0f2862;
         }
 
 
@@ -415,7 +428,7 @@
         .social-section h2 {
             text-align: center;
             margin-bottom: 25px;
-            color: #003366;
+            color: #0f2862;
             font-weight: 600;
         }
 
@@ -480,7 +493,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: inset 0 0 15px #cce0ff;
-            color: #003366;
+            color: #0f2862;
             font-size: 16px;
             line-height: 1.7;
             position: relative;
@@ -490,7 +503,7 @@
             text-align: center;
             margin-bottom: 25px;
             font-weight: 700;
-            color: #004aad;
+            color: #0f2862;
         }
 
         .app-description p {
@@ -512,7 +525,7 @@
             text-align: center;
             padding: 25px;
             margin-top: 40px;
-            color: #003366;
+            color: #0f2862;
             font-size: 14px;
             background: rgba(255, 255, 255, 0.7);
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -597,7 +610,7 @@
         }
 
         .modal-content h2 {
-            color: #004aad;
+            color: #0f2862;
             margin-bottom: 20px;
         }
 
@@ -629,7 +642,7 @@
 
         .school-map h2 {
             margin-bottom: 20px;
-            color: #004aad;
+            color: #0f2862;
         }
 
         .map-container {
@@ -738,7 +751,7 @@
     <header class="header">
         <div class="school-info">
             <div class="school-logo">
-                <i class="fas fa-school"></i>
+                <img src="{{ asset('images/logo smk.png') }}" alt="Logo SMK" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div>
                 <h2>SMK Antartika 1 Sidoarjo</h2>
@@ -771,25 +784,45 @@
                 <i class="fas fa-lightbulb"></i>
             </div>
             <p>
-Halo, selamat datang di aplikasi layanan konseling. Anda dapat memeriksa data pelanggaran, melihat poin, atau berbagi cerita dan permasalahan secara pribadi dengan guru BK dan AI kami. Silakan pilih menu di bawah untuk melanjutkan.            </p>
+                Halo, selamat datang di aplikasi layanan konseling. Anda dapat memeriksa data pelanggaran, melihat poin, atau berbagi cerita dan permasalahan secara pribadi dengan guru BK dan AI kami. Silakan pilih menu di bawah untuk melanjutkan. </p>
         </div>
 
         <nav class="menu" role="navigation" aria-label="Menu Pilihan Dashboard">
             <a href="{{ route('pelanggaran') }}" class="menu-item">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Pelanggaran</span>
+                <div class="menu-item-front">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Pelanggaran</span>
+                </div>
+                <div class="menu-item-back">
+                    <span class="menu-item-desc">Lihat catatan pelanggaran</span>
+                </div>
             </a>
             <a href="{{ route('poin') }}" class="menu-item">
-                <i class="fas fa-star"></i>
-                <span>Poin</span>
+                <div class="menu-item-front">
+                    <i class="fas fa-star"></i>
+                    <span>Poin</span>
+                </div>
+                <div class="menu-item-back">
+                    <span class="menu-item-desc">Cek poin</span>
+                </div>
             </a>
             <a href="{{ route('curhat-guru') }}" class="menu-item">
-                <i class="fas fa-comments"></i>
-                <span>Curhat Guru</span>
+                <div class="menu-item-front">
+                    <i class="fas fa-comments"></i>
+                    <span>Curhat Guru</span>
+                </div>
+                <div class="menu-item-back">
+                    <span class="menu-item-desc">Konsultasi dengan guru BK</span>
+                </div>
             </a>
             <a href="{{ route('curhat_ai') }}" class="menu-item">
-                <i class="fas fa-comments"></i>
-                <span>Curhat AI</span>
+                <div class="menu-item-front">
+                    <i class="fas fa-comments"></i>
+                    <span>Curhat AI</span>
+                </div>
+                <div class="menu-item-back">
+                    <span class="menu-item-desc">Dengarkan saran dari AI</span>
+                </div>
             </a>
         </nav>
 

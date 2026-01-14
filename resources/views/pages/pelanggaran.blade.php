@@ -17,7 +17,7 @@
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
 
-    <nav class="text-white px-6 py-4 shadow-md mb-8 sticky top-0 z-50" style="background: linear-gradient(to right, #003366, #004aad);">
+    <nav class="text-white px-6 py-4 shadow-md mb-8 sticky top-0 z-50" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
         <div class="container mx-auto flex justify-start items-center gap-4 max-w-5xl">
             <button
                 class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white border-none px-4 py-2 rounded-md cursor-pointer transition-all duration-300 flex items-center gap-2"
@@ -34,7 +34,7 @@
     <div class="container mx-auto px-4 pb-10 max-w-5xl flex-1">
 
         <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-            <div class="p-5" style="background: linear-gradient(to right, #003366, #004aad);">
+            <div class="p-5" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                 <h2 class="text-white text-xl font-bold text-center uppercase tracking-wide">DAFTAR PELANGGARAN & SANKSI</h2>
             </div>
 
@@ -60,13 +60,13 @@
                 @foreach($tataTertibs as $aturan)
                 <div class="pelanggaran-card mb-4 p-5 border-l-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 bg-white pelanggaran-row"
                     data-kategori="{{ $aturan->kategori }}"
-                    style="border-left-color: #004aad;">
+                    style="border-left-color: #0f2862;">
 
                     <div class="flex flex-col gap-3">
                         <!-- Kategori Badge -->
                         <div class="flex items-start justify-between gap-3">
                             <span class="inline-block px-3 py-1 text-xs font-bold text-white rounded-full"
-                                style="background: linear-gradient(to right, #003366, #004aad);">
+                                style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);">
                                 {{ $aturan->kategori }}
                             </span>
                         </div>

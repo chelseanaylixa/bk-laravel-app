@@ -14,13 +14,13 @@
 
     <style>
         :root {
-            /* Warna Biru SMK Antartika */
-            --primary-color: #004d99;
-            /* Biru gelap */
-            --secondary-color: #17a2b8;
-            /* Biru terang/teal */
-            --accent-color: #ffc107;
-            /* Kuning (untuk CTA/warning) */
+            /* Warna Tema Baru: Biru Metalik, Merah, Ungu */
+            --primary-color: #0f2862;
+            /* Biru Metalik */
+            --secondary-color: #9e363a;
+            /* Merah */
+            --accent-color: #4f5f76;
+            /* Abu-abu Kebiruan */
             --light-blue-bg: #e6f2ff;
             /* Biru sangat muda untuk background section */
             --light-color: #f8f9fa;
@@ -87,6 +87,7 @@
             url("{{ asset('images/siswa_smk.jpeg') }}");
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             height: 600px;
             /* Dipertahankan 600px agar gambar terlihat penuh */
             display: flex;
@@ -596,7 +597,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #004d99, #0066cc) !important; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a) !important; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#home" style="color: white !important; font-weight: bold;">
                 <!-- Perlu Anda ganti dengan URL aset logo Anda yang sebenarnya -->
@@ -634,10 +635,10 @@
                 <!-- Tombol Masuk/Dashboard (Pojok Kanan Atas) -->
                 <div class="d-flex ms-lg-auto"> <!-- ms-lg-auto memastikan tombol di kanan setelah link -->
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="btn btn-lg fw-bold" style="padding: 0.5rem 2rem; background-color: #003366; border-color: #003366; color: white;">Dashboard</a>
+                    <a href="{{ url('/dashboard') }}" class="btn btn-lg fw-bold" style="padding: 0.5rem 2rem; background-color: #9e363a; border-color: #9e363a; color: white;">Dashboard</a>
                     @else
                     <!-- Tombol Masuk besar, diletakkan di pojok kanan -->
-                    <a href="{{ route('login') }}" class="btn btn-lg fw-bold" style="padding: 0.5rem 2rem; background-color: #003366; border-color: #003366; color: white;">Masuk</a>
+                    <a href="{{ route('login') }}" class="btn btn-lg fw-bold" style="padding: 0.5rem 2rem; background-color: #9e363a; border-color: #9e363a; color: white;">Masuk</a>
                     @endauth
                 </div>
 
@@ -652,7 +653,7 @@
             <h1 class="hero-title text-uppercase">Selamat Datang</h1>
             <h2 class="hero-subtitle"> Ruang Konseling Online SMKS ANTARTIKA 1 SIDOARJO</h2>
 
-            <a href="{{ route('login') }}" class="btn btn-lg me-2 fw-bold shadow-lg" style="background-color: #003366; border-color: #003366; color: white;">MULAI SEKARANG</a>
+            <a href="{{ route('login') }}" class="btn btn-lg me-2 fw-bold shadow-lg" style="background-color: #9e363a; border-color: #9e363a; color: white;">MULAI SEKARANG</a>
             <!-- Tautan tombol diubah menjadi #layanan --><a href="#layanan" class="btn btn-outline-light btn-lg fw-bold shadow-lg">PELAJARI FITUR</a>
         </div>
     </section>
@@ -968,7 +969,7 @@
 
                             <!-- Button Kirim -->
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-lg fw-bold" style="background-color: #003366; color: white; border-color: #003366;">KIRIM</button>
+                                <button type="submit" class="btn btn-lg fw-bold" style="background-color: #9e363a; color: white; border-color: #9e363a;">KIRIM</button>
                             </div>
                         </form>
                     </div>
@@ -1008,8 +1009,8 @@
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
 
-            <!-- Footer (Biru Primer), ditambahkan ID kontak -->
-            <footer class="bg-primary text-white py-5" id="kontak">
+            <!-- Footer (Gradasi Biru Metalik, Abu-abu, Merah), ditambahkan ID kontak -->
+            <footer class="text-white py-5" style="background: linear-gradient(to right, #091f36, #0f2862, #4f5f76, #9e363a) !important;" id="kontak">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 mb-4 mb-md-0">
@@ -1057,7 +1058,7 @@
                             if (navbarCollapse.style.display === 'none' || navbarCollapse.style.display === '') {
                                 navbarCollapse.style.display = 'flex';
                                 navbarCollapse.style.flexDirection = 'column';
-                                navbarCollapse.style.backgroundColor = '#004d99';
+                                navbarCollapse.style.background = 'linear-gradient(to right, #0f2862, #4f5f76, #9e363a)';
                                 navbarCollapse.style.position = 'absolute';
                                 navbarCollapse.style.top = '70px';
                                 navbarCollapse.style.left = '0';

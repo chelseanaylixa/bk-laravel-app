@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #003366 0%, #004aad 50%, #0066cc 100%);
+            background: linear-gradient(135deg, #0f2862 0%, #4f5f76 50%, #9e363a 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -29,7 +29,7 @@
         }
 
         .card-header {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -58,7 +58,7 @@
 
         .spinner {
             border: 8px solid #e0e8f2;
-            border-top: 8px solid #004aad;
+            border-top: 8px solid #9e363a;
             border-radius: 50%;
             width: 100%;
             height: 100%;
@@ -77,7 +77,7 @@
 
         .status-text {
             font-size: 18px;
-            color: #003366;
+            color: #0f2862;
             margin-bottom: 20px;
             line-height: 1.6;
             font-weight: 500;
@@ -88,12 +88,12 @@
             padding: 15px;
             border-radius: 10px;
             margin: 20px 0;
-            border-left: 5px solid #004aad;
+            border-left: 5px solid #9e363a;
         }
 
         .email-label {
             font-size: 12px;
-            color: #0066cc;
+            color: #4f5f76;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 5px;
@@ -103,20 +103,20 @@
         .email-value {
             font-size: 18px;
             font-weight: bold;
-            color: #003366;
+            color: #0f2862;
         }
 
         .timer {
             font-size: 48px;
             font-weight: bold;
-            color: #004aad;
+            color: #9e363a;
             margin: 20px 0;
             font-family: 'Courier New', monospace;
         }
 
         .timer-label {
             font-size: 12px;
-            color: #0066cc;
+            color: #4f5f76;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
@@ -124,21 +124,21 @@
 
         .info-box {
             background-color: #e3f2fd;
-            border-left: 5px solid #004aad;
+            border-left: 5px solid #9e363a;
             padding: 15px;
             border-radius: 5px;
             margin: 20px 0;
-            color: #003366;
+            color: #0f2862;
         }
 
         .info-icon {
             margin-right: 10px;
-            color: #004aad;
+            color: #9e363a;
         }
 
         .logout-btn {
             margin-top: 20px;
-            background-color: #0066cc;
+            background-color: #4f5f76;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -150,7 +150,7 @@
         }
 
         .logout-btn:hover {
-            background-color: #004aad;
+            background-color: #9e363a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 74, 173, 0.3);
         }
@@ -204,7 +204,7 @@
                 <div class="timer-label">Waktu Tunggu</div>
                 <div class="timer">⏱️ 00:30:00</div>
 
-                <div class="info-box" style="background-color: #e3f2fd; border-left-color: #004aad; color: #003366;">
+                <div class="info-box" style="background-color: #e3f2fd; border-left-color: #9e363a; color: #0f2862;">
                     <i class="fas fa-lightbulb info-icon"></i>
                     <small>
                         <strong>💡 Tips:</strong> Harap tunggu di halaman ini. Halaman akan otomatis refresh setiap 10 detik untuk mengecek status persetujuan.

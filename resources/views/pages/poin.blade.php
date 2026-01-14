@@ -23,7 +23,7 @@
         }
 
         .header {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 20px 30px;
             display: flex;
@@ -81,7 +81,7 @@
         .student-name {
             font-size: 18px;
             font-weight: 700;
-            color: #003366;
+            color: #0f2862;
         }
 
         .student-nis {
@@ -110,7 +110,7 @@
         }
 
         .data-table thead {
-            background: #003366;
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
         }
 
@@ -229,7 +229,7 @@
 
         /* Button Detail */
         .btn-detail {
-            background: linear-gradient(to right, #004aad, #0066cc);
+            background: linear-gradient(to right, #0f2862, #0066cc);
             color: white;
             border: none;
             padding: 8px 16px;
@@ -244,9 +244,9 @@
         }
 
         .btn-detail:hover {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 51, 102, 0.3);
+            box-shadow: 0 4px 8px rgba(15, 40, 98, 0.3);
         }
 
         /* Modal Styling */
@@ -284,7 +284,7 @@
         }
 
         .modal-header {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 20px 30px;
             border-radius: 12px 12px 0 0;
@@ -493,7 +493,7 @@
         {{-- VIEW UNTUK SISWA --}}
         @elseif(! $siswa)
         <div class="student-info">
-            <p style="color: #004aad;">Tidak ditemukan data siswa terkait dengan akun Anda. Mohon hubungi admin.</p>
+            <p style="color: #0f2862;">Tidak ditemukan data siswa terkait dengan akun Anda. Mohon hubungi admin.</p>
         </div>
 
         @else

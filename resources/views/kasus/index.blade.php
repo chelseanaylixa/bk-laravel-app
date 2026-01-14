@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -23,7 +23,7 @@
 
         /* === NAVBAR === */
         .navbar {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             padding: 15px 30px;
             color: white;
             display: flex;
@@ -108,7 +108,7 @@
         }
 
         .dropdown-content a {
-            color: #003366;
+            color: #0f2862;
             padding: 12px 20px;
             text-decoration: none;
             display: block;
@@ -136,7 +136,7 @@
         }
 
         header {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 20px;
             border-radius: 10px;
@@ -158,8 +158,8 @@
         }
 
         h2 {
-            color: #003366;
-            border-bottom: 3px solid #004aad;
+            color: #0f2862;
+            border-bottom: 3px solid #9e363a;
             padding-bottom: 10px;
             margin-top: 30px;
             margin-bottom: 20px;
@@ -181,7 +181,7 @@
         }
 
         table thead th {
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
             padding: 16px;
             text-align: left;
@@ -242,27 +242,27 @@
         }
 
         .btn-primary {
-            background: linear-gradient(to right, #004aad, #003366);
+            background: linear-gradient(to right, #9e363a, #0f2862);
             color: white;
         }
 
         .btn-success {
-            background: linear-gradient(to right, #28a745, #20c997);
+            background: linear-gradient(to right, #0f2862, #4f5f76);
             color: white;
         }
 
         .btn-warning {
-            background: linear-gradient(to right, #ffc107, #ff9800);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             color: white;
         }
 
         .btn-danger {
-            background: linear-gradient(to right, #dc3545, #c82333);
+            background: linear-gradient(to right, #9e363a, #091f36);
             color: white;
         }
 
         .btn-info {
-            background: linear-gradient(to right, #17a2b8, #138496);
+            background: linear-gradient(to right, #9e363a, #091f36);
             color: white;
         }
 
@@ -273,7 +273,7 @@
         }
 
         .add-button {
-            background: linear-gradient(to right, #28a745, #20c997);
+            background: linear-gradient(to right, #0f2862, #4f5f76);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -350,7 +350,7 @@
         }
 
         .modal-content h3 {
-            color: #003366;
+            color: #0f2862;
             margin-bottom: 20px;
             font-size: 24px;
             padding-bottom: 15px;
@@ -365,7 +365,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #003366;
+            color: #0f2862;
             font-size: 14px;
         }
 
@@ -396,7 +396,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #004aad;
+            border-color: #9e363a;
             box-shadow: 0 0 0 4px rgba(0, 74, 173, 0.1);
         }
 
@@ -413,7 +413,7 @@
         }
 
         .save-button {
-            background: linear-gradient(to right, #28a745, #20c997);
+            background: linear-gradient(to right, #0f2862, #4f5f76);
             color: white;
             border: none;
             padding: 12px 25px;
@@ -453,7 +453,7 @@
 
         .pelanggaran-list li {
             background: #f0f5ff;
-            border-left: 4px solid #004aad;
+            border-left: 4px solid #9e363a;
             padding: 15px;
             margin-bottom: 12px;
             border-radius: 6px;
@@ -679,21 +679,21 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            color: #004aad;
+            color: #9e363a;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
         }
 
         .survei-tab-btn:hover {
-            color: #003366;
-            border-bottom-color: #003366;
+            color: #0f2862;
+            border-bottom-color: #0f2862;
         }
 
         .survei-tab-btn.active {
             color: white;
-            background: linear-gradient(to right, #003366, #004aad);
+            background: linear-gradient(to right, #0f2862, #4f5f76, #9e363a);
             border-radius: 8px 8px 0 0;
-            border-bottom-color: #004aad;
+            border-bottom-color: #9e363a;
         }
 
         .survei-tab-content {
@@ -718,7 +718,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #003366, #004aad);
+            background: linear-gradient(135deg, #0f2862, #9e363a);
             color: white;
             padding: 25px;
             border-radius: 12px;
@@ -733,19 +733,19 @@
         }
 
         .stat-card.sangat-puas {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #0f2862, #4f5f76);
         }
 
         .stat-card.puas {
-            background: linear-gradient(135deg, #17a2b8, #0dcaf0);
+            background: linear-gradient(135deg, #0f2862, #4f5f76);
         }
 
         .stat-card.kurang-puas {
-            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            background: linear-gradient(135deg, #0f2862, #9e363a);
         }
 
         .stat-card.tidak-puas {
-            background: linear-gradient(135deg, #dc3545, #fd7e14);
+            background: linear-gradient(135deg, #9e363a, #4f5f76);
         }
 
         .stat-label {
@@ -782,7 +782,7 @@
         }
 
         .badge-sangat_puas {
-            background-color: #28a745;
+            background-color: #0f2862;
             color: white;
         }
 
@@ -792,12 +792,12 @@
         }
 
         .badge-kurang_puas {
-            background-color: #ffc107;
+            background-color: #9e363a;
             color: #333;
         }
 
         .badge-tidak_puas {
-            background-color: #dc3545;
+            background-color: #9e363a;
             color: white;
         }
     </style>
@@ -1061,13 +1061,18 @@
                 <input type="hidden" id="tataTertibId">
                 <div class="form-group">
                     <label for="kategori">Kategori *</label>
-                    <select id="kategori" required>
+                    <select id="kategori" required onchange="toggleKategoriLain()">
                         <option value="">-- Pilih Kategori --</option>
                         <option value="Akademik">Akademik</option>
                         <option value="Estetika">Estetika</option>
                         <option value="Etika">Etika</option>
                         <option value="Kedisiplinan">Kedisiplinan</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
+                </div>
+                <div class="form-group" id="kategoriLainGroup" style="display: none;">
+                    <label for="kategoriLain">Sebutkan Kategori Lain *</label>
+                    <input type="text" id="kategoriLain" placeholder="Masukkan kategori lain...">
                 </div>
                 <div class="form-group">
                     <label for="jenisPelanggaran">Jenis Pelanggaran *</label>
@@ -1110,7 +1115,6 @@
                         <option value="">-- Pilih Role --</option>
                         <option value="admin">Admin</option>
                         <option value="guru_bk">Guru BK</option>
-                        <option value="siswa">Siswa</option>
                         <option value="wali_murid">Wali Murid</option>
                         <option value="wali_kelas">Wali Kelas</option>
 
@@ -1228,34 +1232,34 @@
                     console.warn('Failed to fetch users:', response.status, errorData);
                     if (response.status === 403) {
                         console.warn('Not authorized to view users. Requires admin role.');
-                        showAlert('⚠️ Anda tidak memiliki akses untuk melihat semua user. Hanya admin yang bisa.', 'error');
+                        showAlert('?? Anda tidak memiliki akses untuk melihat semua user. Hanya admin yang bisa.', 'error');
                     }
                     return false;
                 }
                 allUsersData = await response.json();
-                console.log('✅ Users loaded successfully:', allUsersData);
+                console.log('? Users loaded successfully:', allUsersData);
                 renderAllUsersTable();
                 return true;
             } catch (error) {
                 console.error('Error fetching all users:', error);
-                showAlert('❌ Gagal memuat data users: ' + error.message, 'error');
+                showAlert('? Gagal memuat data users: ' + error.message, 'error');
                 return false;
             }
         }
 
         function renderAllUsersTable() {
-            console.log('🔄 renderAllUsersTable called with', allUsersData.length, 'users');
+            console.log('?? renderAllUsersTable called with', allUsersData.length, 'users');
             const tableBody = document.getElementById('allUsersTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = '';
 
             if (allUsersData.length === 0) {
-                console.warn('⚠️ No users found in allUsersData');
+                console.warn('?? No users found in allUsersData');
                 tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">Tidak ada data user</td></tr>';
                 return;
             }
 
             allUsersData.forEach((user, index) => {
-                console.log(`📝 Rendering user ${index + 1}:`, user.email, user.status);
+                console.log(`?? Rendering user ${index + 1}:`, user.email, user.status);
                 const row = tableBody.insertRow();
                 row.insertCell().textContent = index + 1;
                 row.insertCell().textContent = user.name || '-';
@@ -1265,7 +1269,7 @@
                 const roleColors = {
                     'admin': '#d32f2f',
                     'guru_bk': '#ff9800',
-                    'siswa': '#28a745',
+                    'siswa': '#0f2862',
                     'wali_murid': '#17a2b8',
                     'wali_kelas': '#111a61ff',
                     'pending': '#9e9e9e'
@@ -1315,7 +1319,7 @@
             studentsData.forEach((siswa, index) => {
                 const totalPoin = calculateTotalPoin(siswa.id);
                 const status = totalPoin > 100 ? 'Kritis' : totalPoin > 50 ? 'Perlu Perhatian' : 'Baik';
-                const statusColor = totalPoin > 100 ? '#d32f2f' : totalPoin > 50 ? '#ff9800' : '#28a745';
+                const statusColor = totalPoin > 100 ? '#d32f2f' : totalPoin > 50 ? '#ff9800' : '#0f2862';
 
                 const row = tableBody.insertRow();
                 row.insertCell().textContent = index + 1;
@@ -1425,7 +1429,7 @@
                 .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
             if (studentKasus.length === 0) {
-                list.innerHTML = '<li style="background: #d4edda; border-left: 4px solid #28a745; color: #155724;">Tidak ada riwayat pelanggaran</li>';
+                list.innerHTML = '<li style="background: #d4edda; border-left: 4px solid #0f2862; color: #155724;">Tidak ada riwayat pelanggaran</li>';
             } else {
                 studentKasus.forEach(item => {
                     const li = document.createElement('li');
@@ -1452,11 +1456,24 @@
             document.getElementById('tataTertibModalTitle').innerHTML = id ? '<i class="fas fa-edit"></i> Edit Tata Tertib' : '<i class="fas fa-plus-circle"></i> Tambah Tata Tertib';
             document.getElementById('tataTertibForm').reset();
             document.getElementById('tataTertibId').value = id || '';
+            document.getElementById('kategoriLainGroup').style.display = 'none';
 
             if (id) {
                 const item = tataTertibData.find(t => t.id === id);
                 if (item) {
-                    document.getElementById('kategori').value = item.kategori;
+                    // Check if kategori is one of the standard ones
+                    const standardKategori = ['Akademik', 'Estetika', 'Etika', 'Kedisiplinan'];
+
+                    if (standardKategori.includes(item.kategori)) {
+                        document.getElementById('kategori').value = item.kategori;
+                        document.getElementById('kategoriLainGroup').style.display = 'none';
+                    } else {
+                        // If kategori is custom, set to "Lainnya" and populate custom field
+                        document.getElementById('kategori').value = 'Lainnya';
+                        document.getElementById('kategoriLain').value = item.kategori;
+                        document.getElementById('kategoriLainGroup').style.display = 'block';
+                    }
+
                     document.getElementById('jenisPelanggaran').value = item.jenis_pelanggaran;
                     document.getElementById('sanksi').value = item.sanksi;
                 }
@@ -1467,6 +1484,21 @@
 
         function closeTataTertibModal() {
             document.getElementById('tataTertibModal').classList.remove('active');
+        }
+
+        function toggleKategoriLain() {
+            const kategoriSelect = document.getElementById('kategori');
+            const kategoriLainGroup = document.getElementById('kategoriLainGroup');
+            const kategoriLainInput = document.getElementById('kategoriLain');
+
+            if (kategoriSelect.value === 'Lainnya') {
+                kategoriLainGroup.style.display = 'block';
+                kategoriLainInput.required = true;
+            } else {
+                kategoriLainGroup.style.display = 'none';
+                kategoriLainInput.required = false;
+                kategoriLainInput.value = '';
+            }
         }
 
         // ===== HELPER FUNCTIONS =====
@@ -1756,10 +1788,10 @@
                     datasets: [{
                         data: [stats.sangat_puas, stats.puas, stats.kurang_puas, stats.tidak_puas],
                         backgroundColor: [
-                            '#28a745',
+                            '#0f2862',
                             '#17a2b8',
-                            '#ffc107',
-                            '#dc3545'
+                            '#9e363a',
+                            '#9e363a'
                         ],
                         borderColor: '#fff',
                         borderWidth: 2
@@ -1847,9 +1879,15 @@
                 e.preventDefault();
 
                 const tataTertibId = document.getElementById('tataTertibId').value;
-                const kategori = document.getElementById('kategori').value;
+                let kategori = document.getElementById('kategori').value;
+                const kategoriLain = document.getElementById('kategoriLain').value;
                 const jenisPelanggaran = document.getElementById('jenisPelanggaran').value;
                 const sanksi = document.getElementById('sanksi').value;
+
+                // Gunakan kategori custom jika dipilih "Lainnya"
+                if (kategori === 'Lainnya') {
+                    kategori = kategoriLain;
+                }
 
                 const endpoint = tataTertibId ? `/api/tata-tertib/${tataTertibId}` : '/api/tata-tertib';
                 const method = tataTertibId ? 'PUT' : 'POST';
